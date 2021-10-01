@@ -1,0 +1,16 @@
+.thread-card{
+    border: 1px solid gray;
+    margin: 10px;
+}
+.thread-avatar-user{
+    display: table-cell;
+}
+.thread-avatar-user img {
+    width: 40px;
+    height: 40px;
+}
+
+.thread-content {
+    display: table-cell;
+    padding: 20px 10px;
+}

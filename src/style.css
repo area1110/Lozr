@@ -1,0 +1,61 @@
+header {
+  background-color: bisque;
+}
+
+main {
+  min-height: 45rem;
+}
+
+.header-inner-content {
+  padding: 10px;
+}
+.header-logo {
+  /* display: flex;
+    float: left; */
+  display: inline-flex;
+}
+
+.header-logo h1 {
+  display: inline;
+}
+
+#account-manager {
+  /* float: right; */
+  text-align: right;
+  display: inline-flex;
+  float: right;
+  margin-top: 1.5em;
+}
+
+#account-manager > ul {
+  list-style: none;
+  display: inline;
+  padding-left: 0;
+}
+
+#account-manager > ul > li {
+  padding: 10px 10px;
+  display: inline;
+}
+
+
+.topic-card {
+    padding: 20px;
+    border: 1px solid gray;
+    margin: 10px 0;
+}
+
+.topic-content {
+    margin-left: 2em;
+}
+
+.topic-name {
+
+}
+
+footer {
+    height: 100px;
+    background-color: bisque;
+    padding: 10px;
+    text-align: center;
+}

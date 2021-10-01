@@ -1,0 +1,38 @@
+.post-card{
+    border: 1px solid gray;
+    margin: 10px;
+}
+
+.col-12 {
+    padding-right: 0;
+}
+
+td {
+    padding: 0 20px;
+}
+
+tr td:last-child {
+    background-color: rgb(243, 243, 243);
+    width: 100%;
+}
+
+
+.post-userinfo {
+    text-align: center;
+}
+
+.post-content {
+    background-color: rgb(243, 243, 243);
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.post-reply {
+    background-color: rgb(207, 207, 207);
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.post-maintext {
+    margin-bottom: 10px;
+}
