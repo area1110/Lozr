@@ -1,0 +1,66 @@
+a {
+  word-wrap: break-word;
+}
+
+body {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.text-insert{
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(151, 157, 206, 0.568);
+}
+
+.text-insert:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(128, 128, 128, 0.548) inset;
+}
+
+img {
+  object-fit: cover;
+}
+
+.u-sticky-fixed.u-sticky-1ec8,
+.u-body.u-sticky-fixed .u-sticky-1ec8 {
+  box-shadow: 0 2px 8px 0 rgba(128, 128, 128, 1) !important;
+}
+.u-sticky-fixed.u-sticky-1ec8:before,
+.u-body.u-sticky-fixed .u-sticky-1ec8:before {
+  border: top right bottom left !important;
+}
+
+
+.main-zone {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.submit-button {
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: rgba(68, 171, 255, 0.411);
+  color: rgb(122, 122, 122);
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.submit-button:hover {
+  background-color: rgba(68, 171, 255, 0.733);
+}
+
+.submit-button:active {
+  background-color: rgba(29, 150, 250, 0.808);
+}
+
+@media screen and (min-width: 1200px) {
+  .main-zone {
+      margin-left: 15em;
+      margin-right: 15em;
+  }
+}
