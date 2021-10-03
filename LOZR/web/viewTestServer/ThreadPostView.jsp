@@ -22,9 +22,9 @@
             crossorigin="anonymous"
             />
         <!-- Custom src -->
-        <link rel="stylesheet" href="../src/style.css" />
-        <link rel="stylesheet" href="../src/threadstyle.css" />
-        <link rel="stylesheet" href="../src/poststyle.css" />
+        <link rel="stylesheet" href="../srcTestView/style.css" />
+        <link rel="stylesheet" href="../srcTestView/threadstyle.css" />
+        <link rel="stylesheet" href="../srcTestView/poststyle.css" />
         <% ArrayList<Post> posts = (ArrayList<Post>) request.getAttribute("Posts");
             TranslateURLPath trans = new TranslateURLPath();
         %>

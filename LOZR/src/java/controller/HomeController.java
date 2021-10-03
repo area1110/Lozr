@@ -33,10 +33,7 @@ public class HomeController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ForumDBContext forumDBC = new ForumDBContext();
-        ArrayList<Forum> forums = forumDBC.getForums();
-        request.setAttribute("forumsList", forums);
-        request.getRequestDispatcher("/view/HomePageView.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,9 +46,12 @@ public class HomeController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ForumDBContext forumDBC = new ForumDBContext();
+        ArrayList<Forum> forums = forumDBC.getForums();
+        request.setAttribute("forumsList", forums);
+        request.getRequestDispatcher("/view/HomeView.jsp").forward(request, response);
     }
 
     /**

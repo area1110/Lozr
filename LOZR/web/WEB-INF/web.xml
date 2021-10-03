@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>ForumController</servlet-name>
-        <servlet-class>controller.ForumController</servlet-class>
+        <servlet-class>.ForumController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>ThreadController</servlet-name>
-        <servlet-class>controller.ThreadPostController</servlet-class>
+        <servlet-class>controller.post.ThreadPostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUpController</servlet-name>

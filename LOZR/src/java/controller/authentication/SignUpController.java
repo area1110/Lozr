@@ -9,6 +9,13 @@ import controller.module.Encode;
 import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +56,7 @@ public class SignUpController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        request.getRequestDispatcher("/view/SignupFormView.jsp").forward(request, response);
+        request.getRequestDispatcher("view/authentication/SignupView.jsp").forward(request, response);
 //        UserInfo u = (UserInfo) request.getSession().getAttribute("currentUser");
 //        response.getWriter().print(u.getLoginName());
     }
@@ -84,17 +91,17 @@ public class SignUpController extends HttpServlet {
         InputStream is = request.getPart("avatar").getInputStream();
         Encode encode = new Encode();
         userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
-
+        
         int statusUpdate = doSignUp(account, userInfo);
         switch (statusUpdate) {
             case -1: // missing field error
                 response.getWriter().print("<h1>Some fields are missing</h1>");
                 break;
             case -2: //duplicate username error
-                String err = "This UserName was in used!";
-                request.setAttribute("errorSignupName", err);
+                String err = "Username was already used!";
+                request.setAttribute("errorLoginName", err);
                 request.setAttribute("user", userInfo);
-                request.getRequestDispatcher("/view/SignupFormView.jsp").forward(request, response);
+                request.getRequestDispatcher("/view/authentication/SignupView.jsp").forward(request, response);
                 break;
             case 0: // un caught error
                 response.getWriter().print("<h1>Loi Khong xac dinh</h1>");

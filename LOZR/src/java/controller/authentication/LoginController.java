@@ -35,34 +35,16 @@ public class LoginController extends HttpServlet {
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        request.getRequestDispatcher("/view/LoginView.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/authentication/LoginView.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         String loginName = request.getParameter("loginName").trim();
         String password = request.getParameter("password").trim();
         UserInfoDBContext userDBC = new UserInfoDBContext();
@@ -70,16 +52,17 @@ public class LoginController extends HttpServlet {
 
         HttpSession session = request.getSession();
         if (user != null) { //login sucesss
-            
+
             session.setAttribute("currentUser", user);
             response.sendRedirect("test/SessionUserInfoViewTest.jsp");
-//            request.getRequestDispatcher("/test/SessionUserInfoViewTest.jsp").forward(request, response);
         } else { //login failed
             session.setAttribute("currentUser", null);
-            response.getWriter().print("<h1>Login Failed!</h1>");
-        }
 
-//        response.sendRedirect(request.getContextPath());
+            String loginError = "Oops! USER NAME or PASSWORD is incorrect.";
+            request.setAttribute("loginError", loginError);
+            request.setAttribute("loginName", loginName); //send loginName again to saving it
+            request.getRequestDispatcher("/view/authentication/LoginView.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -22,8 +22,8 @@
             crossorigin="anonymous"
             />
         <!-- Custom src -->
-        <link rel="stylesheet" href="../src/style.css" />
-        <link rel="stylesheet" href="../src/threadstyle.css" />
+        <link rel="stylesheet" href="../srcTestView/style.css" />
+        <link rel="stylesheet" href="../srcTestView/threadstyle.css" />
 
         <%
             ArrayList<FThread> fThreads = (ArrayList<FThread>) request.getAttribute("forumThreads");

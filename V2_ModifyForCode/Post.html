@@ -5,19 +5,19 @@
     <meta charset="utf-8" />
     <title>| L0ZR</title>
 
-    <link rel="stylesheet" href="src/style/nicepage.css" media="screen" />
-    <link rel="stylesheet" href="src/style/index.css">
+    <link rel="stylesheet" href="src/style/nicepage.css" />
+    <link rel="stylesheet" href="src/style/index.css" />
     <link rel="stylesheet" href="src/style/PostCustom.css" />
     <script
       class="u-script"
       type="text/javascript"
-      src="jquery.js"
+      src="src/script/jquery.js"
       defer=""
     ></script>
     <script
       class="u-script"
       type="text/javascript"
-      src="nicepage.js"
+      src="src/script/nicepage.js"
       defer=""
     ></script>
     <meta name="generator" content="Nicepage 3.26.0, nicepage.com" />
@@ -30,6 +30,11 @@
       id="u-page-google-font"
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
+    />
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
   </head>
   <body class="u-body">
@@ -46,23 +51,23 @@
         >
           <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
         </a>
-        <div class="u-align-left u-container-style u-group u-group-1">
-          <div class="u-container-layout u-container-layout-1">
-            <p
-              class="
-                u-align-right u-custom-font u-font-montserrat u-text u-text-1
-              "
-            >
-              Kakakaku
-            </p>
-            <div
-              class="u-expanded-height-xl u-image u-image-circle u-image-2"
-              alt=""
-              data-image-width="1280"
-              data-image-height="852"
-            ></div>
+        <a href="#">
+          <div class="u-align-left u-container-style u-group u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+              <p
+                class="
+                  u-align-right u-custom-font u-font-montserrat u-text u-text-1
+                "
+              >
+                Kakakaku
+              </p>
+              <img
+                class="u-expanded-height-xl u-image u-image-circle u-image-2"
+                src="images/82761229_p17_master1200.jpg"
+              />
+            </div>
           </div>
-        </div>
+        </a>
         <nav
           class="
             u-align-left
@@ -76,55 +81,8 @@
           data-responsive-from="XL"
         >
           <div class="menu-collapse">
-            <a
-              class="u-block-1ec8-27 u-button-style u-nav-link"
-              href="#"
-              style="
-                font-size: calc(1em + 12px);
-                height: 28px;
-                color: rgb(17, 17, 17) !important;
-              "
-            >
-              <svg
-                class="u-svg-link"
-                preserveAspectRatio="xMidYMin slice"
-                viewBox="0 0 512 512"
-              >
-                <use
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  xlink:href="#svg-04d1"
-                ></use>
-              </svg>
-              <svg
-                class="u-svg-content"
-                viewBox="0 0 512 512"
-                x="0px"
-                y="0px"
-                id="svg-04d1"
-                style="enable-background: new 0 0 512 512"
-              >
-                <g>
-                  <g>
-                    <path
-                      d="M492,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,236,492,236z"
-                    ></path>
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M492,76H20C8.954,76,0,84.954,0,96s8.954,20,20,20h472c11.046,0,20-8.954,20-20S503.046,76,492,76z"
-                    ></path>
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      d="M492,396H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h472c11.046,0,20-8.954,20-20    C512,404.954,503.046,396,492,396z"
-                    ></path>
-                  </g>
-                </g>
-              </svg>
+            <a class="menu-button" href="#">
+              <i class="fa fa-bars"></i>
             </a>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
@@ -251,11 +209,7 @@
           <footer class="post-footer">
             <div class="post-action">
               <div class="post-action-bar">
-                <a
-                  href="#"
-                  class="post-reply-button"
-                  >Delete</a
-                >
+                <a href="#" class="post-reply-button">Delete</a>
                 <a
                   href="#post-create"
                   class="post-reply-button"
@@ -298,16 +252,12 @@
         </div>
         <div class="post-main-cell">
           <div class="post-main">
-
             <blockquote class="post-block-reply" id="blockreply">
               <div class="post-reply-user">
-                <a id="replyUser" class=""
-                  ></a
-                > said:
+                <a id="replyUser" class=""></a> said:
               </div>
               <div class="post-reply-content">
-                <div id="replySubject" class="">
-                </div>
+                <div id="replySubject" class=""></div>
               </div>
               <div class="cancel-reply">
                 <a href="#post-create" onclick="doCancel()">Cancel reply</a>
@@ -326,11 +276,7 @@
                   ></textarea>
                 </div>
                 <div class="post-create-submit">
-                  <input
-                    class="submit-button"
-                    type="submit"
-                    value="Post"
-                  />
+                  <input class="submit-button" type="submit" value="Post" />
                 </div>
               </form>
             </div>
@@ -355,12 +301,12 @@
       function doReply(replyPostID) {
         let replyUser = document.getElementsByName(replyPostID)[0].innerHTML;
         let replyPost = document.getElementsByName(replyPostID)[1].innerHTML;
-        let blockreply =  document.getElementById("blockreply");
+        let blockreply = document.getElementById("blockreply");
 
         let createReplyUser = document.getElementById("replyUser");
         let createReplySubject = document.getElementById("replySubject");
 
-        blockreply.style.display = "block" ;
+        blockreply.style.display = "block";
         createReplyUser.innerHTML = replyUser;
         createReplySubject.innerHTML = replyPost;
 
@@ -369,11 +315,11 @@
       }
 
       function doCancel() {
-       let blockreply =  document.getElementById("blockreply");
-       let inputReplyIDField = document.getElementById("replyID");
+        let blockreply = document.getElementById("blockreply");
+        let inputReplyIDField = document.getElementById("replyID");
 
-       blockreply.style.display = "none" ;
-       inputReplyIDField.value = "";
+        blockreply.style.display = "none";
+        inputReplyIDField.value = "";
       }
     </script>
   </body>
