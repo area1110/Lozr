@@ -4,15 +4,19 @@
     Author     : Khanh
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
 
     <head>
+        <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
+
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
+
         <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
 
 
@@ -58,7 +62,7 @@
                     data-image-width="590"
                     data-image-height="90"
                     >
-                    <img src="/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
+                    <img src="${contextPath}/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
                 <a href="#">
                     <div class="u-align-left u-container-style u-group u-group-1">
@@ -148,7 +152,7 @@
             </div>
             <!--ThreadZone-->
 
-            <div class="thread-card">
+            <div class="thread-table thread-card">
                 <div class="thread-cell thread-cell-author">
                     <div class="">
                         <a href="/u/minhnhanbin.1768054/">
@@ -157,8 +161,10 @@
                     </div>
                 </div>
                 <div class="thread-cell thread-create">
-                    <form action="#" method="POST">
+                    <form action="../thread" method="POST">
                         <div class="thread-create-insert">
+                            <input type="hidden" name="forumID"
+                                   value="${requestScope.forum.forumID}"/>
                             <input
                                 id="insert-title"
                                 class="text-insert"               
@@ -175,71 +181,99 @@
                 </div>
             </div>
 
-            <div class="thread-card">
-                <div class="thread-cell thread-cell-author">
-                    <div class="">
-                        <a href="/u/minhnhanbin.1768054/">
-                            <img src="images/istockphoto-1136956450-612x612.jpg" />
-                        </a>
-                    </div>
-                </div>
+            <c:forEach items="${threads}" var="thread">
+                <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
+                <a href="#ádfa">
+                    <div class="thread-table thread-card">
 
-                <div class="thread-cell">
-                    <div class="thread-subject">
-                        <a
-                            href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/"
-                            >Tài chính 20m trở xuống. Cần tư vấn cấu hình pc phục vụ cho edit
-                            video, pts, AI trên Adobe. Có thể chơi Fifa online 4.</a
-                        >
-                    </div>
+                        <div class="thread-cell thread-cell-author">
+                            <div class="">
+                                <a href="/u/minhnhanbin.1768054/">
+                                    <img src="${(empty thread.startedBy.base64ImageAvatar)?  defaultImage : threadByAvatar}" />
+                                </a>
+                            </div>
+                        </div>
 
-                    <div class="">
-                        <ul class="thread-item-part">
-                            <li>
-                                <a href="/u/minhnhanbin.1768054/" class="username"
-                                   >minhnhanbin</a
-                                >
-                            </li>
-                            <li class="">
+                        <div class="thread-cell">
+                            <div class="thread-subject">
                                 <a
-                                    href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/"
-                                    rel="nofollow"
-                                    ><time class="thread-latestDate">Today at 12:22 PM</time></a
+                                    href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}"
+                                    >${thread.subject}</a
                                 >
-                            </li>
-                        </ul>
+                            </div>
+
+                            <div class="">
+                                <ul class="thread-item-part">
+                                    <li>
+                                        <a href="/u/minhnhanbin.1768054/" class="username"
+                                           >${thread.startedBy.loginName}</a
+                                        >
+                                    </li>
+                                    <li class="">
+                                        <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
+                                            <time class="thread-latestDate">
+                                                <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                            </time>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="thread-cell thread-status">
+                            <dl class="thread-status-pair">
+                                <dt>Replies</dt>
+                                <dd>2</dd>
+                            </dl>
+                            <!-- <dl class="thread-status-pair">
+                              <dt>Views</dt>
+                              <dd>88</dd>
+                            </dl> -->
+                        </div>
+
+                        <div class="thread-table thread-cell thread-lastest-active">
+                            <div class="thread-cell thread-cell-unborder">
+                                <a
+                                    href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
+                                    rel="nofollow"
+                                    ><time class="thread-latestDate">11:13 05/10/2021</time></a
+                                >
+                                <div class="">
+                                    <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
+                                </div>
+                            </div>
+                            <div class="thread-cell thread-latest-user thread-cell-unborder">
+                                <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
+                                    <img src="images/82761229_p17_master1200.jpg" />
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!--                        <div class="thread-cell thread-latest-user">
+                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
+                                                        <img src="images/82761229_p17_master1200.jpg" />
+                                                    </a>
+                        
+                                                </div>-->
+                        <div class="thread-cell thread-cell-option  dropdown">
+                            <button onclick="myFunction(${thread.threadID})" class="dropbtn">Option</button>
+                            <div id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                <a href="#">Bookmark</a>
+                                <a href="#">Change Title</a>
+                                <a href="#">Delete</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="thread-cell thread-status">
-                    <dl class="thread-status-pair">
-                        <dt>Replies</dt>
-                        <dd>2</dd>
-                    </dl>
-                    <!-- <dl class="thread-status-pair">
-                      <dt>Views</dt>
-                      <dd>88</dd>
-                    </dl> -->
-                </div>
+                </a>
 
-                <div class="thread-cell thread-lastest-active">
-                    <a
-                        href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                        rel="nofollow"
-                        ><time class="thread-latestDate">Today at 3:02 PM</time></a
-                    >
-                    <div class="">
-                        <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                    </div>
-                </div>
+            </c:forEach>
 
-                <div class="thread-cell thread-latest-user">
-                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                        <img src="images/82761229_p17_master1200.jpg" />
-                    </a>
-                </div>
-            </div>
+
         </div>
+
+
 
         <footer
             class="u-align-center u-clearfix u-footer u-grey-80 u-footer"

@@ -5,11 +5,8 @@
  */
 package model;
 
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.Date;
-import javax.persistence.Column;
-import javax.websocket.Decoder;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -23,7 +20,7 @@ public class UserInfo {
     private String lastName;
     private String emailAddress;
     private String base64ImageAvatar;
-    private Date dateJoined;
+    private Timestamp timeJoined;
     private boolean active;
     private boolean admin;
 
@@ -78,12 +75,12 @@ public class UserInfo {
         this.emailAddress = emailAddress;
     }
 
-    public Date getDateJoined() {
-        return dateJoined;
+    public Timestamp getTimeJoined() {
+        return timeJoined;
     }
 
-    public void setDateJoined(Date dateJoined) {
-        this.dateJoined = dateJoined;
+    public void setTimeJoined(Timestamp timeJoined) {
+        this.timeJoined = timeJoined;
     }
 
     public boolean isAdmin() {
@@ -102,6 +99,4 @@ public class UserInfo {
         this.active = active;
     }
     
-    
-
 }

@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,9 +15,9 @@ public class FThread {
     private int threadID;
     private String subject;
     private UserInfo startedBy;
-    private Date dateCreated;
+    private Timestamp timeCreated;
     private boolean active;
-    private int forumID;
+    private Forum forum;
 
     public FThread() {
     }
@@ -56,20 +56,20 @@ public class FThread {
         this.startedBy = startedBy;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Timestamp getTimeCreated() {
+        return timeCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setTimeCreated(Timestamp timeCreated) {
+        this.timeCreated = timeCreated;
     }
 
-    public int getForumID() {
-        return forumID;
+    public Forum getForum() {
+        return forum;
     }
 
-    public void setForumID(int forumID) {
-        this.forumID = forumID;
+    public void setForum(Forum forum) {
+        this.forum = forum;
     }
 
     

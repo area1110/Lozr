@@ -54,7 +54,7 @@ public class LoginController extends HttpServlet {
         if (user != null) { //login sucesss
 
             session.setAttribute("currentUser", user);
-            response.sendRedirect("test/SessionUserInfoViewTest.jsp");
+            response.sendRedirect(request.getContextPath());
         } else { //login failed
             session.setAttribute("currentUser", null);
 

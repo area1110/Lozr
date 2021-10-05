@@ -22,22 +22,31 @@ public class ForumDBContext extends DBContext {
     public ArrayList<Forum> getForums() {
         ArrayList<Forum> forums = new ArrayList<>();
         try {
-            String getTopicQuery = "SELECT [ForumID]\n"
-                    + "      ,[ForumName]\n"
-                    + "      ,[ForumImage]\n"
-                    + "      ,[ForumIsActive]\n"
-                    + "  FROM [Forum]\n"
-                    + "  WHERE ForumIsActive=1";
-            PreparedStatement stm = connection.prepareStatement(getTopicQuery);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
+            String sql_select_forums = "SELECT F.*, \n"
+                    + "	(SELECT COUNT(ThreadID) FROM Thread\n"
+                    + "		WHERE CONVERT(DATE, ThreadDateCreated)=CONVERT(DATE, GETDATE())\n"
+                    + "			AND ThreadForumID=F.ForumID) AS ThreadToday,\n"
+                    + "	(SELECT COUNT(P.PostID) FROM Post AS P\n"
+                    + "		INNER JOIN Thread AS T ON P.PostThreadID=T.ThreadID\n"
+                    + "		WHERE CONVERT(DATE, P.PostDateCreated)=CONVERT(DATE, GETDATE())\n"
+                    + "			AND T.ThreadForumID=F.ForumID) AS PostToday\n"
+                    + "FROM Forum AS F";
+
+            PreparedStatement stm_select_forums = connection.prepareStatement(sql_select_forums);
+            ResultSet rs_select_forums = stm_select_forums.executeQuery();
+
+            while (rs_select_forums.next()) {
                 Forum forum = new Forum();
-                forum.setForumID(rs.getInt(1));
-                forum.setName(rs.getNString(2));
-                forum.setActive(rs.getBoolean(4));
-                forum.setBase64Image(rs.getString(3));
+                forum.setForumID(rs_select_forums.getInt("ForumID"));
+                forum.setName(rs_select_forums.getNString("ForumName"));
+                forum.setActive(rs_select_forums.getBoolean("ForumIsActive"));
+                forum.setBase64Image(rs_select_forums.getString("ForumImage"));
+                forum.setNewThreads(rs_select_forums.getInt("ThreadToday"));
+                forum.setNewPosts(rs_select_forums.getInt("PostToday"));
+
                 forums.add(forum);
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

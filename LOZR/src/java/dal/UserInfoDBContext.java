@@ -79,7 +79,7 @@ public class UserInfoDBContext extends DBContext {
                 user.setFirstName(rs.getNString("UserFirstName"));
                 user.setLastName(rs.getNString("UserLastName"));
                 user.setEmailAddress(rs.getString("UserEmailAddress"));
-                user.setDateJoined(rs.getDate("UserDateJoined"));
+                user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setAdmin(rs.getBoolean("UserIsAdmin"));
                 user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
                 return user;
@@ -107,7 +107,7 @@ public class UserInfoDBContext extends DBContext {
                 user.setFirstName(rs.getNString("UserFirstName"));
                 user.setLastName(rs.getNString("UserLastName"));
                 user.setEmailAddress(rs.getString("UserEmailAddress"));
-                user.setDateJoined(rs.getDate("UserDateJoined"));
+                user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setAdmin(rs.getBoolean("UserIsAdmin"));
                 user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
                 return user;
@@ -135,7 +135,7 @@ public class UserInfoDBContext extends DBContext {
                 user.setFirstName(rs.getNString("UserFirstName"));
                 user.setLastName(rs.getNString("UserLastName"));
                 user.setEmailAddress(rs.getString("UserEmailAddress"));
-                user.setDateJoined(rs.getDate("UserDateJoined"));
+                user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setAdmin(rs.getBoolean("UserIsAdmin"));
                 user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
                 return user;

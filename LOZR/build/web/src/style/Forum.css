@@ -1,9 +1,12 @@
 * {
     box-sizing: border-box;
+
 }
 
+.thread-table {
+     display: table;
+}
 .thread-card {
-    display: table;
     background-color: white;
     width: 100%;
     margin: 20px auto;
@@ -55,7 +58,7 @@
     padding: 0;
 }
 .thread-item-part>li {
-    display: inline;
+    display: block;
 }
 
 .thread-status {
@@ -75,6 +78,7 @@
 
 .thread-lastest-active {
     font-size: 15px;
+    width: 8em;
 }
 
 .username {
@@ -87,8 +91,26 @@
     color: darkcyan;
 }
 
+.thread-latest-user {
+    width: 100px;
+}
+
 .thread-latest-user img {
     border-radius: 50%;
     width: 35px;
     height: 35px;
+}
+
+.thread-cell-unborder {
+    border: none;
+}
+
+.thread-cell-option {
+    width: 5em;
+}
+
+.dropdown {
+    /*width: 40px;*/
+    text-align: center;
+    /*display: block;*/
 }

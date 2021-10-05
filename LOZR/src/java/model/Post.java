@@ -7,6 +7,7 @@ package model;
 
 import java.sql.Blob;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Post {
     private UserInfo user;
     private int threadId;
     private Post replyPost;
-    private Date dateCreated;
+    private Timestamp timeCreated;
     private int upvote;
     private int downvote;
     private boolean active;
@@ -85,12 +86,12 @@ public class Post {
         this.replyPost = replyPost;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Timestamp getTimeCreated() {
+        return timeCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setTimeCreated(Timestamp timeCreated) {
+        this.timeCreated = timeCreated;
     }
 
     public boolean isActive() {

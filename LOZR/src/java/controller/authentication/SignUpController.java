@@ -87,7 +87,8 @@ public class SignUpController extends HttpServlet {
         userInfo.setFirstName(request.getParameter("firstName").trim());
         userInfo.setLastName(request.getParameter("lastName").trim());
         userInfo.setEmailAddress(request.getParameter("email").trim());
-
+        
+        
         InputStream is = request.getPart("avatar").getInputStream();
         Encode encode = new Encode();
         userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));

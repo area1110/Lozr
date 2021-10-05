@@ -12,25 +12,29 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%
-    UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-    ArrayList<Forum> forums = (ArrayList<Forum>) request.getAttribute("forumsList");
-%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
     <head>
+        <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
+
+        <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
+        <c:set var="your" value="${sessionScope.currentUser}"/>
+        <c:set var="forums" value="${requestScope.forumsList}"/>
+        <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
+        <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>L0ZR</title>
-        <c:set var="your" value="${sessionScope.currentUser}"/>
-        <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
-        <c:set var="forums" value="${requestScope.forumsList}"/>
+
+
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Home.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
 
         <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -69,7 +73,7 @@
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
 
-                                src="${(empty your.base64ImageAvatar)? "images/82761229_p17_master1200.jpg": "data:image/jpg;base64," +  your.base64ImageAvatar}"
+                                src="${(empty your.base64ImageAvatar)? defaultImage: yourAvatar}"
                                 />
                         </div>
                     </div>
@@ -141,8 +145,6 @@
         <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="main">
             <c:if test="${empty forums}">
 
-
-
                 <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
                     <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
                         <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">Oops, There is nothing here?!</h1>
@@ -152,8 +154,6 @@
 
             <c:if test="${!empty forums}">
 
-
-
                 <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
                     <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
                         <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">What on your mind today?</h1>
@@ -161,71 +161,43 @@
                 </div>
 
                 <div class="u-blog u-blog-1">
+                    <div><i>Edit</i></div>
+                    <div class="u-repeater u-repeater-1">
 
-
-                    <div class="u-repeater u-repeater-1"><!--blog_post-->
-                        <div class="u-blog-post u-container-style u-repeater-item u-white u-repeater-item-1">
-                            <div class="u-container-layout u-similar-container u-container-layout-2">
-                                <a class="u-post-header-link" href="blog/post-5.html"><!--blog_post_image-->
-                                    <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" src="images/2.jpeg" data-image-width="1065" data-image-height="800"><!--/blog_post_image-->
-                                </a>
-                                <div class="u-align-center u-container-style u-group u-palette-4-base u-group-2">
-                                    <div class="u-container-layout u-valign-middle u-container-layout-3">
-                                        <p class="u-custom-font u-font-arial u-text u-text-2">CAR</p>
-                                    </div>
-                                </div>
-                                <p class="u-align-center u-text u-text-grey-50 u-text-3">75 New Threads Today</p>
-                                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-4">75 New Posts Today</p>
-                            </div>
-                        </div>
-
-
-
-                        <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
                         <c:forEach items="${forums}" var="forum">
+                            <c:set var="forumImage" value="data:image/jpg;base64,${forum.base64Image}"/>
                             <!--blog_post-->
                             <div id="forum-${forum.forumID}" class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-2">
-                                <a href="${transToPath.compressObjectToPath(contextPath, "forum", "", forum.forumID)}">
-                                    <div class="u-container-layout u-similar-container u-container-layout-4">
+                                <div class="u-container-layout u-similar-container u-container-layout-4">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "forum", "", forum.forumID)}">
+
                                         <span class="u-post-header-link">
                                             <img alt="Forum cover" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" 
-                                                 src="${(empty your.base64ImageAvatar)? "images/82761229_p17_master1200.jpg": "data:image/jpg;base64," +  your.base64ImageAvatar}"<!--/blog_post_image-->
+                                                 src="${(empty forum.base64Image)? defaultImage: forumImage}"<!--/blog_post_image-->
                                         </span>
                                         <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-3">
                                             <div class="u-container-layout u-valign-middle u-container-layout-5">
                                                 <p class="u-custom-font u-font-arial u-text u-text-5">${forum.name}</p>
                                             </div>
                                         </div>
-                                        <p class="u-align-center u-text u-text-grey-50 u-text-6"> 75 New Post Today</p>
-                                        <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">75 New Threads Today</p>
+                                        <p class="u-align-center u-text u-text-grey-50 u-text-6"> ${forum.newPosts} New Post Today</p>
+
+                                        <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">${forum.newThreads} New Threads Today</p>
+                                    </a>
+                                    <div class="dropdown">
+                                        <button onclick="myFunction(${forum.forumID})" class="dropbtn">Edit</button>
+                                        <div id="myDropdown-${forum.forumID}" class="dropdown-content">
+                                            <a href="#">Change Title</a>
+                                            <a href="#">Change Image</a>
+                                            <a href="#">Delete Forum</a>
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                             <!--/blog_post-->
                         </c:forEach>
-
-                        <!--/blog_post--><!--blog_post-->
-                        <div class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-3">
-                            <div class="u-container-layout u-similar-container u-container-layout-6">
-                                <a class="u-post-header-link" href="blog/post-3.html"><!--blog_post_image-->
-                                    <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-3" src="images/4.jpeg" data-image-width="640" data-image-height="1138"><!--/blog_post_image-->
-                                </a>
-                                <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-4">
-                                    <div class="u-container-layout u-valign-middle u-container-layout-7">
-                                        <p class="u-custom-font u-font-arial u-text u-text-8">MORE...</p>
-                                    </div>
-                                </div>
-                                <p class="u-align-center u-text u-text-grey-50 u-text-9"> 75 New Post Today<br>
-                                </p>
-                                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-10">75 New Threads Today</p>
-                            </div>
-                        </div><!--/blog_post-->
                     </div>
-                </div><!--/blog-->
-
-
-            </c:if>
-
+                </c:if>
         </section>
 
         <footer

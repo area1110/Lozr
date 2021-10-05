@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FThread;
+import model.Forum;
 import model.UserInfo;
 
 /**
@@ -24,7 +25,7 @@ public class FThreadDBContext extends DBContext {
         ArrayList<FThread> fThreads = new ArrayList<>();
         try {
             String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
-                    + "U.UserID, U.UserLoginName, U.UserIsAdmin\n"
+                    + "U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar\n"
                     + "FROM Thread AS T JOIN UserInfo AS U\n"
                     + "	ON T.ThreadStartedBy=U.UserID\n"
                     + "	WHERE T.ThreadForumID=?";
@@ -37,14 +38,18 @@ public class FThreadDBContext extends DBContext {
                 FThread fThread = new FThread();
                 fThread.setThreadID(rs.getInt(1));
                 fThread.setSubject(rs.getNString(2));
-                fThread.setDateCreated(rs.getDate(3));
-                fThread.setForumID(rs.getInt(4));
+                fThread.setTimeCreated(rs.getTimestamp(3));
+
+                Forum forum = new Forum();
+                forum.setForumID(rs.getInt(4));
+                fThread.setForum(forum);
 
                 UserInfo user = new UserInfo();
                 user.setUserID(rs.getInt(5));
-                user.setLoginName(rs.getNString(6));           
+                user.setLoginName(rs.getNString(6));
                 user.setAdmin(rs.getBoolean(7));
-     
+                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+
                 fThread.setStartedBy(user);
                 fThreads.add(fThread);
             }
@@ -52,5 +57,55 @@ public class FThreadDBContext extends DBContext {
             Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fThreads;
+    }
+
+    public FThread getFThread(int threadID) {
+        FThread fthread = null;
+        try {
+            String sql_select_thread = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+                    + "U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar\n"
+                    + "FROM Thread AS T JOIN UserInfo AS U\n"
+                    + "	ON T.ThreadStartedBy=U.UserID\n"
+                    + "	WHERE T.ThreadID=?";
+            PreparedStatement stm_select_thread = connection.prepareStatement(sql_select_thread);
+            stm_select_thread.setInt(1, threadID);
+            ResultSet rs_select_thread = stm_select_thread.executeQuery();
+            if (rs_select_thread.next()) {
+                fthread = new FThread();
+                fthread.setThreadID(rs_select_thread.getInt("ThreadID"));
+                fthread.setSubject(rs_select_thread.getString("ThreadSubject"));
+                fthread.setTimeCreated(rs_select_thread.getTimestamp("ThreadDateCreated"));
+                
+                UserInfo user = new UserInfo();
+                user.setUserID(rs_select_thread.getInt("UserID"));
+                user.setLoginName(rs_select_thread.getString("UserLoginName"));
+                fthread.setStartedBy(user);
+            }
+            return fthread;
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fthread;
+    }
+
+    public void setFThread(FThread fthread) {
+        try {
+            connection.setAutoCommit(true);
+            try {
+                String sql_insert_thread = "INSERT INTO Thread"
+                        + "(ThreadSubject, ThreadStartedBy, ThreadForumID)\n"
+                        + "VALUES(?, ?, ?)";
+
+                PreparedStatement stm_insert_thread = connection.prepareStatement(sql_insert_thread);
+                stm_insert_thread.setString(1, fthread.getSubject());
+                stm_insert_thread.setInt(2, fthread.getStartedBy().getUserID());
+                stm_insert_thread.setInt(3, fthread.getForum().getForumID());
+                stm_insert_thread.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -26,6 +26,14 @@
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controller.authentication.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ThreadController</servlet-name>
+        <servlet-class>controller.thread.ThreadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostController</servlet-name>
+        <servlet-class>controller.post.PostController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -41,6 +49,14 @@
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThreadController</servlet-name>
+        <url-pattern>/thread/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostController</servlet-name>
+        <url-pattern>/post/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
