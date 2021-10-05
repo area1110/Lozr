@@ -7,18 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
-
     <%
         String loginErrorMessage = (String) request.getAttribute("loginError");
     %>
-
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>LogIn</title>
-        <link rel="stylesheet" href="src/style/nicepage.css" />
-        <link rel="stylesheet" href="src/style/index.css" />
-        <link rel="stylesheet" href="src/style/LogIn.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/src/style/index.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/src/style/LogIn.css" />
         <link
             id="u-theme-google-font"
             rel="stylesheet"
@@ -29,7 +27,7 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
             />
-        <script src="src/script/script.js" defer></script>
+        <script src="${pageContext.request.contextPath}/src/script/script.js" defer></script>
 
     </head>
     <body class="u-body">

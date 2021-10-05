@@ -2,15 +2,16 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>ForumController</servlet-name>
-        <servlet-class>.ForumController</servlet-class>
+        <servlet-class>controller.forum.ForumController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
         <servlet-class>controller.HomeController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ThreadController</servlet-name>
-        <servlet-class>controller.post.ThreadPostController</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>SignUpController</servlet-name>
@@ -31,11 +32,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
-        <url-pattern>/index.html</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ThreadController</servlet-name>
-        <url-pattern>/thread/*</url-pattern>
+        <url-pattern>/index</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUpController</servlet-name>

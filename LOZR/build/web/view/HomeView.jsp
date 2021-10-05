@@ -4,6 +4,9 @@
     Author     : Khanh
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="controller.module.ExtractURLPath"%>
 <%@page import="model.UserInfo"%>
 <%@page import="model.Forum"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,16 +21,16 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>Home</title>
-        <link rel="stylesheet" href="src/style/nicepage.css" />
-        <link rel="stylesheet" href="src/style/index.css" />
-        <link rel="stylesheet" href="src/style/Home.css" />
-        <script type="text/javascript" src="src/script/jquery.js" defer=""></script>
-        <script
-            type="text/javascript"
-            src="src/script/nicepage.js"
-            defer=""
-        ></script>
+        <title>L0ZR</title>
+        <c:set var="your" value="${sessionScope.currentUser}"/>
+        <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
+        <c:set var="forums" value="${requestScope.forumsList}"/>
+        <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/Home.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+
+        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -61,16 +64,12 @@
                                 u-align-right u-custom-font u-font-montserrat u-text u-text-1
                                 "
                                 >
-                                <%= (currentUser != null) ? currentUser.getLoginName() : "Account"%>
+                                ${(empty your != null)? "Account": your.loginName}
                             </p>
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
 
-                                <% if (currentUser == null || currentUser.getBase64ImageAvatar() == null) { %>
-                                src= "images/82761229_p17_master1200.jpg"
-                                <%} else {%>
-                                src="data:image/jpg;base64, <%= currentUser.getBase64ImageAvatar()%>"
-                                <%}%>
+                                src="${(empty your.base64ImageAvatar)? "images/82761229_p17_master1200.jpg": "data:image/jpg;base64," +  your.base64ImageAvatar}"
                                 />
                         </div>
                     </div>
@@ -122,9 +121,9 @@
                                     "
                                     >
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link" href="Page-1.html"
-                                           > <%= (currentUser != null) ? currentUser.getLoginName() : "Account"%></a
-                                        >
+                                        <a class="u-button-style u-nav-link" href="Page-1.html">
+                                            ${(empty your != null)? "Account": your.loginName}
+                                        </a>
                                     </li>
                                     <li class="u-nav-item">
                                         <a href="#do-logout-action" class="u-button-style u-nav-link">Log Out</a>
@@ -140,90 +139,93 @@
             </div>
         </header>
         <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="main">
-            
-            <%if (forums.isEmpty()) {%>
-            
-             <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
-                <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                    <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">Oops, There is nothing here?!</h1>
-                </div>
-            </div>
-            
-             <%} else {%>
-            
-            <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
-                <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                    <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">What on your mind today?</h1>
-                </div>
-            </div>
-            
-            <div class="u-blog u-blog-1">
-                
-           
-                        
-                    
-              
-                
-                <div class="u-repeater u-repeater-1"><!--blog_post-->
-                    <div class="u-blog-post u-container-style u-repeater-item u-white u-repeater-item-1">
-                        <div class="u-container-layout u-similar-container u-container-layout-2">
-                            <a class="u-post-header-link" href="blog/post-5.html"><!--blog_post_image-->
-                                <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" src="images/2.jpeg" data-image-width="1065" data-image-height="800"><!--/blog_post_image-->
-                            </a>
-                            <div class="u-align-center u-container-style u-group u-palette-4-base u-group-2">
-                                <div class="u-container-layout u-valign-middle u-container-layout-3">
-                                    <p class="u-custom-font u-font-arial u-text u-text-2">CAR</p>
-                                </div>
-                            </div>
-                            <p class="u-align-center u-text u-text-grey-50 u-text-3">75 New Threads Today</p>
-                            <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-4">75 New Posts Today</p>
-                        </div>
+            <c:if test="${empty forums}">
+
+
+
+                <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
+                    <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
+                        <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">Oops, There is nothing here?!</h1>
                     </div>
-                    
-                    
-                    
-                         <%for (Forum forum : forums) {%>
-                         
-                    <!--/blog_post--><!--blog_post-->
-                    <div class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-2">
-                        <div class="u-container-layout u-similar-container u-container-layout-4">
-                            <a class="u-post-header-link" href="blog/post-4.html"><!--blog_post_image-->
-                                <img alt="Forum cover" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" 
-<!--                                     Đang làm ở đây-->
-                                     src="images/3.jpeg" data-image-width="1024" data-image-height="576"><!--/blog_post_image-->
-                            </a>
-                            <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-3">
-                                <div class="u-container-layout u-valign-middle u-container-layout-5">
-                                    <p class="u-custom-font u-font-arial u-text u-text-5">KNOWLEDG</p>
-                                </div>
-                            </div>
-                            <p class="u-align-center u-text u-text-grey-50 u-text-6"> 75 New Post Today</p>
-                            <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">75 New Threads Today</p>
-                        </div>
-                    </div>
-                    
-                      <%}%>
-                    
-                    <!--/blog_post--><!--blog_post-->
-                    <div class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-3">
-                        <div class="u-container-layout u-similar-container u-container-layout-6">
-                            <a class="u-post-header-link" href="blog/post-3.html"><!--blog_post_image-->
-                                <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-3" src="images/4.jpeg" data-image-width="640" data-image-height="1138"><!--/blog_post_image-->
-                            </a>
-                            <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-4">
-                                <div class="u-container-layout u-valign-middle u-container-layout-7">
-                                    <p class="u-custom-font u-font-arial u-text u-text-8">MORE...</p>
-                                </div>
-                            </div>
-                            <p class="u-align-center u-text u-text-grey-50 u-text-9"> 75 New Post Today<br>
-                            </p>
-                            <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-10">75 New Threads Today</p>
-                        </div>
-                    </div><!--/blog_post-->
                 </div>
-            </div><!--/blog-->
-            
-             <%}%>
+            </c:if>
+
+            <c:if test="${!empty forums}">
+
+
+
+                <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
+                    <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
+                        <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">What on your mind today?</h1>
+                    </div>
+                </div>
+
+                <div class="u-blog u-blog-1">
+
+
+                    <div class="u-repeater u-repeater-1"><!--blog_post-->
+                        <div class="u-blog-post u-container-style u-repeater-item u-white u-repeater-item-1">
+                            <div class="u-container-layout u-similar-container u-container-layout-2">
+                                <a class="u-post-header-link" href="blog/post-5.html"><!--blog_post_image-->
+                                    <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" src="images/2.jpeg" data-image-width="1065" data-image-height="800"><!--/blog_post_image-->
+                                </a>
+                                <div class="u-align-center u-container-style u-group u-palette-4-base u-group-2">
+                                    <div class="u-container-layout u-valign-middle u-container-layout-3">
+                                        <p class="u-custom-font u-font-arial u-text u-text-2">CAR</p>
+                                    </div>
+                                </div>
+                                <p class="u-align-center u-text u-text-grey-50 u-text-3">75 New Threads Today</p>
+                                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-4">75 New Posts Today</p>
+                            </div>
+                        </div>
+
+
+
+                        <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
+                        <c:forEach items="${forums}" var="forum">
+                            <!--blog_post-->
+                            <div id="forum-${forum.forumID}" class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-2">
+                                <a href="${transToPath.compressObjectToPath(contextPath, "forum", "", forum.forumID)}">
+                                    <div class="u-container-layout u-similar-container u-container-layout-4">
+                                        <span class="u-post-header-link">
+                                            <img alt="Forum cover" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" 
+                                                 src="${(empty your.base64ImageAvatar)? "images/82761229_p17_master1200.jpg": "data:image/jpg;base64," +  your.base64ImageAvatar}"<!--/blog_post_image-->
+                                        </span>
+                                        <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-3">
+                                            <div class="u-container-layout u-valign-middle u-container-layout-5">
+                                                <p class="u-custom-font u-font-arial u-text u-text-5">${forum.name}</p>
+                                            </div>
+                                        </div>
+                                        <p class="u-align-center u-text u-text-grey-50 u-text-6"> 75 New Post Today</p>
+                                        <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">75 New Threads Today</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--/blog_post-->
+                        </c:forEach>
+
+                        <!--/blog_post--><!--blog_post-->
+                        <div class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-3">
+                            <div class="u-container-layout u-similar-container u-container-layout-6">
+                                <a class="u-post-header-link" href="blog/post-3.html"><!--blog_post_image-->
+                                    <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-3" src="images/4.jpeg" data-image-width="640" data-image-height="1138"><!--/blog_post_image-->
+                                </a>
+                                <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-4">
+                                    <div class="u-container-layout u-valign-middle u-container-layout-7">
+                                        <p class="u-custom-font u-font-arial u-text u-text-8">MORE...</p>
+                                    </div>
+                                </div>
+                                <p class="u-align-center u-text u-text-grey-50 u-text-9"> 75 New Post Today<br>
+                                </p>
+                                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-10">75 New Threads Today</p>
+                            </div>
+                        </div><!--/blog_post-->
+                    </div>
+                </div><!--/blog-->
+
+
+            </c:if>
+
         </section>
 
         <footer
@@ -237,17 +239,6 @@
                 </p>
             </div>
         </footer>
-        <section class="u-backlink u-clearfix u-grey-80">
-            <a class="u-link" href="https://nicepage.com/templates" target="_blank">
-                <span>Template</span>
-            </a>
-            <p class="u-text">
-                <span>created with</span>
-            </p>
-            <a class="u-link" href="https://nicepage.com/" target="_blank">
-                <span>Offline Website Builder</span> </a
-            >.
-        </section>
     </body>
 </html>
 

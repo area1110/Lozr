@@ -14,6 +14,7 @@ public class ExtractURLPath {
 
     public static int extractPathToID(String path) {
         int ID;
+        String[] arrayItemsPath;
         if (path == null) {
             ID = 0;
         } else if (path.matches("|/\\d+")) {
