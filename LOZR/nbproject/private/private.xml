@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/controller/post/PostController.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/model/FThread.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/web/view/ForumView.jsp</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/model/UserInfo.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/controller/forum/ForumController.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/controller/module/ExtractURLPath.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/model/Post.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/web/view/ThreadView.jsp</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/controller/thread/ThreadController.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/dal/PostDBContext.java</file>
-            <file>file:/D:/Github/Lozr/LOZR/src/java/model/Forum.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
