@@ -257,11 +257,14 @@
                         
                                                 </div>-->
                         <div class="thread-cell thread-cell-option  dropdown">
-                            <button onclick="myFunction(${thread.threadID})" class="dropbtn">Option</button>
+                            <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                             <div id="myDropdown-${thread.threadID}" class="dropdown-content">
                                 <a href="#">Bookmark</a>
+
                                 <a href="#">Change Title</a>
-                                <a href="#">Delete</a>
+                                <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
+                                    <a onclick="doDelete(${thread.threadID}, '${thread.subject}', 'thread');">Delete</a>
+                                </c:if>
                             </div>
                         </div>
                     </div>

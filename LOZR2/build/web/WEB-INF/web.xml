@@ -3,6 +3,11 @@
     <servlet>
         <servlet-name>ForumController</servlet-name>
         <servlet-class>controller.forum.ForumController</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <file-size-threshold>5242880</file-size-threshold>
+        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
@@ -38,6 +43,10 @@
         <servlet-name>DeleteForumController</servlet-name>
         <servlet-class>controller.forum.DeleteForumController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteThreadController</servlet-name>
+        <servlet-class>controller.thread.DeleteThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -65,6 +74,10 @@
     <servlet-mapping>
         <servlet-name>DeleteForumController</servlet-name>
         <url-pattern>/delete/forum</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteThreadController</servlet-name>
+        <url-pattern>/delete/thread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

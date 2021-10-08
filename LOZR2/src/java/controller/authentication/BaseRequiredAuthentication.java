@@ -6,11 +6,11 @@
 package controller.authentication;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserInfo;
 
 /**
  *
@@ -20,7 +20,9 @@ public abstract class BaseRequiredAuthentication extends HttpServlet {
 
     private boolean isAuthenticated(HttpServletRequest request) {
 //        return true;
-        return request.getSession().getAttribute("currentUser") != null;
+        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+//        request.getSession().setAttribute("admin", currentUser.isAdmin());
+        return currentUser != null;
     }
 
     protected void processGet(HttpServletRequest request, HttpServletResponse response)

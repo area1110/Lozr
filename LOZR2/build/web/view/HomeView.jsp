@@ -129,6 +129,11 @@
                                             ${(empty your.loginName)? "Account": your.loginName}
                                         </a>
                                     </li>
+                                    <c:if test="${your.admin}" >
+                                        <li class="u-nav-item">
+                                            <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">New Forum</a>
+                                        </li>
+                                    </c:if>
                                     <li class="u-nav-item">
                                         <a href="#do-logout-action" class="u-button-style u-nav-link">Log Out</a>
                                     </li>
@@ -184,14 +189,16 @@
 
                                         <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">${forum.newThreads} New Threads Today</p>
                                     </a>
-                                    <div class="dropdown">
-                                        <button onclick="myFunction(${forum.forumID})" class="dropbtn">Edit</button>
-                                        <div id="myDropdown-${forum.forumID}" class="dropdown-content">
-                                            <a href="#">Change Title</a>
-                                            <a href="#">Change Image</a>
-                                            <a href="#">Delete Forum</a>
+                                    <c:if test="${your.admin}">
+                                        <div class="dropdown">
+                                            <button onclick="showDropdownMenu(${forum.forumID})" class="dropbtn">Edit</button>
+                                            <div id="myDropdown-${forum.forumID}" class="dropdown-content">
+                                                <a href="#">Change Title</a>
+                                                <a href="#">Change Image</a>
+                                                <a onclick="doDelete(${forum.forumID}, '${forum.name}', 'forum');">Delete Forum</a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:if>
                                 </div>
                             </div>
                             <!--/blog_post-->

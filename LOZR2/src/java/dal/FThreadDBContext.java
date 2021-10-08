@@ -108,4 +108,7 @@ public class FThreadDBContext extends DBContext {
             Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void updateStatus(int threadID){
+        
+    }
 }

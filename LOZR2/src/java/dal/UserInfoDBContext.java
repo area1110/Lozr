@@ -5,17 +5,11 @@
  */
 package dal;
 
-import controller.module.Encode;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.Part;
 import model.Account;
 import model.UserInfo;
 

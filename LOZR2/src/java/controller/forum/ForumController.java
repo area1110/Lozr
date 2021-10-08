@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FThread;
 import model.Forum;
+import model.UserInfo;
 
 /**
  *
@@ -59,24 +60,30 @@ public class ForumController extends BaseRequiredAuthentication {
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        String forumName = request.getParameter("forumName");
+        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        if (currentUser.isAdmin()) {
+            String forumName = request.getParameter("forumName");
 
-        InputStream image = request.getPart("image").getInputStream();
-        Encode encode = new Encode();
-        String forumB64Image = encode.EncodeToBase64(image);
+            InputStream image = request.getPart("image").getInputStream();
+            Encode encode = new Encode();
+            String forumB64Image = encode.EncodeToBase64(image);
 
-        if (setForum(forumName, forumB64Image)) {
+            if (setForum(forumName, forumB64Image)) {
 //            response.getWriter().print("<h1>Success Checkout DB</h1>");
-            response.sendRedirect(request.getContextPath());
+                response.sendRedirect(request.getContextPath());
 //            request.getRequestDispatcher(request.getContextPath()).forward(request, response);
-        } else {
-            response.getWriter().print("<h1>Error Try Again</h1>");
+            } else {
+                response.getWriter().print("<h1>Error Try Again</h1>");
 //            String errMsg = "Oops! Something wrong<br/>Please try again!";
 //            request.setAttribute("forumName", forumName);
 //            request.setAttribute("errorMsg", errMsg);
 //            request.getRequestDispatcher("/post/ForumPost.jsp").forward(request, response);
+            }
+        } else {
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
-
     }
 
     //

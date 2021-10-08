@@ -30,7 +30,7 @@ public class ForumDBContext extends DBContext {
                     + "		INNER JOIN Thread AS T ON P.PostThreadID=T.ThreadID\n"
                     + "		WHERE CONVERT(DATE, P.PostDateCreated)=CONVERT(DATE, GETDATE())\n"
                     + "			AND T.ThreadForumID=F.ForumID) AS PostToday\n"
-                    + "FROM Forum AS F";
+                    + "FROM Forum AS F WHERE F.ForumIsActive=1";
 
             PreparedStatement stm_select_forums = connection.prepareStatement(sql_select_forums);
             ResultSet rs_select_forums = stm_select_forums.executeQuery();
@@ -94,5 +94,20 @@ public class ForumDBContext extends DBContext {
             Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public void updateStatus(int forumID, boolean status) {
+        try {
+            String sql_update_forum = "UPDATE [Forum]\n"
+                    + "   SET [ForumIsActive] = ?\n"
+                    + " WHERE ForumID = ?";
+
+            PreparedStatement stm_update_forum = connection.prepareStatement(sql_update_forum);
+            stm_update_forum.setBoolean(1, status);
+            stm_update_forum.setInt(2, forumID);
+            stm_update_forum.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -6,10 +6,6 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="controller.module.ExtractURLPath"%>
-<%@page import="model.UserInfo"%>
-<%@page import="model.Forum"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -19,7 +15,6 @@
 
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
         <c:set var="your" value="${sessionScope.currentUser}"/>
-        <c:set var="forums" value="${requestScope.forumsList}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
         <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
 
@@ -58,7 +53,7 @@
                     data-image-width="590"
                     data-image-height="90"
                     >
-                    <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
+                    <img src="${contextPath}/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
                 <a href="#go-to-user-page">
                     <div class="u-align-left u-container-style u-group u-group-1">
@@ -129,11 +124,6 @@
                                             ${(empty your.loginName)? "Account": your.loginName}
                                         </a>
                                     </li>
-                                    <c:if test="${your.admin}" >
-                                        <li class="u-nav-item">
-                                            <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">New Forum</a>
-                                        </li>
-                                    </c:if>
                                     <li class="u-nav-item">
                                         <a href="#do-logout-action" class="u-button-style u-nav-link">Log Out</a>
                                     </li>
@@ -148,63 +138,16 @@
             </div>
         </header>
         <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="main">
-            <c:if test="${empty forums}">
 
-                <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
-                    <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                        <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">Oops, There is nothing here?!</h1>
-                    </div>
+
+            <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
+                <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
+                    <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">${errorMessage}</h1>
                 </div>
-            </c:if>
+            </div>
 
-            <c:if test="${!empty forums}">
 
-                <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
-                    <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                        <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">What on your mind today?</h1>
-                    </div>
-                </div>
 
-                <div class="u-blog u-blog-1">
-                    <div><i>Edit</i></div>
-                    <div class="u-repeater u-repeater-1">
-
-                        <c:forEach items="${forums}" var="forum">
-                            <c:set var="forumImage" value="data:image/jpg;base64,${forum.base64Image}"/>
-                            <!--blog_post-->
-                            <div id="forum-${forum.forumID}" class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-2">
-                                <div class="u-container-layout u-similar-container u-container-layout-4">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "forum", "", forum.forumID)}">
-
-                                        <span class="u-post-header-link">
-                                            <img alt="Forum cover" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" 
-                                                 src="${(empty forum.base64Image)? defaultImage: forumImage}"<!--/blog_post_image-->
-                                        </span>
-                                        <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-3">
-                                            <div class="u-container-layout u-valign-middle u-container-layout-5">
-                                                <p class="u-custom-font u-font-arial u-text u-text-5">${forum.name}</p>
-                                            </div>
-                                        </div>
-                                        <p class="u-align-center u-text u-text-grey-50 u-text-6"> ${forum.newPosts} New Post Today</p>
-
-                                        <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">${forum.newThreads} New Threads Today</p>
-                                    </a>
-                                    <c:if test="${your.admin}">
-                                        <div class="dropdown">
-                                            <button onclick="showDropdownMenu(${forum.forumID})" class="dropbtn">Edit</button>
-                                            <div id="myDropdown-${forum.forumID}" class="dropdown-content">
-                                                <a href="#">Change Title</a>
-                                                <a href="#">Change Image</a>
-                                                <a onclick="doDelete(${forum.forumID}, '${forum.name}', 'forum');">Delete Forum</a>
-                                            </div>
-                                        </div>
-                                    </c:if>
-                                </div>
-                            </div>
-                            <!--/blog_post-->
-                        </c:forEach>
-                    </div>
-                </c:if>
         </section>
 
         <footer

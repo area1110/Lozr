@@ -55,10 +55,8 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         request.getRequestDispatcher("view/authentication/SignupView.jsp").forward(request, response);
-//        UserInfo u = (UserInfo) request.getSession().getAttribute("currentUser");
-//        response.getWriter().print(u.getLoginName());
+
     }
 
     /**
@@ -87,12 +85,11 @@ public class SignUpController extends HttpServlet {
         userInfo.setFirstName(request.getParameter("firstName").trim());
         userInfo.setLastName(request.getParameter("lastName").trim());
         userInfo.setEmailAddress(request.getParameter("email").trim());
-        
-        
+
         InputStream is = request.getPart("avatar").getInputStream();
         Encode encode = new Encode();
         userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
-        
+
         int statusUpdate = doSignUp(account, userInfo);
         switch (statusUpdate) {
             case -1: // missing field error
@@ -105,13 +102,15 @@ public class SignUpController extends HttpServlet {
                 request.getRequestDispatcher("/view/authentication/SignupView.jsp").forward(request, response);
                 break;
             case 0: // un caught error
-                response.getWriter().print("<h1>Loi Khong xac dinh</h1>");
+                String errorMessage = "Oops, there are something wrong?!";
+                request.setAttribute("errorMessage", errorMessage);
+                request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
             case 1:
                 UserInfoDBContext userInfoDBC = new UserInfoDBContext();
                 UserInfo user = userInfoDBC.getUser(loginName);
                 request.getSession().setAttribute("currentUser", user);
-                request.getRequestDispatcher("/view/HomeView.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath());
                 break;
             default:
         }

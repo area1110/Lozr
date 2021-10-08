@@ -11,15 +11,15 @@ function check_pass() {
   }
 }
 
-function removeSpace() {
-  const input = document.getElementsByTagName("input");
+function removeSpace(){
+  let input = document.getElementsByTagName("input");
      for (let eachInput of input) {
          eachInput.value = eachInput.value.trim();
      }
 }
 
 function display_error() {
-  const errorLabel = document.getElementById("error");
+  var errorLabel = document.getElementById("error");
   errorLabel.style.display = "none";
 }
 
@@ -52,6 +52,14 @@ function doCancel() {
   document.getElementById("replyID").value = "";
 }
 
-function myFunction(id) {
+function showDropdownMenu(id) {
   $("#myDropdown-" + id).toggle("show");
+}
+
+function doDelete(id, name, feature){
+    const message = `Do you want to delete ${feature}: ${name}\nType 'confirm'`;
+    let confirm = window.prompt(message);
+    if(confirm === 'confirm'){
+       window.location.href="delete/" + feature +"?id=" + id; 
+    }
 }
