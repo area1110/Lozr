@@ -133,7 +133,17 @@
 
         <div class="main-zone">
             <div class="body-header">
-                <div class="post-title"><h1>${thread.subject}</h1></div>
+                <c:if test="${thread.active}">
+                    <div class="post-title">
+                        <h1>${thread.subject}</h1>
+                    </div>
+                </c:if>
+                <c:if test="${!thread.active}">
+                    <div class="post-title">
+                        <h1 class="deactive">${thread.subject}</h1>
+                        <h2>- Deactive -</h2>
+                    </div>
+                </c:if>
                 <div class="post-title-description">
                     <ul>
                         <li>${thread.startedBy.loginName}</li>
@@ -142,7 +152,11 @@
                     </ul>
                 </div>
             </div>
-
+            <c:if test="${empty requestScope.posts}">
+                <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
+                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Publish Your Mind?!</h1>
+                </div>
+            </c:if>
             <c:forEach var="post" items="${requestScope.posts}">
                 <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
 
@@ -192,18 +206,18 @@
 
                         <div class="post-main">
                             <c:if test="${!empty post.replyPost}">
-                            <blockquote class="post-block-reply">
-                                <div class="post-reply-user">
-                                    <a href="https://f95zone.to/goto/post?id=6647317" class=""
-                                       >${post.replyPost.user.loginName} said:</a
-                                    >
-                                </div>
-                                <div class="post-reply-content">
-                                    <div class="">
-                                        ${post.replyPost.subject}
+                                <blockquote class="post-block-reply">
+                                    <div class="post-reply-user">
+                                        <a href="https://f95zone.to/goto/post?id=6647317" class=""
+                                           >${post.replyPost.user.loginName} said:</a
+                                        >
                                     </div>
-                                </div>
-                            </blockquote>
+                                    <div class="post-reply-content">
+                                        <div class="">
+                                            ${post.replyPost.subject}
+                                        </div>
+                                    </div>
+                                </blockquote>
                             </c:if>
                             <p name="${post.postID}">${post.subject}</p>
                         </div>
@@ -229,63 +243,65 @@
                 </div>
                 <!--/Body post-->
             </c:forEach>
-
-            <div class="post">
-                <div class="post-user-cell">
-                    <section itemtype="https://schema.org/Person" class="post-user">
-                        <div class="">
-                            <div class="post-user-avatar">
-                                <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
-                                    <img
-                                        class="post-user-img"
-                                        src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
-                                        />
-                                </a>
-                            </div>
-                        </div>
-                        <div class="post-user-detail">
-                            <h4 class="post-user-name">
-                                <a href="https://f95zone.to/members/molvaeth.2791234/" class=""
-                                   >You</a
-                                >
-                            </h4>
-                        </div>
-                    </section>
-                </div>
-                <div class="post-main-cell">
-                    <div class="post-main">
-                        <blockquote class="post-block-reply" id="blockreply">
-                            <div class="post-reply-user">
-                                <a id="replyUser" class=""></a> said:
-                            </div>
-                            <div class="post-reply-content">
-                                <div id="replySubject" class=""></div>
-                            </div>
-                            <div class="cancel-reply">
-                                <a href="#post-create" onclick="doCancel()">Cancel reply</a>
-                            </div>
-                        </blockquote>
-
-                        <div class="post-create" id="post-create">
-                            <form action="../post" method="POST" class="post-create-form">
-                                <input type="hidden" name="replyID" id="replyID" value="" />
-                                <input type="hidden" name="threadID" value="${thread.threadID}"/>
-                                <div>
-                                    <label for="postSubject"></label>
-                                    <textarea
-                                        class="post-subject-textarea text-insert"
-                                        name="postSubject"
-                                        placeholder="What is your thinking?"
-                                        ></textarea>
+            <c:if test="${thread.active}">
+                <div class="post">
+                    <div class="post-user-cell">
+                        <section itemtype="https://schema.org/Person" class="post-user">
+                            <div class="">
+                                <div class="post-user-avatar">
+                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
+                                        <img
+                                            class="post-user-img"
+                                            src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
+                                            />
+                                    </a>
                                 </div>
-                                <div class="post-create-submit">
-                                    <input class="submit-button" type="submit" value="Post" />
+                            </div>
+                            <div class="post-user-detail">
+                                <h4 class="post-user-name">
+                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class=""
+                                       >You</a
+                                    >
+                                </h4>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="post-main-cell">
+                        <div class="post-main">
+                            <blockquote class="post-block-reply" id="blockreply">
+                                <div class="post-reply-user">
+                                    <a id="replyUser" class=""></a> said:
                                 </div>
-                            </form>
+                                <div class="post-reply-content">
+                                    <div id="replySubject" class=""></div>
+                                </div>
+                                <div class="cancel-reply">
+                                    <a href="#post-create" onclick="doCancel()">Cancel reply</a>
+                                </div>
+                            </blockquote>
+
+                            <div class="post-create" id="post-create">
+                                <form action="../post" method="POST" class="post-create-form">
+                                    <input type="hidden" name="replyID" id="replyID" value="" />
+                                    <input type="hidden" name="threadID" value="${thread.threadID}"/>
+                                    <div>
+                                        <label for="postSubject"></label>
+                                        <textarea
+                                            class="post-subject-textarea text-insert"
+                                            name="postSubject"
+                                            placeholder="What is your thinking?"
+                                            ></textarea>
+                                    </div>
+                                    <div class="post-create-submit">
+                                        <input class="submit-button" type="submit" value="Post" />
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </c:if>
+
         </div>
 
         <footer

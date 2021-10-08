@@ -3,17 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.post;
+package controller.thread;
 
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
+import dal.FThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.FThread;
+import model.Forum;
 import model.Post;
 import model.UserInfo;
 
@@ -21,7 +25,7 @@ import model.UserInfo;
  *
  * @author Khanh
  */
-public class PostController extends BaseRequiredAuthentication {
+public class ThreadController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +44,10 @@ public class PostController extends BaseRequiredAuthentication {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PostController</title>");
+            out.println("<title>Servlet ThreadController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PostController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ThreadController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +65,24 @@ public class PostController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        System.out.println("Path" +request.getPathInfo());
+        int threadID = ExtractURLPath.extractPathToID(request.getPathInfo());
+        if (threadID == 0) {
+            response.getWriter().print("0");
+        } else {
+            FThreadDBContext fthreadDBC = new FThreadDBContext();
+            FThread fthread = fthreadDBC.getFThread(threadID);
+            if (fthread == null) {
+                response.getWriter().print("null");
+            } else {
+                PostDBContext postDBC = new PostDBContext();
+                ArrayList<Post> posts = postDBC.getPosts(threadID);
+                request.setAttribute("thread", fthread);
+                request.setAttribute("posts", posts);
+                request.getRequestDispatcher("../view/ThreadView.jsp").forward(request, response);
+            }
+        }
+
     }
 
     /**
@@ -75,29 +96,24 @@ public class PostController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String postSubject = request.getParameter("postSubject");
-        int threadID = Integer.parseInt(request.getParameter("threadID"));
-
+        String threadName = request.getParameter("threadName");
+        int forumID = Integer.parseInt(request.getParameter("forumID"));
+        FThreadDBContext fthreadDBC = new FThreadDBContext();
+        FThread fthread = new FThread();
         UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
 
-        Post post = new Post();
-        post.setSubject(postSubject);
-        post.setThreadId(threadID);
-        post.setUser(currentUser);
+        fthread.setSubject(threadName);
+        fthread.setStartedBy(currentUser);
 
-        int replyID;
-        if (!request.getParameter("replyID").isEmpty()) {
-            replyID = Integer.parseInt(request.getParameter("replyID"));
-            Post reply = new Post();
-            reply.setPostID(replyID);
-            post.setReplyPost(reply);
-            PostDBContext postDBC = new PostDBContext();
-            postDBC.setPost(post);
-        } else {
-            PostDBContext postDBC = new PostDBContext();
-            postDBC.setPostNoReply(post);
-        }
-        response.sendRedirect(request.getHeader("referer"));
+        Forum forum = new Forum();
+        forum.setForumID(forumID);
+        fthread.setForum(forum);
+
+        fthreadDBC.setFThread(fthread);
+        String parrentURL = ExtractURLPath.compressObjectToPath(request.getContextPath(), "forum", "", forumID);
+
+//        response.getWriter().print(request.getContextPath());
+        response.sendRedirect(parrentURL);
     }
 
     /**

@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.thread;
+package controller;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
+import controller.module.Encode;
+import dal.ForumDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Forum;
 
 /**
  *
- * @author area1
+ * @author Khanh
  */
-public class DeleteThreadController extends BaseRequiredAuthentication {
+public class HomeController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +49,10 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int threadID = Integer.parseInt(request.getParameter("id"));
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
-        fthreadDBC.updateStatus(threadID, false);
-        response.sendRedirect(request.getHeader("referer"));
+        ForumDBContext forumDBC = new ForumDBContext();
+        ArrayList<Forum> forums = forumDBC.getForums();
+        request.setAttribute("forumsList", forums);
+        request.getRequestDispatcher("/view/HomeView.jsp").forward(request, response);
     }
 
     /**
@@ -63,6 +66,7 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        processRequest(request, response);
     }
 
     /**

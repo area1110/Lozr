@@ -56,10 +56,18 @@ function showDropdownMenu(id) {
   $("#myDropdown-" + id).toggle("show");
 }
 
-function doDelete(id, name, feature){
-    const message = `Do you want to delete ${feature}: ${name}\nType 'confirm'`;
+function doDeleteForum(id, name,){
+    const message = `Do you want to delete forum: ${name}\nType 'confirm'`;
     let confirm = window.prompt(message);
     if(confirm === 'confirm'){
-       window.location.href="delete/" + feature +"?id=" + id; 
+       window.location.href="delete/forum?id=" + id; 
+    }
+}
+
+function doDelete(postID, feature){
+    const message = `Do you want to delete this ${feature}`;
+    let confirm = window.confirm(message);
+    if(confirm){
+       window.location.href="../delete/" + feature  +"?id=" + postID; 
     }
 }

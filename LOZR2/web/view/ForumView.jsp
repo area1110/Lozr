@@ -148,38 +148,55 @@
 
         <div class="main-zone">
             <div class="body-header">
-                <div class="post-title"><h1>${forum.name}</h1></div>
+                <c:if test="${forum.active}">
+                    <div  class="post-title" >
+                        <h1>${forum.name}</h1>
+                    </div>
+                </c:if>
+                <c:if test="${!forum.active}">
+                    <div  class="post-title " >
+                        <h1 class="deactive">${forum.name}</h1>
+                        <h2> - Deactive -</h2>
+                    </div>
+                </c:if>
             </div>
             <!--ThreadZone-->
-
-            <div class="thread-table thread-card">
-                <div class="thread-cell thread-cell-author">
-                    <div class="">
-                        <a href="/u/minhnhanbin.1768054/">
-                            <img src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}" />
-                        </a>
+            <c:if test="${forum.active}">
+                <div class="thread-table thread-card">
+                    <div class="thread-cell thread-cell-author">
+                        <div class="">
+                            <a href="/u/minhnhanbin.1768054/">
+                                <img src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="thread-cell thread-create">
+                        <form action="../thread" method="POST">
+                            <div class="thread-create-insert">
+                                <input type="hidden" name="forumID"
+                                       value="${requestScope.forum.forumID}"/>
+                                <input
+                                    id="insert-title"
+                                    class="text-insert"               
+                                    type="text"
+                                    name="threadName"
+                                    placeholder="Thread title"
+                                    onchange="checkSubmit();"
+                                    />
+                            </div>
+                            <div class="thread-create-submit">
+                                <input id="submit-title" class="submit-button" type="submit" value="Create" disabled="true"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="thread-cell thread-create">
-                    <form action="../thread" method="POST">
-                        <div class="thread-create-insert">
-                            <input type="hidden" name="forumID"
-                                   value="${requestScope.forum.forumID}"/>
-                            <input
-                                id="insert-title"
-                                class="text-insert"               
-                                type="text"
-                                name="threadName"
-                                placeholder="Thread title"
-                                onchange="checkSubmit();"
-                                />
-                        </div>
-                        <div class="thread-create-submit">
-                            <input id="submit-title" class="submit-button" type="submit" value="Create" disabled="true"/>
-                        </div>
-                    </form>
+            </c:if>
+            
+            <c:if test="${empty requestScope.threads}">
+                <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
+                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Oops, There is nothing here?!</h1>
                 </div>
-            </div>
+            </c:if>
 
             <c:forEach items="${threads}" var="thread">
                 <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
@@ -263,7 +280,7 @@
 
                                 <a href="#">Change Title</a>
                                 <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
-                                    <a onclick="doDelete(${thread.threadID}, '${thread.subject}', 'thread');">Delete</a>
+                                    <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>
                             </div>
                         </div>

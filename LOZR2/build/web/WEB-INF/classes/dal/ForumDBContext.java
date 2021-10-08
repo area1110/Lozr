@@ -66,7 +66,7 @@ public class ForumDBContext extends DBContext {
                 forum.setForumID(rs.getInt("ForumID"));
                 forum.setName(rs.getNString("ForumName"));
                 forum.setBase64Image(rs.getString("ForumImage"));
-                forum.setActive(rs.getBoolean("ForumIsActive"));
+                forum.setActive(rs.getBoolean(3));
                 return forum;
             }
         } catch (SQLException ex) {

@@ -63,7 +63,7 @@ public class FThreadDBContext extends DBContext {
     public FThread getFThread(int threadID) {
         FThread fthread = null;
         try {
-            String sql_select_thread = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID, T.ThreadIsActive,\n"
+            String sql_select_thread = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
                     + "U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar\n"
                     + "FROM Thread AS T JOIN UserInfo AS U\n"
                     + "	ON T.ThreadStartedBy=U.UserID\n"
@@ -81,7 +81,6 @@ public class FThreadDBContext extends DBContext {
                 user.setUserID(rs_select_thread.getInt("UserID"));
                 user.setLoginName(rs_select_thread.getString("UserLoginName"));
                 fthread.setStartedBy(user);
-                fthread.setActive(rs_select_thread.getBoolean("ThreadIsActive"));
             }
             return fthread;
         } catch (SQLException ex) {

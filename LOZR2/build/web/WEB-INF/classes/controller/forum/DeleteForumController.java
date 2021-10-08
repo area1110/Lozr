@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.thread;
+package controller.forum;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
+import dal.ForumDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserInfo;
 
 /**
  *
- * @author area1
+ * @author Khanh
  */
-public class DeleteThreadController extends BaseRequiredAuthentication {
+public class DeleteForumController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,7 +30,7 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,10 +45,18 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int threadID = Integer.parseInt(request.getParameter("id"));
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
-        fthreadDBC.updateStatus(threadID, false);
-        response.sendRedirect(request.getHeader("referer"));
+//        processRequest(request, response);
+        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        if (currentUser.isAdmin()) {
+            int forumID = Integer.parseInt(request.getParameter("id"));
+            ForumDBContext forumDBC = new ForumDBContext();
+            forumDBC.updateStatus(forumID, false);
+            response.sendRedirect(request.getContextPath());
+        } else {
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -63,6 +70,8 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+//        processRequest(request, response);
+
     }
 
     /**

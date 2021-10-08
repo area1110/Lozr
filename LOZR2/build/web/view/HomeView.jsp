@@ -166,7 +166,6 @@
                 </div>
 
                 <div class="u-blog u-blog-1">
-                    <div><i>Edit</i></div>
                     <div class="u-repeater u-repeater-1">
 
                         <c:forEach items="${forums}" var="forum">
@@ -195,7 +194,7 @@
                                             <div id="myDropdown-${forum.forumID}" class="dropdown-content">
                                                 <a href="#">Change Title</a>
                                                 <a href="#">Change Image</a>
-                                                <a onclick="doDelete(${forum.forumID}, '${forum.name}', 'forum');">Delete Forum</a>
+                                                <a onclick="doDeleteForum(${forum.forumID}, '${forum.name}');">Delete Forum</a>
                                             </div>
                                         </div>
                                     </c:if>
