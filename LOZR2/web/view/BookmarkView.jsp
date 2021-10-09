@@ -1,8 +1,4 @@
-<%-- 
-    Document   : ThreadView
-    Created on : Oct 4, 2021, 5:18:21 PM
-    Author     : Khanh
---%>
+
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -148,17 +144,12 @@
 
         <div class="main-zone">
             <div class="body-header">
-                <c:if test="${forum.active}">
+    
                     <div  class="post-title" >
-                        <h1>${forum.name}</h1>
+                        <h1>Bookmark</h1>
                     </div>
-                </c:if>
-                <c:if test="${!forum.active}">
-                    <div  class="post-title " >
-                        <h1 class="deactive">${forum.name}</h1>
-                        <h2> - Deactive -</h2>
-                    </div>
-                </c:if>
+  
+
             </div>
             <!--ThreadZone-->
             <c:if test="${forum.active}">

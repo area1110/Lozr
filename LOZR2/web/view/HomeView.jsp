@@ -133,6 +133,9 @@
                                         <li class="u-nav-item">
                                             <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">New Forum</a>
                                         </li>
+                                        <li class="u-nav-item">
+                                            <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">Report Manager</a>
+                                        </li>
                                     </c:if>
                                     <li class="u-nav-item">
                                         <a href="#do-logout-action" class="u-button-style u-nav-link">Log Out</a>

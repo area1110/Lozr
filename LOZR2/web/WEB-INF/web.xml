@@ -47,6 +47,14 @@
         <servlet-name>DeleteThreadController</servlet-name>
         <servlet-class>controller.thread.DeleteThreadController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportController</servlet-name>
+        <servlet-class>controller.admin.ReportController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserPageController</servlet-name>
+        <servlet-class>controller.user.UserPageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -78,6 +86,14 @@
     <servlet-mapping>
         <servlet-name>DeleteThreadController</servlet-name>
         <url-pattern>/delete/thread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportController</servlet-name>
+        <url-pattern>/admin/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserPageController</servlet-name>
+        <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

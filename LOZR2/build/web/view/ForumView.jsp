@@ -240,7 +240,7 @@
                         <div class="thread-cell thread-status">
                             <dl class="thread-status-pair">
                                 <dt>Replies</dt>
-                                <dd>2</dd>
+                                <dd>${thread.numPosts}</dd>
                             </dl>
                             <!-- <dl class="thread-status-pair">
                               <dt>Views</dt>

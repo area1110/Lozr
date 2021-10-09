@@ -18,9 +18,29 @@ public class FThread {
     private Timestamp timeCreated;
     private boolean active;
     private Forum forum;
+    private int numPosts;
+    private Post lastPost;
 
     public FThread() {
     }
+
+    public int getNumPosts() {
+        return numPosts;
+    }
+
+    public void setNumPosts(int numPosts) {
+        this.numPosts = numPosts;
+    }
+
+    public Post getLastPost() {
+        return lastPost;
+    }
+
+    public void setLastPost(Post lastPost) {
+        this.lastPost = lastPost;
+    }
+    
+    
 
     public boolean isActive() {
         return active;
