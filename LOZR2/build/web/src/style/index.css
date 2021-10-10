@@ -82,6 +82,21 @@ a.menu-button {
     }
 }
 
+.button {
+    background-color: rgb(48, 141, 195);
+    color: aliceblue;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: none;
+  }
+  
+  .button:hover {
+    background-color: rgb(35, 104, 144);
+  }
+  .button:active {
+    box-shadow: 0 0 4px gray;
+  }
+
 
 /* Dropdown Button */
 .dropbtn {

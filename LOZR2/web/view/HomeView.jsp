@@ -22,7 +22,7 @@
         <c:set var="forums" value="${requestScope.forumsList}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
         <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
-
+ 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>L0ZR</title>
@@ -60,7 +60,7 @@
                     >
                     <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
-                <a href="#go-to-user-page">
+                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
                     <div class="u-align-left u-container-style u-group u-group-1">
                         <div class="u-container-layout u-container-layout-1">
                             <p
@@ -125,7 +125,7 @@
                                     "
                                     >
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link" href="Page-1.html">
+                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
                                             ${(empty your.loginName)? "Account": your.loginName}
                                         </a>
                                     </li>

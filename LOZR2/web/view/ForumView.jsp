@@ -289,11 +289,7 @@
                 </a>
 
             </c:forEach>
-
-
         </div>
-
-
 
         <footer
             class="u-align-center u-clearfix u-footer u-grey-80 u-footer"

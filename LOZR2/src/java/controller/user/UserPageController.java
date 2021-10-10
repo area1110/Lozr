@@ -6,12 +6,15 @@
 package controller.user;
 
 import controller.authentication.BaseRequiredAuthentication;
+import controller.module.ExtractURLPath;
+import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserInfo;
 
 /**
  *
@@ -44,8 +47,18 @@ public class UserPageController extends BaseRequiredAuthentication {
      */
     @Override
     protected void  processGet (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
+            throws ServletException, IOException { 
+        int userID =  ExtractURLPath.extractPathToID(request.getPathInfo());;    
+        UserInfoDBContext userinfoDBC = new UserInfoDBContext();
+        UserInfo user = userinfoDBC.getUser(userID);
+        if(user==null) {
+            String errorMessage = "User Not Found!";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
+        System.out.println(user.getTimeJoined());
+        request.setAttribute("user", user);
+        request.getRequestDispatcher("/view/UserInfoView.jsp").forward(request, response);
     }
 
     /**

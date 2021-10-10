@@ -20,7 +20,7 @@
 
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
-        <link rel="stylesheet" href="${contextPath}/src/style/PostCustom.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>

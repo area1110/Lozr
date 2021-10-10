@@ -1,0 +1,72 @@
+.user-card {
+  margin-top: 50px;
+  background-color: rgb(227, 215, 250);
+  width: 100%;
+  box-shadow: 0 0 10px gray;
+  border-radius: 10px;
+}
+
+.user-card {
+  display: table;
+}
+
+.user-cell {
+  display: table-cell;
+  vertical-align: top;
+  padding: 20px;
+}
+
+.user-avatar {
+  width: 5em;
+}
+.user-avatar img {
+  width: 200px;
+  height: 200px;
+}
+
+.user-detail {
+  margin-left: 10px;
+}
+
+.user-total-numbers{
+  margin-bottom: 20px;
+}
+
+span {
+  margin-right: 30px;
+}
+
+.user-firstname,
+.user-lastname {
+  margin-bottom: 10px;
+}
+
+#firstname,
+#lastname {
+  text-align: left;
+  margin: none;
+  display: inline-block;
+}
+.user-detail-name {
+  border-left: 4px solid rgb(60, 148, 155);
+  padding-left: 10px;
+}
+
+
+
+.user-cell-report {
+  width: 20px;
+}
+
+.content-select {
+  display: block;
+  margin: 20px 0;
+}
+
+.button-change-content {
+  background-color: rgba(39, 153, 206, 0.644);
+}
+
+.active {
+  background-color: blueviolet;
+}

@@ -1,6 +1,6 @@
 <%-- 
     Document   : ThreadView
-    Created on : Oct 5, 2021, 8:06:05 PM
+    Created on : Oct 4, 2021, 5:18:21 PM
     Author     : Khanh
 --%>
 
@@ -9,21 +9,39 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
+
     <head>
+        <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
+
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
+
         <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
+
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${thread.subject} | L0ZR</title>
+        <title>${forum.name} | L0ZR</title>
 
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
-        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
-        <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
-        <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
+        <link rel="stylesheet" href="${contextPath}/src/style/User.css" />
+
+        <script
+            type="text/javascript"
+            src="${contextPath}/src/script/jquery.js"
+            defer=""
+        ></script>
+        <script
+            type="text/javascript"
+            src="${contextPath}/src/script/nicepage.js"
+            defer=""
+        ></script>
+        <script src="${contextPath}/src/script/script.js" defer></script>
+        <!-- <meta name="generator" content="Nicepage 3.26.0, nicepage.com" /> -->
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -49,7 +67,7 @@
                     >
                     <img src="${contextPath}/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
-                <a href="#">
+                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", user.userID)}">
                     <div class="u-align-left u-container-style u-group u-group-1">
                         <div class="u-container-layout u-container-layout-1">
                             <p
@@ -61,7 +79,7 @@
                             </p>
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
-                                src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
+                                src= "${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
                                 />
                         </div>
                     </div>
@@ -132,31 +150,160 @@
         </header>
 
         <div class="main-zone">
-            <div class="body-header">
-                <c:if test="${thread.active}">
-                    <div class="post-title">
-                        <h1>${thread.subject}</h1>
+
+            <div class="" id="user">
+                <div class="user-card user-card">
+                    <div class="user-avatar user-cell">
+                         <img src="${(user.base64ImageAvatar)?  threadByAvatar: defaultImage}" />
                     </div>
-                </c:if>
-                <c:if test="${!thread.active}">
-                    <div class="post-title">
-                        <h1 class="deactive">${thread.subject}</h1>
-                        <h2>- Deactive -</h2>
+                    <div class="user-cell">
+                        <div class="user-loginname">
+                            <h2>${user.loginName}</h2>
+                            <div class="user-detail">
+                                <div class="user-total-numbers">
+                                    <div class="user-joineddate">
+                                        <span>Joined:</span>
+                                        <time>
+                                            <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
+                                        </time>
+                                    </div>
+                                    <div class="">
+                                        <span>Posts:</span>
+                                        <span>Threads:</span>
+                                    </div>
+                                </div>
+                                <div class="user-detail-name">
+                                    <div class="user-firstname">
+                                        <span>FirstName:</span>
+                                        <span id="firstname">${user.firstName}</span>
+                                    </div>
+                                    <div class="user-lastname">
+                                        <span>LastName:</span>
+                                        <span id="lastname">${user.lastName}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </c:if>
-                <div class="post-title-description">
-                    <ul>
-                        <li>${thread.startedBy.loginName}</li>
-                        <li><time><fmt:formatDate type="both" dateStyle="short"
-                                        timeStyle="short" value="${thread.timeCreated}"/></time></li>
-                    </ul>
+                    <div class="user-cell user-cell-report">
+                        <button class="button report-button">REPORT</button>
+                    </div>
+                </div>
+                <div class="content-select">
+                    <button
+                        href="https://nicepage.com/k/consulting-website-templates"
+                        class="button button-change-content"
+                        >
+                        LAST POSTS
+                    </button>
+                    <button
+                        href="https://nicepage.com/k/consulting-website-templates"
+                        class="button button-change-content active"
+                        >
+                        LAST THREADS
+                    </button>
                 </div>
             </div>
-            <c:if test="${empty requestScope.posts}">
-                <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Publish Your Mind?!</h1>
-                </div>
-            </c:if>
+
+            <div class="body-header">    
+                    <div  class="post-title" >
+                        <h1>Last Threads</h1>
+                    </div>
+            </div>
+            <!--ThreadZone-->
+          
+            <c:forEach items="${threads}" var="thread">
+                <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
+                <a href="#ádfa">
+                    <div class="thread-table thread-card">
+
+                        <div class="thread-cell thread-cell-author">
+                            <div class="">
+                                <a href="/u/minhnhanbin.1768054/">
+                                    <img src="${(thread.startedBy.base64ImageAvatar)?  threadByAvatar : defaultImage}" />
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="thread-cell">
+                            <div class="thread-subject">
+                                <a
+                                    href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}"
+                                    >${thread.subject}</a
+                                >
+                            </div>
+
+                            <div class="">
+                                <ul class="thread-item-part">
+                                    <li>
+                                        <a href="/u/minhnhanbin.1768054/" class="username"
+                                           >${thread.startedBy.loginName}</a
+                                        >
+                                    </li>
+                                    <li class="">
+                                        <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
+                                            <time class="thread-latestDate">
+                                                <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                            </time>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="thread-cell thread-status">
+                            <dl class="thread-status-pair">
+                                <dt>Replies</dt>
+                                <dd>${thread.numPosts}</dd>
+                            </dl>
+                            <!-- <dl class="thread-status-pair">
+                              <dt>Views</dt>
+                              <dd>88</dd>
+                            </dl> -->
+                        </div>
+
+                        <div class="thread-table thread-cell thread-lastest-active">
+                            <div class="thread-cell thread-cell-unborder">
+                                <a
+                                    href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
+                                    rel="nofollow"
+                                    ><time class="thread-latestDate">11:13 05/10/2021</time></a
+                                >
+                                <div class="">
+                                    <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
+                                </div>
+                            </div>
+                            <div class="thread-cell thread-latest-user thread-cell-unborder">
+                                <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
+                                    <img src="images/82761229_p17_master1200.jpg" />
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!--                        <div class="thread-cell thread-latest-user">
+                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
+                                                        <img src="images/82761229_p17_master1200.jpg" />
+                                                    </a>
+                        
+                                                </div>-->
+                        <div class="thread-cell thread-cell-option  dropdown">
+                            <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
+                            <div id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                <a href="#">Bookmark</a>
+
+                                <a href="#">Change Title</a>
+                                <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
+                                    <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+
+                </a>
+
+            </c:forEach>
+
             <c:forEach var="post" items="${requestScope.posts}">
                 <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
 
@@ -243,65 +390,6 @@
                 </div>
                 <!--/Body post-->
             </c:forEach>
-            <c:if test="${thread.active}">
-                <div class="post">
-                    <div class="post-user-cell">
-                        <section itemtype="https://schema.org/Person" class="post-user">
-                            <div class="">
-                                <div class="post-user-avatar">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
-                                        <img
-                                            class="post-user-img"
-                                            src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
-                                            />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="post-user-detail">
-                                <h4 class="post-user-name">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class=""
-                                       >You</a
-                                    >
-                                </h4>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="post-main-cell">
-                        <div class="post-main">
-                            <blockquote class="post-block-reply" id="blockreply">
-                                <div class="post-reply-user">
-                                    <a id="replyUser" class=""></a> said:
-                                </div>
-                                <div class="post-reply-content">
-                                    <div id="replySubject" class=""></div>
-                                </div>
-                                <div class="cancel-reply">
-                                    <a href="#post-create" onclick="doCancel()">Cancel reply</a>
-                                </div>
-                            </blockquote>
-
-                            <div class="post-create" id="post-create">
-                                <form action="../post" method="POST" class="post-create-form">
-                                    <input type="hidden" name="replyID" id="replyID" value="" />
-                                    <input type="hidden" name="threadID" value="${thread.threadID}"/>
-                                    <div>
-                                        <label for="postSubject"></label>
-                                        <textarea
-                                            class="post-subject-textarea text-insert"
-                                            name="postSubject"
-                                            placeholder="What is your thinking?"
-                                            ></textarea>
-                                    </div>
-                                    <div class="post-create-submit">
-                                        <input class="submit-button" type="submit" value="Post" />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-
         </div>
 
         <footer
@@ -315,6 +403,7 @@
                 </p>
             </div>
         </footer>
+
     </body>
 </html>
 

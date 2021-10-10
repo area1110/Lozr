@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../LOZR2/web/src/style/nicepage.css" />
     <link rel="stylesheet" href="../LOZR2/web/src/style/index.css" />
     <link rel="stylesheet" href="../LOZR2/web/src/style/Forum.css" />
+    <link rel="stylesheet" href="../LOZR2/web/src/style/Page-1.css" />
+    <link rel="stylesheet" href="../LOZR2/web/src/style/PostCustom.css" />
     <script
       type="text/javascript"
       src="../LOZR2/web/src/script/jquery.js"
@@ -126,10 +128,62 @@
         </nav>
       </div>
     </header>
-
     <div class="main-zone">
+      <section class="">
+        <div class="" id="user">
+          <div class="user-card user-card">
+            <div class="user-avatar user-cell">
+              <img src="images/82761229_p17_master1200.jpg" alt="" />
+            </div>
+            <div class="user-cell">
+              <div class="user-loginname">
+                <h2>User LoginName</h2>
+                <div class="user-detail">
+                  <div class="user-total-numbers">
+                    <div class="user-joineddate">
+                      <span>Joined:</span><time>01/01/2021</time>
+                    </div>
+                    <div class="">
+                      <span>Posts:</span>
+                      <span>Threads:</span>
+                    </div>
+                  </div>
+                  <div class="user-detail-name">
+                    <div class="user-firstname">
+                      <span>FirstName:</span>
+                      <span id="firstname">UserFirstName</span>
+                    </div>
+                    <div class="user-lastname">
+                      <span>LastName:</span>
+                      <span id="lastname">UserLastName</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="user-cell user-cell-report">
+              <button class="button report-button">REPORT</button>
+            </div>
+          </div>
+          <div class="content-select">
+            <button
+              href="https://nicepage.com/k/consulting-website-templates"
+              class="button button-change-content"
+            >
+              LAST POSTS
+            </button>
+            <button
+              href="https://nicepage.com/k/consulting-website-templates"
+              class="button button-change-content active"
+            >
+              LAST THREADS
+            </button>
+          </div>
+        </div>
+      </section>
+
       <div class="body-header">
-        <div class="post-title"><h1>Forum Name</h1></div>
+        <div class="post-title"><h1>Last Threads</h1></div>
         <!-- <div class="post-title-description">
           <ul>
             <li>Master username</li>
@@ -139,32 +193,7 @@
       </div>
       <!--ThreadZone-->
 
-      <div class="thread-card">
-        <div class="thread-cell thread-cell-author">
-          <div class="">
-            <a href="/u/minhnhanbin.1768054/">
-              <img src="images/istockphoto-1136956450-612x612.jpg" />
-            </a>
-          </div>
-        </div>
-        <div class="thread-cell thread-create">
-          <form action="#" method="POST">
-            <div class="thread-create-insert">
-              <input
-                id="insert-title"
-                class="text-insert"               
-                type="text"
-                name="threadName"
-                placeholder="Thread title"
-                onchange="checkSubmit();"
-              />
-            </div>
-            <div class="thread-create-submit">
-              <input id="submit-title" class="submit-button" type="submit" value="Create" disabled="true"/>
-            </div>
-          </form>
-        </div>
-      </div>
+    
 
       <div class="thread-card">
         <div class="thread-cell thread-cell-author">
@@ -230,7 +259,100 @@
           </a>
         </div>
       </div>
+
+
+
+      <c:forEach var="post" items="${requestScope.posts}">
+        <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
+  
+        <!--Body post-->
+        <div class="post">
+            <div class="post-user-cell">
+                <section itemtype="https://schema.org/Person" class="post-user">
+                    <div class="">
+                        <div class="post-user-avatar">
+                            <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
+                                <img
+                                    class="post-user-img"
+                                    src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
+                                    />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="post-user-detail">
+                        <h4 class="post-user-name">
+                            <a
+                                name="${post.postID}"
+                                href="https://f95zone.to/members/molvaeth.2791234/"
+                                class=""
+                                >${post.user.loginName}</a
+                            >
+                        </h4>
+                        <h5 class="post-user-title">New Member</h5>
+                    </div>
+                </section>
+            </div>
+            <div class="post-main-cell">
+                <header class="post-attribute">
+                    <time class="post-attribute-time">
+                        <fmt:formatDate type="both" dateStyle="short"
+                                        timeStyle="short" value="${post.timeCreated}"/>
+                    </time>
+                    <ul class="post-attribute-list">
+                        <li>
+                            <a
+                                href="https://f95zone.to/threads/boxing-fantasy-final-pinclude-studio.95408/post-6647695"
+                                >
+                                #7
+                            </a>
+                        </li>
+                    </ul>
+                </header>
+  
+                <div class="post-main">
+                    <c:if test="${!empty post.replyPost}">
+                        <blockquote class="post-block-reply">
+                            <div class="post-reply-user">
+                                <a href="https://f95zone.to/goto/post?id=6647317" class=""
+                                   >${post.replyPost.user.loginName} said:</a
+                                >
+                            </div>
+                            <div class="post-reply-content">
+                                <div class="">
+                                    ${post.replyPost.subject}
+                                </div>
+                            </div>
+                        </blockquote>
+                    </c:if>
+                    <p name="${post.postID}">${post.subject}</p>
+                </div>
+                <footer class="post-footer">
+                    <div class="post-action">
+                        <div class="post-action-bar">
+                            <a href="#" class="post-reply-button">Delete</a>
+                            <a
+                                href="#post-create"
+                                class="post-reply-button"
+                                onclick="doReply(${post.postID})"
+                                >Reply</a
+                            >
+                        </div>
+                        <div class="">
+                            <a href="https://f95zone.to/posts/6647695/report" class=""
+                               >Report</a
+                            >
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <!--/Body post-->
+    </c:forEach>
+
+
     </div>
+
+    
 
     <footer
       class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
@@ -243,6 +365,5 @@
         </p>
       </div>
     </footer>
-
   </body>
 </html>

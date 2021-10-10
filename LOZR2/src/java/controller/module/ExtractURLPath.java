@@ -13,15 +13,19 @@ package controller.module;
 public class ExtractURLPath {
 
     public static int extractPathToID(String path) {
+        try {
         int ID;
         if (path == null) {
-            ID = 0;
+            ID = -1;
         } else if (path.matches("|/\\d+")) {
             ID = Integer.parseInt(path.split("[/]")[1]);
         } else {
             ID = Integer.parseInt(path.split("[.]")[1]);
         }
         return ID;
+        } catch (ArrayIndexOutOfBoundsException aie) {
+            return -1;
+        }
     }
 
     public static String compressObjectToPath(String rootPath, String servletPath, String name, int parentID) {
