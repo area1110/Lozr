@@ -26,6 +26,8 @@ public class UserInfo {
 
     public UserInfo() {
     }
+    
+    
 
     public String getBase64ImageAvatar() {
         return base64ImageAvatar;

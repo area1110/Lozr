@@ -211,6 +211,7 @@
                     </div>
             </div>
             <!--ThreadZone-->
+            
           
             <c:forEach items="${threads}" var="thread">
                 <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>

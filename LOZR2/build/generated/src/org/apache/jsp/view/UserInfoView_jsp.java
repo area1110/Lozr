@@ -14,6 +14,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_set_var_value_nobody;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody;
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_if_test;
 
   private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
@@ -26,6 +27,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
     _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_set_var_value_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
+    _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_if_test = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
   }
 
@@ -33,6 +35,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
     _jspx_tagPool_c_forEach_var_items.release();
     _jspx_tagPool_c_set_var_value_nobody.release();
     _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.release();
+    _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.release();
     _jspx_tagPool_c_if_test.release();
   }
 
@@ -166,7 +169,9 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/images/lozr4rum1.png\" class=\"u-logo-image u-logo-image-1\" />\n");
       out.write("                </a>\n");
-      out.write("                <a href=\"#\">\n");
+      out.write("                <a href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${transToPath.compressObjectToPath(contextPath, \"user\", \"\", user.userID)}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\">\n");
       out.write("                    <div class=\"u-align-left u-container-style u-group u-group-1\">\n");
       out.write("                        <div class=\"u-container-layout u-container-layout-1\">\n");
       out.write("                            <p\n");
@@ -259,15 +264,25 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("            <div class=\"\" id=\"user\">\n");
       out.write("                <div class=\"user-card user-card\">\n");
       out.write("                    <div class=\"user-avatar user-cell\">\n");
-      out.write("                        <img src=\"images/82761229_p17_master1200.jpg\" alt=\"\" />\n");
+      out.write("                         <img src=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${(user.base64ImageAvatar)?  threadByAvatar: defaultImage}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\" />\n");
       out.write("                    </div>\n");
       out.write("                    <div class=\"user-cell\">\n");
       out.write("                        <div class=\"user-loginname\">\n");
-      out.write("                            <h2>User LoginName</h2>\n");
+      out.write("                            <h2>");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.loginName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</h2>\n");
       out.write("                            <div class=\"user-detail\">\n");
       out.write("                                <div class=\"user-total-numbers\">\n");
       out.write("                                    <div class=\"user-joineddate\">\n");
-      out.write("                                        <span>Joined:</span><time>01/01/2021</time>\n");
+      out.write("                                        <span>Joined:</span>\n");
+      out.write("                                        <time>\n");
+      out.write("                                            ");
+      if (_jspx_meth_fmt_formatDate_0(_jspx_page_context))
+        return;
+      out.write("\n");
+      out.write("                                        </time>\n");
       out.write("                                    </div>\n");
       out.write("                                    <div class=\"\">\n");
       out.write("                                        <span>Posts:</span>\n");
@@ -277,11 +292,15 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                                <div class=\"user-detail-name\">\n");
       out.write("                                    <div class=\"user-firstname\">\n");
       out.write("                                        <span>FirstName:</span>\n");
-      out.write("                                        <span id=\"firstname\">UserFirstName</span>\n");
+      out.write("                                        <span id=\"firstname\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.firstName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</span>\n");
       out.write("                                    </div>\n");
       out.write("                                    <div class=\"user-lastname\">\n");
       out.write("                                        <span>LastName:</span>\n");
-      out.write("                                        <span id=\"lastname\">UserLastName</span>\n");
+      out.write("                                        <span id=\"lastname\">");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.lastName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</span>\n");
       out.write("                                    </div>\n");
       out.write("                                </div>\n");
       out.write("                            </div>\n");
@@ -307,17 +326,14 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("\n");
-      out.write("            <div class=\"body-header\">\n");
-      out.write("                ");
-      if (_jspx_meth_c_if_0(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("                ");
-      if (_jspx_meth_c_if_1(_jspx_page_context))
-        return;
-      out.write("\n");
+      out.write("            <div class=\"body-header\">    \n");
+      out.write("                    <div  class=\"post-title\" >\n");
+      out.write("                        <h1>Last Threads</h1>\n");
+      out.write("                    </div>\n");
       out.write("            </div>\n");
       out.write("            <!--ThreadZone-->\n");
+      out.write("            \n");
+      out.write("            <iframe width=\"100%\" height=\"1000px\" src=\"https://youtube.com\">\n");
       out.write("          \n");
       out.write("            ");
       if (_jspx_meth_c_forEach_0(_jspx_page_context))
@@ -434,68 +450,23 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
     return false;
   }
 
-  private boolean _jspx_meth_c_if_0(PageContext _jspx_page_context)
+  private boolean _jspx_meth_fmt_formatDate_0(PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
-    //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_0.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_0.setParent(null);
-    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${forum.active}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
-    if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      do {
-        out.write("\n");
-        out.write("                    <div  class=\"post-title\" >\n");
-        out.write("                        <h1>");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${forum.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("</h1>\n");
-        out.write("                    </div>\n");
-        out.write("                ");
-        int evalDoAfterBody = _jspx_th_c_if_0.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-    }
-    if (_jspx_th_c_if_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
+    //  fmt:formatDate
+    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_0 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
+    _jspx_th_fmt_formatDate_0.setPageContext(_jspx_page_context);
+    _jspx_th_fmt_formatDate_0.setParent(null);
+    _jspx_th_fmt_formatDate_0.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.timeJoined}", java.util.Date.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_fmt_formatDate_0.setType("date");
+    _jspx_th_fmt_formatDate_0.setDateStyle("short");
+    int _jspx_eval_fmt_formatDate_0 = _jspx_th_fmt_formatDate_0.doStartTag();
+    if (_jspx_th_fmt_formatDate_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
       return true;
     }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
-    return false;
-  }
-
-  private boolean _jspx_meth_c_if_1(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_1 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_1.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_1.setParent(null);
-    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${!forum.active}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_1 = _jspx_th_c_if_1.doStartTag();
-    if (_jspx_eval_c_if_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
-      do {
-        out.write("\n");
-        out.write("                    <div  class=\"post-title \" >\n");
-        out.write("                        <h1 class=\"deactive\">");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${forum.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("</h1>\n");
-        out.write("                        <h2> - Deactive -</h2>\n");
-        out.write("                    </div>\n");
-        out.write("                ");
-        int evalDoAfterBody = _jspx_th_c_if_1.doAfterBody();
-        if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
-          break;
-      } while (true);
-    }
-    if (_jspx_th_c_if_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_1);
-      return true;
-    }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_1);
+    _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
     return false;
   }
 
@@ -526,7 +497,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
           out.write("                            <div class=\"\">\n");
           out.write("                                <a href=\"/u/minhnhanbin.1768054/\">\n");
           out.write("                                    <img src=\"");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${(empty thread.startedBy.base64ImageAvatar)?  defaultImage : threadByAvatar}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${(thread.startedBy.base64ImageAvatar)?  threadByAvatar : defaultImage}", java.lang.String.class, (PageContext)_jspx_page_context, null));
           out.write("\" />\n");
           out.write("                                </a>\n");
           out.write("                            </div>\n");
@@ -557,7 +528,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
           out.write("                                        <a href=\"/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/\">\n");
           out.write("                                            <time class=\"thread-latestDate\">\n");
           out.write("                                                ");
-          if (_jspx_meth_fmt_formatDate_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+          if (_jspx_meth_fmt_formatDate_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("\n");
           out.write("                                            </time>\n");
@@ -616,7 +587,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
           out.write("\n");
           out.write("                                <a href=\"#\">Change Title</a>\n");
           out.write("                                ");
-          if (_jspx_meth_c_if_2((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+          if (_jspx_meth_c_if_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
             return true;
           out.write("\n");
           out.write("                            </div>\n");
@@ -664,54 +635,54 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
     return false;
   }
 
-  private boolean _jspx_meth_fmt_formatDate_0(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
+  private boolean _jspx_meth_fmt_formatDate_1(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  fmt:formatDate
-    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_0 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
-    _jspx_th_fmt_formatDate_0.setPageContext(_jspx_page_context);
-    _jspx_th_fmt_formatDate_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
-    _jspx_th_fmt_formatDate_0.setType("both");
-    _jspx_th_fmt_formatDate_0.setDateStyle("short");
-    _jspx_th_fmt_formatDate_0.setTimeStyle("short");
-    _jspx_th_fmt_formatDate_0.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${thread.timeCreated}", java.util.Date.class, (PageContext)_jspx_page_context, null));
-    int _jspx_eval_fmt_formatDate_0 = _jspx_th_fmt_formatDate_0.doStartTag();
-    if (_jspx_th_fmt_formatDate_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
+    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_1 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
+    _jspx_th_fmt_formatDate_1.setPageContext(_jspx_page_context);
+    _jspx_th_fmt_formatDate_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
+    _jspx_th_fmt_formatDate_1.setType("both");
+    _jspx_th_fmt_formatDate_1.setDateStyle("short");
+    _jspx_th_fmt_formatDate_1.setTimeStyle("short");
+    _jspx_th_fmt_formatDate_1.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${thread.timeCreated}", java.util.Date.class, (PageContext)_jspx_page_context, null));
+    int _jspx_eval_fmt_formatDate_1 = _jspx_th_fmt_formatDate_1.doStartTag();
+    if (_jspx_th_fmt_formatDate_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_1);
       return true;
     }
-    _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
+    _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_1);
     return false;
   }
 
-  private boolean _jspx_meth_c_if_2(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
+  private boolean _jspx_meth_c_if_0(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_2 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_2.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
-    _jspx_th_c_if_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${your.admin || your.userID == thread.startedBy.userID}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_2 = _jspx_th_c_if_2.doStartTag();
-    if (_jspx_eval_c_if_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_0 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
+    _jspx_th_c_if_0.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${your.admin || your.userID == thread.startedBy.userID}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_0 = _jspx_th_c_if_0.doStartTag();
+    if (_jspx_eval_c_if_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\n");
         out.write("                                    <a onclick=\"doDelete(");
         out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${thread.threadID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
         out.write(", 'thread');\">Delete</a>\n");
         out.write("                                ");
-        int evalDoAfterBody = _jspx_th_c_if_2.doAfterBody();
+        int evalDoAfterBody = _jspx_th_c_if_0.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
       } while (true);
     }
-    if (_jspx_th_c_if_2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_2);
+    if (_jspx_th_c_if_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
       return true;
     }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_2);
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_0);
     return false;
   }
 
@@ -773,7 +744,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
           out.write("                        <header class=\"post-attribute\">\n");
           out.write("                            <time class=\"post-attribute-time\">\n");
           out.write("                                ");
-          if (_jspx_meth_fmt_formatDate_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_1, _jspx_page_context, _jspx_push_body_count_c_forEach_1))
+          if (_jspx_meth_fmt_formatDate_2((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_1, _jspx_page_context, _jspx_push_body_count_c_forEach_1))
             return true;
           out.write("\n");
           out.write("                            </time>\n");
@@ -790,7 +761,7 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
           out.write("\n");
           out.write("                        <div class=\"post-main\">\n");
           out.write("                            ");
-          if (_jspx_meth_c_if_3((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_1, _jspx_page_context, _jspx_push_body_count_c_forEach_1))
+          if (_jspx_meth_c_if_1((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_1, _jspx_page_context, _jspx_push_body_count_c_forEach_1))
             return true;
           out.write("\n");
           out.write("                            <p name=\"");
@@ -862,38 +833,38 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
     return false;
   }
 
-  private boolean _jspx_meth_fmt_formatDate_1(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_1)
+  private boolean _jspx_meth_fmt_formatDate_2(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_1)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  fmt:formatDate
-    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_1 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
-    _jspx_th_fmt_formatDate_1.setPageContext(_jspx_page_context);
-    _jspx_th_fmt_formatDate_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_1);
-    _jspx_th_fmt_formatDate_1.setType("both");
-    _jspx_th_fmt_formatDate_1.setDateStyle("short");
-    _jspx_th_fmt_formatDate_1.setTimeStyle("short");
-    _jspx_th_fmt_formatDate_1.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.timeCreated}", java.util.Date.class, (PageContext)_jspx_page_context, null));
-    int _jspx_eval_fmt_formatDate_1 = _jspx_th_fmt_formatDate_1.doStartTag();
-    if (_jspx_th_fmt_formatDate_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_1);
+    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_2 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
+    _jspx_th_fmt_formatDate_2.setPageContext(_jspx_page_context);
+    _jspx_th_fmt_formatDate_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_1);
+    _jspx_th_fmt_formatDate_2.setType("both");
+    _jspx_th_fmt_formatDate_2.setDateStyle("short");
+    _jspx_th_fmt_formatDate_2.setTimeStyle("short");
+    _jspx_th_fmt_formatDate_2.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${post.timeCreated}", java.util.Date.class, (PageContext)_jspx_page_context, null));
+    int _jspx_eval_fmt_formatDate_2 = _jspx_th_fmt_formatDate_2.doStartTag();
+    if (_jspx_th_fmt_formatDate_2.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_2);
       return true;
     }
-    _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_1);
+    _jspx_tagPool_fmt_formatDate_value_type_timeStyle_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_2);
     return false;
   }
 
-  private boolean _jspx_meth_c_if_3(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_1)
+  private boolean _jspx_meth_c_if_1(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_1, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_1)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:if
-    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_3 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
-    _jspx_th_c_if_3.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_1);
-    _jspx_th_c_if_3.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${!empty post.replyPost}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
-    int _jspx_eval_c_if_3 = _jspx_th_c_if_3.doStartTag();
-    if (_jspx_eval_c_if_3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+    org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_1 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
+    _jspx_th_c_if_1.setPageContext(_jspx_page_context);
+    _jspx_th_c_if_1.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_1);
+    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${!empty post.replyPost}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    int _jspx_eval_c_if_1 = _jspx_th_c_if_1.doStartTag();
+    if (_jspx_eval_c_if_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\n");
         out.write("                                <blockquote class=\"post-block-reply\">\n");
@@ -913,16 +884,16 @@ public final class UserInfoView_jsp extends org.apache.jasper.runtime.HttpJspBas
         out.write("                                    </div>\n");
         out.write("                                </blockquote>\n");
         out.write("                            ");
-        int evalDoAfterBody = _jspx_th_c_if_3.doAfterBody();
+        int evalDoAfterBody = _jspx_th_c_if_1.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
       } while (true);
     }
-    if (_jspx_th_c_if_3.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_3);
+    if (_jspx_th_c_if_1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_1);
       return true;
     }
-    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_3);
+    _jspx_tagPool_c_if_test.reuse(_jspx_th_c_if_1);
     return false;
   }
 }

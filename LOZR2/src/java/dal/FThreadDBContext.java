@@ -62,6 +62,48 @@ public class FThreadDBContext extends DBContext {
         }
         return fThreads;
     }
+    
+     public ArrayList<FThread> getFThreadsByUser(int userID) {
+        ArrayList<FThread> fThreads = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+                    + "	U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar, T.ThreadIsActive,\n"
+                    + "		(SELECT COUNT(PostID) FROM Post\n"
+                    + "                                     WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
+                    + "FROM Thread AS T JOIN UserInfo AS U\n"
+                    + "	ON T.ThreadStartedBy=U.UserID\n"
+                    + "WHERE U.UserID=? AND T.ThreadIsActive=1\n"
+                    + "ORDER BY T.ThreadDateCreated DESC";
+
+            PreparedStatement stm = connection.prepareStatement(sqlStatement);
+            stm.setInt(1, userID);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                FThread fThread = new FThread();
+                fThread.setThreadID(rs.getInt("ThreadID"));
+                fThread.setSubject(rs.getNString("ThreadSubject"));
+                fThread.setTimeCreated(rs.getTimestamp("ThreadDateCreated"));
+
+                Forum forum = new Forum();
+                forum.setForumID(rs.getInt("ThreadForumID"));
+                fThread.setForum(forum);
+                fThread.setActive(rs.getBoolean("ThreadIsActive"));
+
+                UserInfo user = new UserInfo();
+                user.setUserID(rs.getInt("UserID"));
+                user.setLoginName(rs.getNString("UserLoginName"));
+                user.setAdmin(rs.getBoolean("UserIsAdmin"));
+                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                fThread.setStartedBy(user);
+                fThread.setNumPosts(rs.getInt("TotalPosts"));
+                fThreads.add(fThread);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fThreads;
+    }
 
     public FThread getFThread(int threadID) {
         FThread fthread = null;

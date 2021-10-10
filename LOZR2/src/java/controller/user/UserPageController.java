@@ -7,13 +7,16 @@ package controller.user;
 
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
+import dal.FThreadDBContext;
 import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.FThread;
 import model.UserInfo;
 
 /**
@@ -56,7 +59,9 @@ public class UserPageController extends BaseRequiredAuthentication {
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
-        System.out.println(user.getTimeJoined());
+        FThreadDBContext fthreadDBC = new FThreadDBContext();
+        ArrayList<FThread> fthreads = fthreadDBC.getFThreadsByUser(userID);
+        request.setAttribute("threads", fthreads);
         request.setAttribute("user", user);
         request.getRequestDispatcher("/view/UserInfoView.jsp").forward(request, response);
     }
