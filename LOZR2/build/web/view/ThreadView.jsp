@@ -118,7 +118,7 @@
                                         >
                                     </li>
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link">Log Out</a>
+                                        <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                                     </li>
                                 </ul>
                             </div>
@@ -224,7 +224,9 @@
                         <footer class="post-footer">
                             <div class="post-action">
                                 <div class="post-action-bar">
-                                    <a href="#" class="post-reply-button">Delete</a>
+                                    <c:if test="${your.admin || your.userID==post.user.userID}">
+                                    <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
+                                    </c:if>
                                     <a
                                         href="#post-create"
                                         class="post-reply-button"

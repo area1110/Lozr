@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.thread;
+package controller.authentication;
 
-import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author area1
  */
-public class DeleteThreadController extends BaseRequiredAuthentication {
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,7 +30,9 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.removeAttribute("currentUser");
+        response.sendRedirect("login");      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,12 +45,9 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int threadID = Integer.parseInt(request.getParameter("id"));
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
-        fthreadDBC.updateStatus(threadID, false);
-        response.sendRedirect(request.getHeader("referer"));
+        processRequest(request, response);
     }
 
     /**
@@ -61,8 +59,9 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**

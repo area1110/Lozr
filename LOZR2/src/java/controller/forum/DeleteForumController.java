@@ -51,7 +51,7 @@ public class DeleteForumController extends BaseRequiredAuthentication {
             int forumID = Integer.parseInt(request.getParameter("id"));
             ForumDBContext forumDBC = new ForumDBContext();
             forumDBC.updateStatus(forumID, false);
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect(request.getHeader("referer"));
         } else {
             String errorMessage = "You do not have permission";
             request.setAttribute("errorMessage", errorMessage);

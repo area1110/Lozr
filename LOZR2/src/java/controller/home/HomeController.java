@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.post;
+package controller.home;
 
 import controller.authentication.BaseRequiredAuthentication;
-import controller.module.ExtractURLPath;
-import dal.PostDBContext;
+import controller.module.Encode;
+import dal.ForumDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Post;
-import model.UserInfo;
+import model.Forum;
 
 /**
  *
  * @author Khanh
  */
-public class PostController extends BaseRequiredAuthentication {
+public class HomeController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,19 +34,7 @@ public class PostController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PostController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +49,10 @@ public class PostController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ForumDBContext forumDBC = new ForumDBContext();
+        ArrayList<Forum> forums = forumDBC.getForums();
+        request.setAttribute("forumsList", forums);
+        request.getRequestDispatcher("/view/HomeView.jsp").forward(request, response);
     }
 
     /**
@@ -75,29 +66,7 @@ public class PostController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String postSubject = request.getParameter("postSubject");
-        int threadID = Integer.parseInt(request.getParameter("threadID"));
-
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-
-        Post post = new Post();
-        post.setSubject(postSubject);
-        post.setThreadId(threadID);
-        post.setUser(currentUser);
-
-        int replyID;
-        if (!request.getParameter("replyID").isEmpty()) {
-            replyID = Integer.parseInt(request.getParameter("replyID"));
-            Post reply = new Post();
-            reply.setPostID(replyID);
-            post.setReplyPost(reply);
-            PostDBContext postDBC = new PostDBContext();
-            postDBC.setPost(post);
-        } else {
-            PostDBContext postDBC = new PostDBContext();
-            postDBC.setPostNoReply(post);
-        }
-        response.sendRedirect(request.getHeader("referer"));
+//        processRequest(request, response);
     }
 
     /**

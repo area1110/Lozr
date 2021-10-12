@@ -34,19 +34,7 @@ public class PostController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet PostController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,18 +73,17 @@ public class PostController extends BaseRequiredAuthentication {
         post.setThreadId(threadID);
         post.setUser(currentUser);
 
-        int replyID;
-        if (!request.getParameter("replyID").isEmpty()) {
-            replyID = Integer.parseInt(request.getParameter("replyID"));
+        String raw_replyID = request.getParameter("replyID");
+        if (!(raw_replyID == null || raw_replyID.isEmpty())) {
+            int replyID = Integer.parseInt(raw_replyID);
             Post reply = new Post();
             reply.setPostID(replyID);
             post.setReplyPost(reply);
-            PostDBContext postDBC = new PostDBContext();
-            postDBC.setPost(post);
-        } else {
-            PostDBContext postDBC = new PostDBContext();
-            postDBC.setPostNoReply(post);
         }
+
+        PostDBContext postDBC = new PostDBContext();
+        postDBC.setPost(post);
+
         response.sendRedirect(request.getHeader("referer"));
     }
 

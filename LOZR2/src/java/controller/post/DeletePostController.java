@@ -3,29 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.thread;
+package controller.post;
 
-import controller.authentication.BaseRequiredAuthentication;
-import controller.module.ExtractURLPath;
 import dal.FThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.FThread;
-import model.Forum;
-import model.Post;
 import model.UserInfo;
 
 /**
  *
- * @author Khanh
+ * @author area1
  */
-public class ThreadController extends BaseRequiredAuthentication {
+public class DeletePostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +38,10 @@ public class ThreadController extends BaseRequiredAuthentication {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ThreadController</title>");
+            out.println("<title>Servlet DeletePostController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ThreadController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeletePostController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,26 +57,26 @@ public class ThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        System.out.println("Path" +request.getPathInfo());
-        int threadID = ExtractURLPath.extractPathToID(request.getPathInfo());
-        if (threadID == 0) {
-            response.getWriter().print("0");
-        } else {
-            FThreadDBContext fthreadDBC = new FThreadDBContext();
-            FThread fthread = fthreadDBC.getFThread(threadID);
-            if (fthread == null) {
-                response.getWriter().print("null");
-            } else {
-                PostDBContext postDBC = new PostDBContext();
-                ArrayList<Post> posts = postDBC.getPosts(threadID);
-                request.setAttribute("thread", fthread);
-                request.setAttribute("posts", posts);
-                request.getRequestDispatcher("../view/ThreadView.jsp").forward(request, response);
-            }
+         String raw_id = request.getParameter("id");
+        if(raw_id == null || raw_id.isEmpty()){
+            String errorMessage = "Wrong Action!";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
-
+        int postID = Integer.parseInt(raw_id);
+        PostDBContext postDBC = new PostDBContext();
+        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        UserInfo userCreated = postDBC.getPost(postID).getUser();
+        if (currentUser.isAdmin() || currentUser.getUserID() == userCreated.getUserID()) {
+            postDBC.updateStatus(postID, false);
+            response.sendRedirect(request.getHeader("referer"));
+        } else {
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -94,26 +88,9 @@ public class ThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String threadName = request.getParameter("threadName");
-        int forumID = Integer.parseInt(request.getParameter("forumID"));
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
-        FThread fthread = new FThread();
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-
-        fthread.setSubject(threadName);
-        fthread.setStartedBy(currentUser);
-
-        Forum forum = new Forum();
-        forum.setForumID(forumID);
-        fthread.setForum(forum);
-
-        fthreadDBC.setFThread(fthread);
-        String parrentURL = ExtractURLPath.compressObjectToPath(request.getContextPath(), "forum", "", forumID);
-
-//        response.getWriter().print(request.getContextPath());
-        response.sendRedirect(parrentURL);
+        processRequest(request, response);
     }
 
     /**

@@ -136,7 +136,7 @@
                                         >
                                     </li>
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link">Log Out</a>
+                                        <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                                     </li>
                                 </ul>
                             </div>

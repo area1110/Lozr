@@ -6,57 +6,29 @@
 package controller.forum;
 
 import controller.authentication.BaseRequiredAuthentication;
+import controller.module.Encode;
 import dal.ForumDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.UserInfo;
 
 /**
  *
- * @author Khanh
+ * @author area1
  */
-public class DeleteForumController extends BaseRequiredAuthentication {
+public class UpdateForumController extends BaseRequiredAuthentication {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        if (currentUser.isAdmin()) {
-            int forumID = Integer.parseInt(request.getParameter("id"));
-            ForumDBContext forumDBC = new ForumDBContext();
-            forumDBC.updateStatus(forumID, false);
-            response.sendRedirect(request.getContextPath());
-        } else {
-            String errorMessage = "You do not have permission";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
-        }
+        String errorMessage = "You do not have permission";
+        request.setAttribute("errorMessage", errorMessage);
+        request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
     }
 
     /**
@@ -70,7 +42,27 @@ public class DeleteForumController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        if (currentUser.isAdmin()) {
+            String forumName = request.getParameter("forumName");
+            Part coverImg = request.getPart("photo");
+            ForumDBContext forumDBC = new ForumDBContext();
+            int forumID = Integer.parseInt(request.getParameter("forumID"));
+            String b64CoverImg = null;
+            if (!(coverImg == null || coverImg.getSubmittedFileName().isEmpty())) {
+                Encode encode = new Encode();
+                b64CoverImg = encode.EncodeToBase64(request.getPart("photo").getInputStream());
+            }         
+            forumName = forumName.isEmpty()? null : forumName;      
+            forumDBC.updateNameNCover(forumID, forumName, b64CoverImg);
+            response.sendRedirect(request.getHeader("referer"));
+
+//            request.getRequestDispatcher(request.getHeader("referer")).forward(request, response);
+        } else {
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
 
     }
 

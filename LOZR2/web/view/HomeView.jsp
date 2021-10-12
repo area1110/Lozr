@@ -22,7 +22,7 @@
         <c:set var="forums" value="${requestScope.forumsList}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
         <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
- 
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>L0ZR</title>
@@ -35,6 +35,7 @@
         <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/homeScript.js" defer></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -50,6 +51,18 @@
             />
     </head>
     <body>
+        <div class="form-popup" id="formEditForum">
+            <form action="update/forum" method="POST"  enctype="multipart/form-data" class="form-container">
+                <h1>Edit Forum</h1>
+                <input type="hidden" id="submitForumID"  name="forumID"/> 
+                <label  for="forumName">New Forum Title</label>
+                <input type="text" placeholder="New Name" name="forumName">
+                <label for="photo">New Cover</label>
+                <input   type="file"  name="photo">
+                <button type="submit" class="btn">Save</button>
+                <button type="button" class="btn" onclick="closeForm()">Close</button>
+            </form>
+        </div>
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="u-clearfix u-sheet u-sheet-1">
                 <a
@@ -138,7 +151,7 @@
                                         </li>
                                     </c:if>
                                     <li class="u-nav-item">
-                                        <a href="#do-logout-action" class="u-button-style u-nav-link">Log Out</a>
+                                        <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                                     </li>
                                 </ul>
                             </div>
@@ -150,6 +163,9 @@
                 </nav>
             </div>
         </header>
+
+
+
         <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="main">
             <c:if test="${empty forums}">
 
@@ -195,8 +211,8 @@
                                         <div class="dropdown">
                                             <button onclick="showDropdownMenu(${forum.forumID})" class="dropbtn">Edit</button>
                                             <div id="myDropdown-${forum.forumID}" class="dropdown-content">
-                                                <a href="#">Change Title</a>
-                                                <a href="#">Change Image</a>
+                                                <a   onclick="openForm(${forum.forumID})">Change Title & Cover</a>
+
                                                 <a onclick="doDeleteForum(${forum.forumID}, '${forum.name}');">Delete Forum</a>
                                             </div>
                                         </div>
@@ -220,6 +236,11 @@
                 </p>
             </div>
         </footer>
+
+
+
+
     </body>
+
 </html>
 

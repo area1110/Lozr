@@ -110,4 +110,79 @@ public class ForumDBContext extends DBContext {
             Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void updateImageCover(int forumID, String b64CoverImg) {
+        try {
+            String sql_update = "UPDATE [Forum]\n"
+                    + "   SET [ForumImage] = ?    \n"
+                    + " WHERE ForumID = ?";
+
+            PreparedStatement stm_update = connection.prepareStatement(sql_update);
+            stm_update.setString(1, b64CoverImg);
+            stm_update.setInt(2, forumID);
+            stm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void updateName(int forumID, String forumName) {
+        try {
+            String sql_update = "UPDATE [Forum]\n"
+                    + "   SET ForumName = ?    \n"
+                    + " WHERE ForumID = ?";
+
+            PreparedStatement stm_update = connection.prepareStatement(sql_update);
+            stm_update.setString(1, forumName);
+            stm_update.setInt(2, forumID);
+            stm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void updateNameNCover(int forumID, String forumName, String b64Img) {
+
+        try {
+            String set_forumName = "";
+            String set_forumImg = "";
+            if (forumName == null && b64Img == null) {
+                return;
+            } else if (forumName != null && b64Img != null) {
+                set_forumName = " [ForumName] = ?, ";
+                set_forumImg = " [ForumImage] = ? ";
+
+            } else if (forumName != null && b64Img == null) {
+                set_forumName = " [ForumName] = ? ";
+
+            } else if (b64Img != null && forumName == null) {
+                set_forumImg = " [ForumImage] = ? ";
+
+            }
+            String sql_update = "UPDATE [Forum]\n"
+                    + "   SET" + set_forumName + set_forumImg
+                    + " WHERE ForumID = ?";
+
+            PreparedStatement stm_update = connection.prepareStatement(sql_update);
+            System.out.println(sql_update);
+            if (forumName != null && b64Img != null) {
+                stm_update.setString(1, forumName);
+                stm_update.setString(2, b64Img);
+                stm_update.setInt(3, forumID);
+            } else if (forumName != null && b64Img == null) {
+                stm_update.setString(1, forumName);
+                stm_update.setInt(2, forumID);
+            } else if (b64Img != null && forumName == null) {
+                stm_update.setString(1, b64Img);
+                stm_update.setInt(2, forumID);
+            }
+
+            stm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }

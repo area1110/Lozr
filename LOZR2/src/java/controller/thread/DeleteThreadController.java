@@ -7,12 +7,14 @@ package controller.thread;
 
 import controller.authentication.BaseRequiredAuthentication;
 import dal.FThreadDBContext;
+import dal.ForumDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserInfo;
 
 /**
  *
@@ -46,10 +48,24 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int threadID = Integer.parseInt(request.getParameter("id"));
+        String raw_id = request.getParameter("id");
+        if(raw_id == null || raw_id.isEmpty()){
+            String errorMessage = "Wrong Action!";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
+        int threadID = Integer.parseInt(raw_id);
         FThreadDBContext fthreadDBC = new FThreadDBContext();
-        fthreadDBC.updateStatus(threadID, false);
-        response.sendRedirect(request.getHeader("referer"));
+        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        UserInfo userCreated = fthreadDBC.getFThread(threadID).getStartedBy();
+        if (currentUser.isAdmin() || currentUser.getUserID() == userCreated.getUserID()) {
+            fthreadDBC.updateStatus(threadID, false);
+            response.sendRedirect(request.getHeader("referer"));
+        } else {
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
     }
 
     /**
