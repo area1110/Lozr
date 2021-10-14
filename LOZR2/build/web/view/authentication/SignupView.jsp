@@ -4,37 +4,30 @@
     Author     : Khanh
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.UserInfo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
-
-    <%
-        UserInfo user = (UserInfo) request.getAttribute("user");
-
-    %>
+    <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
 
-        <meta name="page_type" content="np-template-header-footer-from-plugin" />
         <title>SignUp | L0ZR</title>
-        <link rel="stylesheet" href="src/style/nicepage.css" />
-        <link rel="stylesheet" href="src/style/index.css" />
-        <link rel="stylesheet" href="src/style/SignUp.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
 
-        <meta name="generator" content="Nicepage 3.26.0, nicepage.com" />
         <link
-            id="u-theme-google-font"
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
             />
         <link
-            id="u-page-google-font"
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
             />
-        <script src="src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/script.js" defer></script>
     </head>
     <body class="u-body">
         <header
@@ -43,7 +36,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <a
-                    href="https://nicepage.com"
+                    href="${contextPath}"
                     class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
                     data-image-width="590"
                     data-image-height="90"
@@ -95,7 +88,7 @@
                                 u-white
                                 u-input-1
                                 "
-                                value="<%= (user != null) ? user.getLoginName() : ""%>"
+                                value="${user.loginName}"
                                 required
                                 />
                         </div>
@@ -158,7 +151,7 @@
                                 u-input-4
                                 "
 
-                                value="<%= (user != null) ? user.getEmailAddress() : ""%>"
+                                value="${user.emailAddress}"
                                 required
                                 />
                         </div>
@@ -177,7 +170,7 @@
                                 u-white
                                 u-input-5
                                 "
-                                value="<%= (user != null) ? user.getFirstName() : ""%>"
+                                value="${user.firstName}"
                                 required
                                 />
                         </div>
@@ -196,7 +189,7 @@
                                 u-white
                                 u-input-6
                                 "
-                                value="<%= (user != null) ? user.getLastName() : ""%>"
+                                value="${user.lastName}"
                                 required=""
                                 />
                         </div>

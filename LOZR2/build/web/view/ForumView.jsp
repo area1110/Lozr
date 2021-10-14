@@ -54,6 +54,17 @@
             />
     </head>
     <body class="u-body">
+       <div class="form-popup" id="formEdit">
+            <form action="${contextPath}/update/thread" method="POST" class="form-container">
+                <h2>Edit Thread</h2>
+                <input type="hidden" id="elementeID"  name="threadID"/> 
+                <label  for="threadSubject">New Thread Title</label>
+                <input type="text" placeholder="New Name" name="threadSubject">
+                <button type="submit" class="btn">Save</button>
+                <button type="button" class="btn" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+        
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="u-clearfix u-sheet u-sheet-1">
                 <a
@@ -64,7 +75,7 @@
                     >
                     <img src="${contextPath}/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
-                <a href="#">
+                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
                     <div class="u-align-left u-container-style u-group u-group-1">
                         <div class="u-container-layout u-container-layout-1">
                             <p
@@ -205,7 +216,7 @@
 
                         <div class="thread-cell thread-cell-author">
                             <div class="">
-                                <a href="/u/minhnhanbin.1768054/">
+                                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}">
                                     <img src="${(empty thread.startedBy.base64ImageAvatar)?  defaultImage : threadByAvatar}" />
                                 </a>
                             </div>
@@ -222,7 +233,7 @@
                             <div class="">
                                 <ul class="thread-item-part">
                                     <li>
-                                        <a href="/u/minhnhanbin.1768054/" class="username"
+                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}" class="username"
                                            >${thread.startedBy.loginName}</a
                                         >
                                     </li>
@@ -248,7 +259,7 @@
                             </dl> -->
                         </div>
 
-                        <div class="thread-table thread-cell thread-lastest-active">
+<!--                        <div class="thread-table thread-cell thread-lastest-active">
                             <div class="thread-cell thread-cell-unborder">
                                 <a
                                     href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
@@ -265,7 +276,7 @@
                                 </a>
 
                             </div>
-                        </div>
+                        </div>-->
 
                         <!--                        <div class="thread-cell thread-latest-user">
                                                     <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
@@ -278,7 +289,10 @@
                             <div id="myDropdown-${thread.threadID}" class="dropdown-content">
                                 <a href="#">Bookmark</a>
 
-                                <a href="#">Change Title</a>
+                                  <c:if test="${your.userID == thread.startedBy.userID}">
+                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                </c:if>
+       
                                 <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
                                     <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>

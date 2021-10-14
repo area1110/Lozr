@@ -72,6 +72,23 @@
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateThreadController</servlet-name>
+        <servlet-class>controller.thread.UpdateThreadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdatePermissionController</servlet-name>
+        <servlet-class>controller.user.UpdatePermissionController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUserInfo</servlet-name>
+        <servlet-class>controller.user.UpdateUserInfoController</servlet-class>
+        <multipart-config>
+            <max-file-size>20848820</max-file-size>
+            <max-request-size>418018841</max-request-size>
+            <file-size-threshold>1048576</file-size-threshold>
+        </multipart-config>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -123,6 +140,18 @@
     <servlet-mapping>
         <servlet-name>UpdateHomeController</servlet-name>
         <url-pattern>/update/forum</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateThreadController</servlet-name>
+        <url-pattern>/update/thread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdatePermissionController</servlet-name>
+        <url-pattern>/update/user/permission</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUserInfo</servlet-name>
+        <url-pattern>/update/user/info</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html style="font-size: 16px">
     <head>
+        <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
+
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
@@ -163,10 +165,10 @@
                 <!--Body post-->
                 <div class="post">
                     <div class="post-user-cell">
-                        <section itemtype="https://schema.org/Person" class="post-user">
+                        <section  class="post-user">
                             <div class="">
                                 <div class="post-user-avatar">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", post.user.userID)}" class="">
                                         <img
                                             class="post-user-img"
                                             src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
@@ -178,7 +180,7 @@
                                 <h4 class="post-user-name">
                                     <a
                                         name="${post.postID}"
-                                        href="https://f95zone.to/members/molvaeth.2791234/"
+                                        href="${transToPath.compressObjectToPath(contextPath, "user", "", post.user.userID)}"
                                         class=""
                                         >${post.user.loginName}</a
                                     >
@@ -193,39 +195,35 @@
                                 <fmt:formatDate type="both" dateStyle="short"
                                                 timeStyle="short" value="${post.timeCreated}"/>
                             </time>
-                            <ul class="post-attribute-list">
+<!--                            <ul class="post-attribute-list">
                                 <li>
-                                    <a
-                                        href="https://f95zone.to/threads/boxing-fantasy-final-pinclude-studio.95408/post-6647695"
-                                        >
-                                        #7
-                                    </a>
+                                   
                                 </li>
-                            </ul>
+                            </ul>-->
                         </header>
 
                         <div class="post-main">
                             <c:if test="${!empty post.replyPost}">
                                 <blockquote class="post-block-reply">
                                     <div class="post-reply-user">
-                                        <a href="https://f95zone.to/goto/post?id=6647317" class=""
+                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", post.replyPost.user.userID)}" class=""
                                            >${post.replyPost.user.loginName} said:</a
                                         >
                                     </div>
                                     <div class="post-reply-content">
                                         <div class="">
-                                            ${post.replyPost.subject}
+                                            <pre>${post.replyPost.subject}</pre>
                                         </div>
                                     </div>
                                 </blockquote>
                             </c:if>
-                            <p name="${post.postID}">${post.subject}</p>
+                            <pre name="${post.postID}">${post.subject}</pre>
                         </div>
                         <footer class="post-footer">
                             <div class="post-action">
                                 <div class="post-action-bar">
                                     <c:if test="${your.admin || your.userID==post.user.userID}">
-                                    <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
+                                        <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
                                     <a
                                         href="#post-create"
@@ -235,7 +233,7 @@
                                     >
                                 </div>
                                 <div class="">
-                                    <a href="https://f95zone.to/posts/6647695/report" class=""
+                                    <a href="#go-to-report" class=""
                                        >Report</a
                                     >
                                 </div>
@@ -248,10 +246,10 @@
             <c:if test="${thread.active}">
                 <div class="post">
                     <div class="post-user-cell">
-                        <section itemtype="https://schema.org/Person" class="post-user">
+                        <section class="post-user">
                             <div class="">
                                 <div class="post-user-avatar">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}" class="">
                                         <img
                                             class="post-user-img"
                                             src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
@@ -261,7 +259,7 @@
                             </div>
                             <div class="post-user-detail">
                                 <h4 class="post-user-name">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class=""
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}" class=""
                                        >You</a
                                     >
                                 </h4>
@@ -275,7 +273,7 @@
                                     <a id="replyUser" class=""></a> said:
                                 </div>
                                 <div class="post-reply-content">
-                                    <div id="replySubject" class=""></div>
+                                    <pre id="replySubject" class=""></pre>
                                 </div>
                                 <div class="cancel-reply">
                                     <a href="#post-create" onclick="doCancel()">Cancel reply</a>

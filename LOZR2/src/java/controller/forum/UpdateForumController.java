@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import model.Forum;
 import model.UserInfo;
 
 /**
@@ -26,7 +27,7 @@ public class UpdateForumController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String errorMessage = "You do not have permission";
+        String errorMessage = "Oops, threre are something wrong?!";
         request.setAttribute("errorMessage", errorMessage);
         request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
     }
@@ -54,7 +55,11 @@ public class UpdateForumController extends BaseRequiredAuthentication {
                 b64CoverImg = encode.EncodeToBase64(request.getPart("photo").getInputStream());
             }         
             forumName = forumName.isEmpty()? null : forumName;      
-            forumDBC.updateNameNCover(forumID, forumName, b64CoverImg);
+            Forum forumUpdate = new Forum();
+            forumUpdate.setForumID(forumID);
+            forumUpdate.setName(forumName);
+            forumUpdate.setBase64Image(b64CoverImg);
+            forumDBC.updateNameNCover(forumUpdate);
             response.sendRedirect(request.getHeader("referer"));
 
 //            request.getRequestDispatcher(request.getHeader("referer")).forward(request, response);

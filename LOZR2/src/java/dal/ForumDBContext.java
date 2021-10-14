@@ -143,42 +143,19 @@ public class ForumDBContext extends DBContext {
 
     }
 
-    public void updateNameNCover(int forumID, String forumName, String b64Img) {
+    public void updateNameNCover(Forum forum) {
 
         try {
-            String set_forumName = "";
-            String set_forumImg = "";
-            if (forumName == null && b64Img == null) {
-                return;
-            } else if (forumName != null && b64Img != null) {
-                set_forumName = " [ForumName] = ?, ";
-                set_forumImg = " [ForumImage] = ? ";
-
-            } else if (forumName != null && b64Img == null) {
-                set_forumName = " [ForumName] = ? ";
-
-            } else if (b64Img != null && forumName == null) {
-                set_forumImg = " [ForumImage] = ? ";
-
-            }
-            String sql_update = "UPDATE [Forum]\n"
-                    + "   SET" + set_forumName + set_forumImg
-                    + " WHERE ForumID = ?";
+            String sql_update = "UPDATE [dbo].[Forum]\n"
+                    + "   SET [ForumName] = COALESCE(?, [ForumName])\n"
+                    + "      ,[ForumImage] = COALESCE(?, [ForumImage])\n"
+                    + " WHERE ForumID=?";
 
             PreparedStatement stm_update = connection.prepareStatement(sql_update);
-            System.out.println(sql_update);
-            if (forumName != null && b64Img != null) {
-                stm_update.setString(1, forumName);
-                stm_update.setString(2, b64Img);
-                stm_update.setInt(3, forumID);
-            } else if (forumName != null && b64Img == null) {
-                stm_update.setString(1, forumName);
-                stm_update.setInt(2, forumID);
-            } else if (b64Img != null && forumName == null) {
-                stm_update.setString(1, b64Img);
-                stm_update.setInt(2, forumID);
-            }
 
+            stm_update.setString(1, forum.getName());
+            stm_update.setString(2, forum.getBase64Image());
+            stm_update.setInt(3, forum.getForumID());
             stm_update.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ForumDBContext.class.getName()).log(Level.SEVERE, null, ex);

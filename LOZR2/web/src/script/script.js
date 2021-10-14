@@ -66,5 +66,26 @@ function doDelete(ID, feature) {
     }
 }
 
+//popup-form-edit
+function openForm(forumID) {
+    document.getElementById("formEdit").style.display = "flex";
+    document.getElementById("elementeID").value = forumID;
+}
+
+function closeForm() {
+    document.getElementById("formEdit").style.display = "none";
+    document.getElementById("elementeID").removeAttribute("value");
+}
+//
+
+//autosubmit-changing-admin-in-user-page
+function changePermission(userID) {
+//    let isadmin = document.getElementById("admin-tickbox").checked;
+//    let formData = new FormData();
+//    formData.set('userID', userID);
+//    formData.set('isAdmin', isadmin);
+//    fetch('../update/user/permission', {method: "POST", body: formData});
+    document.getElementById("changePermissionForm").submit();
+}
 
 

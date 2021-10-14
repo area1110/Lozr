@@ -170,4 +170,21 @@ public class FThreadDBContext extends DBContext {
         }
 
     }
+    
+    public void updateThread(FThread thread){
+        try {
+            String sql_update = "UPDATE [Thread]\n"
+                    + "   SET [ThreadSubject] = ?\n"
+                    + " WHERE ThreadID = ?";
+            
+            PreparedStatement stm_update = connection.prepareStatement(sql_update);
+            stm_update.setString(1, thread.getSubject());
+            stm_update.setInt(2, thread.getThreadID());
+            
+            stm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 }

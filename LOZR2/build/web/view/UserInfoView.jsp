@@ -16,7 +16,7 @@
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
         <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
-
+        <c:set var="userAvatar" value="data:image/jpg;base64,${user.base64ImageAvatar}"/>
         <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
 
 
@@ -154,7 +154,7 @@
             <div class="" id="user">
                 <div class="user-card user-card">
                     <div class="user-avatar user-cell">
-                         <img src="${(user.base64ImageAvatar)?  threadByAvatar: defaultImage}" />
+                        <img src="${(empty user.base64ImageAvatar)?  defaultImage : userAvatar}" />
                     </div>
                     <div class="user-cell">
                         <div class="user-loginname">
@@ -187,223 +187,239 @@
                     </div>
                     <div class="user-cell user-cell-report">
                         <button class="button report-button">REPORT</button>
+
+                        <div class="user-permisson">
+                            <c:if test="${!your.admin && user.admin}">
+                                <div class="user-isadmin">
+                                    <label>Admin</label>
+                                </div>
+                            </c:if>
+                            <c:if test="${your.admin}">
+                                <form action="../update/user/permission" method="POST" id="changePermissionForm">
+                                    <input type="hidden" value="${user.userID}" name="userID" />
+                                    <input id="admin-tickbox" name="isAdmin" onchange ="changePermission('${user.userID}');" 
+                                           ${user.admin? "checked" : ""} type="checkbox">
+                                    <label>Admin permission</label>
+                                </form>
+                            </c:if>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="content-select">
+                        <button
+                            href="https://nicepage.com/k/consulting-website-templates"
+                            class="button button-change-content"
+                            >
+                            LAST POSTS
+                        </button>
+                        <button
+                            href="https://nicepage.com/k/consulting-website-templates"
+                            class="button button-change-content active"
+                            >
+                            LAST THREADS
+                        </button>
                     </div>
                 </div>
-                <div class="content-select">
-                    <button
-                        href="https://nicepage.com/k/consulting-website-templates"
-                        class="button button-change-content"
-                        >
-                        LAST POSTS
-                    </button>
-                    <button
-                        href="https://nicepage.com/k/consulting-website-templates"
-                        class="button button-change-content active"
-                        >
-                        LAST THREADS
-                    </button>
-                </div>
-            </div>
 
-            <div class="body-header">    
+                <div class="body-header">    
                     <div  class="post-title" >
                         <h1>Last Threads</h1>
                     </div>
-            </div>
-            <!--ThreadZone-->
-            
-          
-            <c:forEach items="${threads}" var="thread">
-                <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
-                <a href="#ádfa">
-                    <div class="thread-table thread-card">
+                </div>
+                <!--ThreadZone-->
 
-                        <div class="thread-cell thread-cell-author">
-                            <div class="">
-                                <a href="/u/minhnhanbin.1768054/">
-                                    <img src="${(thread.startedBy.base64ImageAvatar)?  threadByAvatar : defaultImage}" />
-                                </a>
+
+                <c:forEach items="${threads}" var="thread">
+                    <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
+                    <a href="#ádfa">
+                        <div class="thread-table thread-card">
+
+                            <div class="thread-cell thread-cell-author">
+                                <div class="">
+                                    <a href="#">
+                                        <img src="${(empty thread.startedBy.base64ImageAvatar)?defaultImage :  threadByAvatar }" />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="thread-cell">
+                                <div class="thread-subject">
+                                    <a
+                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}"
+                                        >${thread.subject}</a
+                                    >
+                                </div>
+
+                                <div class="">
+                                    <ul class="thread-item-part">
+                                        <li>
+                                            <a href="#" class="username"
+                                               >${thread.startedBy.loginName}</a
+                                            >
+                                        </li>
+                                        <li class="">
+                                            <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
+                                                <time class="thread-latestDate">
+                                                    <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                                </time>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="thread-cell thread-status">
+                                <dl class="thread-status-pair">
+                                    <dt>Replies</dt>
+                                    <dd>${thread.numPosts}</dd>
+                                </dl>
+                                <!-- <dl class="thread-status-pair">
+                                  <dt>Views</dt>
+                                  <dd>88</dd>
+                                </dl> -->
+                            </div>
+
+                            <!--                        <div class="thread-table thread-cell thread-lastest-active">
+                                                        <div class="thread-cell thread-cell-unborder">
+                                                            <a
+                                                                href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
+                                                                rel="nofollow"
+                                                                ><time class="thread-latestDate">11:13 05/10/2021</time></a
+                                                            >
+                                                            <div class="">
+                                                                <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="thread-cell thread-latest-user thread-cell-unborder">
+                                                            <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
+                                                                <img src="images/82761229_p17_master1200.jpg" />
+                                                            </a>
+                            
+                                                        </div>
+                                                    </div>-->
+
+                            <!--                        <div class="thread-cell thread-latest-user">
+                                                        <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
+                                                            <img src="images/82761229_p17_master1200.jpg" />
+                                                        </a>
+                            
+                                                    </div>-->
+                            <div class="thread-cell thread-cell-option  dropdown">
+                                <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
+                                <div id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                    <a href="#">Bookmark</a>
+
+                                    <a href="#">Change Title</a>
+                                    <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
+                                        <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                                    </c:if>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="thread-cell">
-                            <div class="thread-subject">
-                                <a
-                                    href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}"
-                                    >${thread.subject}</a
-                                >
-                            </div>
+                    </a>
 
-                            <div class="">
-                                <ul class="thread-item-part">
-                                    <li>
-                                        <a href="/u/minhnhanbin.1768054/" class="username"
-                                           >${thread.startedBy.loginName}</a
+                </c:forEach>
+
+                <c:forEach var="post" items="${requestScope.posts}">
+                    <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
+
+                    <!--Body post-->
+                    <div class="post">
+                        <div class="post-user-cell">
+                            <section itemtype="https://schema.org/Person" class="post-user">
+                                <div class="">
+                                    <div class="post-user-avatar">
+                                        <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
+                                            <img
+                                                class="post-user-img"
+                                                src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
+                                                />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post-user-detail">
+                                    <h4 class="post-user-name">
+                                        <a
+                                            name="${post.postID}"
+                                            href="https://f95zone.to/members/molvaeth.2791234/"
+                                            class=""
+                                            >${post.user.loginName}</a
                                         >
-                                    </li>
-                                    <li class="">
-                                        <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
-                                            <time class="thread-latestDate">
-                                                <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
-                                            </time>
+                                    </h4>
+                                    <h5 class="post-user-title">New Member</h5>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="post-main-cell">
+                            <header class="post-attribute">
+                                <time class="post-attribute-time">
+                                    <fmt:formatDate type="both" dateStyle="short"
+                                                    timeStyle="short" value="${post.timeCreated}"/>
+                                </time>
+                                <ul class="post-attribute-list">
+                                    <li>
+                                        <a
+                                            href="https://f95zone.to/threads/boxing-fantasy-final-pinclude-studio.95408/post-6647695"
+                                            >
+                                            #7
                                         </a>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
+                            </header>
 
-                        <div class="thread-cell thread-status">
-                            <dl class="thread-status-pair">
-                                <dt>Replies</dt>
-                                <dd>${thread.numPosts}</dd>
-                            </dl>
-                            <!-- <dl class="thread-status-pair">
-                              <dt>Views</dt>
-                              <dd>88</dd>
-                            </dl> -->
-                        </div>
-
-                        <div class="thread-table thread-cell thread-lastest-active">
-                            <div class="thread-cell thread-cell-unborder">
-                                <a
-                                    href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                                    rel="nofollow"
-                                    ><time class="thread-latestDate">11:13 05/10/2021</time></a
-                                >
-                                <div class="">
-                                    <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                                </div>
-                            </div>
-                            <div class="thread-cell thread-latest-user thread-cell-unborder">
-                                <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                    <img src="images/82761229_p17_master1200.jpg" />
-                                </a>
-
-                            </div>
-                        </div>
-
-                        <!--                        <div class="thread-cell thread-latest-user">
-                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                        <img src="images/82761229_p17_master1200.jpg" />
-                                                    </a>
-                        
-                                                </div>-->
-                        <div class="thread-cell thread-cell-option  dropdown">
-                            <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                            <div id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="#">Bookmark</a>
-
-                                <a href="#">Change Title</a>
-                                <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
-                                    <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                                </c:if>
-                            </div>
-                        </div>
-                    </div>
-
-                </a>
-
-            </c:forEach>
-
-            <c:forEach var="post" items="${requestScope.posts}">
-                <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
-
-                <!--Body post-->
-                <div class="post">
-                    <div class="post-user-cell">
-                        <section itemtype="https://schema.org/Person" class="post-user">
-                            <div class="">
-                                <div class="post-user-avatar">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
-                                        <img
-                                            class="post-user-img"
-                                            src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
-                                            />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="post-user-detail">
-                                <h4 class="post-user-name">
-                                    <a
-                                        name="${post.postID}"
-                                        href="https://f95zone.to/members/molvaeth.2791234/"
-                                        class=""
-                                        >${post.user.loginName}</a
-                                    >
-                                </h4>
-                                <h5 class="post-user-title">New Member</h5>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="post-main-cell">
-                        <header class="post-attribute">
-                            <time class="post-attribute-time">
-                                <fmt:formatDate type="both" dateStyle="short"
-                                                timeStyle="short" value="${post.timeCreated}"/>
-                            </time>
-                            <ul class="post-attribute-list">
-                                <li>
-                                    <a
-                                        href="https://f95zone.to/threads/boxing-fantasy-final-pinclude-studio.95408/post-6647695"
-                                        >
-                                        #7
-                                    </a>
-                                </li>
-                            </ul>
-                        </header>
-
-                        <div class="post-main">
-                            <c:if test="${!empty post.replyPost}">
-                                <blockquote class="post-block-reply">
-                                    <div class="post-reply-user">
-                                        <a href="https://f95zone.to/goto/post?id=6647317" class=""
-                                           >${post.replyPost.user.loginName} said:</a
-                                        >
-                                    </div>
-                                    <div class="post-reply-content">
-                                        <div class="">
-                                            ${post.replyPost.subject}
+                            <div class="post-main">
+                                <c:if test="${!empty post.replyPost}">
+                                    <blockquote class="post-block-reply">
+                                        <div class="post-reply-user">
+                                            <a href="https://f95zone.to/goto/post?id=6647317" class=""
+                                               >${post.replyPost.user.loginName} said:</a
+                                            >
                                         </div>
-                                    </div>
-                                </blockquote>
-                            </c:if>
-                            <p name="${post.postID}">${post.subject}</p>
-                        </div>
-                        <footer class="post-footer">
-                            <div class="post-action">
-                                <div class="post-action-bar">
-                                    <a href="#" class="post-reply-button">Delete</a>
-                                    <a
-                                        href="#post-create"
-                                        class="post-reply-button"
-                                        onclick="doReply(${post.postID})"
-                                        >Reply</a
-                                    >
-                                </div>
-                                <div class="">
-                                    <a href="https://f95zone.to/posts/6647695/report" class=""
-                                       >Report</a
-                                    >
-                                </div>
+                                        <div class="post-reply-content">
+                                            <div class="">
+                                                ${post.replyPost.subject}
+                                            </div>
+                                        </div>
+                                    </blockquote>
+                                </c:if>
+                                <p name="${post.postID}">${post.subject}</p>
                             </div>
-                        </footer>
+                            <footer class="post-footer">
+                                <div class="post-action">
+                                    <div class="post-action-bar">
+                                        <a href="#" class="post-reply-button">Delete</a>
+                                        <a
+                                            href="#post-create"
+                                            class="post-reply-button"
+                                            onclick="doReply(${post.postID})"
+                                            >Reply</a
+                                        >
+                                    </div>
+                                    <div class="">
+                                        <a href="https://f95zone.to/posts/6647695/report" class=""
+                                           >Report</a
+                                        >
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
                     </div>
-                </div>
-                <!--/Body post-->
-            </c:forEach>
-        </div>
-
-        <footer
-            class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
-            id="sec-4768"
-            >
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
-                </p>
+                    <!--/Body post-->
+                </c:forEach>
             </div>
-        </footer>
+
+            <footer
+                class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
+                id="sec-4768"
+                >
+                <div class="u-clearfix u-sheet u-sheet-1">
+                    <p class="u-small-text u-text u-text-variant u-text-1">
+                        Sample text. Click to select the text box. Click again or double click
+                        to start editing the text.
+                    </p>
+                </div>
+            </footer>
 
     </body>
 </html>

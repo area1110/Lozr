@@ -51,10 +51,10 @@
             />
     </head>
     <body>
-        <div class="form-popup" id="formEditForum">
+        <div class="form-popup" id="formEdit">
             <form action="update/forum" method="POST"  enctype="multipart/form-data" class="form-container">
-                <h1>Edit Forum</h1>
-                <input type="hidden" id="submitForumID"  name="forumID"/> 
+                <h2>Edit Forum</h2>
+                <input type="hidden" id="elementeID"  name="forumID"/> 
                 <label  for="forumName">New Forum Title</label>
                 <input type="text" placeholder="New Name" name="forumName">
                 <label for="photo">New Cover</label>
@@ -150,6 +150,9 @@
                                             <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">Report Manager</a>
                                         </li>
                                     </c:if>
+                                      <li class="u-nav-item">
+                                        <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
+                                    </li>
                                     <li class="u-nav-item">
                                         <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                                     </li>

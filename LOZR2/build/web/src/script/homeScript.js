@@ -13,14 +13,5 @@ function doDeleteForum(id, name, ) {
 }
 
 
-function openForm(forumID) {
-    document.getElementById("formEditForum").style.display = "flex";
-    document.getElementById("submitForumID").value = forumID;
-}
-
-function closeForm() {
-    document.getElementById("formEditForum").style.display = "none";
-    document.getElementById("submitForumID").removeAttribute("value");
-}
 
 

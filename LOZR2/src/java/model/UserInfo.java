@@ -23,8 +23,18 @@ public class UserInfo {
     private Timestamp timeJoined;
     private boolean active;
     private boolean admin;
+    private String password;
+    
 
     public UserInfo() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     
