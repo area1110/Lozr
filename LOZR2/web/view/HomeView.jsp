@@ -144,7 +144,7 @@
                                     </li>
                                     <c:if test="${your.admin}" >
                                         <li class="u-nav-item">
-                                            <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">New Forum</a>
+                                            <a onclick="openCreateForum()" class="u-button-style u-nav-link">New Forum</a>
                                         </li>
                                         <li class="u-nav-item">
                                             <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">Report Manager</a>

@@ -77,6 +77,13 @@ function closeForm() {
     document.getElementById("elementeID").removeAttribute("value");
 }
 //
+//
+function openCreateForum() {
+    document.querySelector("#formEdit>form").action = 'forum';
+    document.querySelector("#formEdit>form>h2").innerHTML = "Create New Forum";
+    document.querySelector("#formEdit").style.display = "flex";
+
+}
 
 //autosubmit-changing-admin-in-user-page
 function changePermission(userID) {

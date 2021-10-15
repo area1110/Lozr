@@ -26,7 +26,8 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
-        
+        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
 
         <link
             rel="stylesheet"
@@ -138,7 +139,7 @@
                 </nav>
             </div>
         </header>
-       <section
+        <section
             class="skrollable u-clearfix u-image u-section-1"
             id="sec-a288"
             data-image-width="612"
@@ -181,7 +182,7 @@
                                 u-white
                                 u-input-1
                                 "
-                
+
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-2">
@@ -200,7 +201,7 @@
                                 u-white
                                 u-input-2
                                 "
-              
+
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-3">
@@ -224,7 +225,7 @@
                                 u-white
                                 u-input-3
                                 "
-              
+
                                 />
                         </div>
                         <div class="u-form-email u-form-group u-form-group-4">
@@ -244,7 +245,7 @@
                                 "
 
                                 value="${user.emailAddress}"
-                 
+
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-5">
@@ -263,7 +264,7 @@
                                 u-input-5
                                 "
                                 value="${user.firstName}"
-           
+
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-6">
@@ -282,7 +283,7 @@
                                 u-input-6
                                 "
                                 value="${user.lastName}"
-               
+
                                 />
                         </div>
                         <div class="u-form-group u-form-group-7">
@@ -321,7 +322,7 @@
                                 u-radius-10
                                 u-text-active-palette-1-dark-1
                                 u-btn-1"
-        
+
                                 />
                         </div>
                     </form>

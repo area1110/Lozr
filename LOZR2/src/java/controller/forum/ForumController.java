@@ -63,7 +63,7 @@ public class ForumController extends BaseRequiredAuthentication {
         if (currentUser.isAdmin()) {
             String forumName = request.getParameter("forumName");
 
-            InputStream image = request.getPart("image").getInputStream();
+            InputStream image = request.getPart("photo").getInputStream();
             Encode encode = new Encode();
             String forumB64Image = encode.EncodeToBase64(image);
 
