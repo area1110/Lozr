@@ -168,7 +168,7 @@
                         <section  class="post-user">
                             <div class="">
                                 <div class="post-user-avatar">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", post.user.userID)}" class="">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", post.user.loginName , post.user.userID)}" class="">
                                         <img
                                             class="post-user-img"
                                             src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
@@ -180,7 +180,7 @@
                                 <h4 class="post-user-name">
                                     <a
                                         name="${post.postID}"
-                                        href="${transToPath.compressObjectToPath(contextPath, "user", "", post.user.userID)}"
+                                        href="${transToPath.compressObjectToPath(contextPath, "user", post.user.loginName, post.user.userID)}"
                                         class=""
                                         >${post.user.loginName}</a
                                     >
@@ -206,7 +206,7 @@
                             <c:if test="${!empty post.replyPost}">
                                 <blockquote class="post-block-reply">
                                     <div class="post-reply-user">
-                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", post.replyPost.user.userID)}" class=""
+                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", post.replyPost.user.loginName, post.replyPost.user.userID)}" class=""
                                            >${post.replyPost.user.loginName} said:</a
                                         >
                                     </div>
@@ -249,7 +249,7 @@
                         <section class="post-user">
                             <div class="">
                                 <div class="post-user-avatar">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}" class="">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}" class="">
                                         <img
                                             class="post-user-img"
                                             src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
@@ -259,7 +259,7 @@
                             </div>
                             <div class="post-user-detail">
                                 <h4 class="post-user-name">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}" class=""
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}" class=""
                                        >You</a
                                     >
                                 </h4>

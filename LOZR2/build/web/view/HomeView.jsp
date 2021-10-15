@@ -73,7 +73,7 @@
                     >
                     <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
-                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
+                <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
                     <div class="u-align-left u-container-style u-group u-group-1">
                         <div class="u-container-layout u-container-layout-1">
                             <p
@@ -138,7 +138,7 @@
                                     "
                                     >
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
+                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
                                             ${(empty your.loginName)? "Account": your.loginName}
                                         </a>
                                     </li>
@@ -195,7 +195,7 @@
                             <!--blog_post-->
                             <div id="forum-${forum.forumID}" class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-2">
                                 <div class="u-container-layout u-similar-container u-container-layout-4">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "forum", "", forum.forumID)}">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "forum", forum.name, forum.forumID)}">
 
                                         <span class="u-post-header-link">
                                             <img alt="Forum cover" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" 

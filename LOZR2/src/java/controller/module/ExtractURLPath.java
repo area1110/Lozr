@@ -30,9 +30,8 @@ public class ExtractURLPath {
 
     public static String compressObjectToPath(String rootPath, String servletPath, String name, int parentID) {
         String path = "";
-
+        name = name.toLowerCase().replaceAll(" ", "-");
         path = rootPath + "/" + servletPath + "/" + name + "." + parentID;
-
         return path;
     }
 }

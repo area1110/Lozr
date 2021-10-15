@@ -3,7 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/thread/ThreadController.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/user/UpdateUserInfoController.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/dal/UserInfoDBContext.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/HomeView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/post/DeletePostController.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/post/PostController.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/module/ExtractURLPath.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/src/style/User.css</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/test/CreateNewForum.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/thread/DeleteThreadController.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/authentication/SignUpController.java</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/src/script/script.js</file>
+            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/forum/ForumController.java</file>
             <file>file:/D:/Github/Lozr/LOZR2/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/ForumView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/UserInfoView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/ThreadView.jsp</file>
         </group>
     </open-files>
 </project-private>

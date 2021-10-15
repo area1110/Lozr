@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Account;
 import model.UserInfo;
 
 /**
@@ -19,9 +18,9 @@ import model.UserInfo;
  */
 public class UserInfoDBContext extends DBContext {
 
-    public int createNewUser(UserInfo user, Account acc) {
+    public int createNewUser(UserInfo user) {
         UserInfoDBContext userDBC = new UserInfoDBContext();
-        if (user.getLoginName().isEmpty() || acc.getPassword().isEmpty()
+        if (user.getLoginName().isEmpty() || user.getPassword().isEmpty()
                 || user.getEmailAddress().isEmpty()) {
             return -1;
         }
@@ -43,7 +42,7 @@ public class UserInfoDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
 
             stm.setNString(1, user.getLoginName());
-            stm.setString(2, acc.getPassword());
+            stm.setString(2, user.getPassword());
             stm.setNString(3, user.getFirstName());
             stm.setNString(4, user.getLastName());
             stm.setString(5, user.getEmailAddress());

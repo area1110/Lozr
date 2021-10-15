@@ -5,6 +5,7 @@
  */
 package controller.post;
 
+import controller.authentication.BaseRequiredAuthentication;
 import dal.FThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import model.UserInfo;
  *
  * @author area1
  */
-public class DeletePostController extends HttpServlet {
+public class DeletePostController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +58,7 @@ public class DeletePostController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          String raw_id = request.getParameter("id");
         if(raw_id == null || raw_id.isEmpty()){
@@ -88,7 +89,7 @@ public class DeletePostController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

@@ -20,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
 import model.UserInfo;
 
 /**
@@ -67,21 +66,16 @@ public class SignUpController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private int doSignUp(Account account, UserInfo userInfo) {
-        UserInfoDBContext userDBC = new UserInfoDBContext();
-        return userDBC.createNewUser(userInfo, account);
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        Account account = new Account();
         UserInfo userInfo = new UserInfo();
         String loginName = request.getParameter("loginName").trim();
 
         userInfo.setLoginName(loginName);
-        account.setPassword(request.getParameter("password").trim());
+        userInfo.setPassword(request.getParameter("password").trim());
         userInfo.setFirstName(request.getParameter("firstName").trim());
         userInfo.setLastName(request.getParameter("lastName").trim());
         userInfo.setEmailAddress(request.getParameter("email").trim());
@@ -89,8 +83,9 @@ public class SignUpController extends HttpServlet {
         InputStream is = request.getPart("avatar").getInputStream();
         Encode encode = new Encode();
         userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
+        UserInfoDBContext userDBC = new UserInfoDBContext();
 
-        int statusUpdate = doSignUp(account, userInfo);
+        int statusUpdate = userDBC.createNewUser(userInfo);
         switch (statusUpdate) {
             case -1: // missing field error
                 response.getWriter().print("<h1>Some fields are missing</h1>");
