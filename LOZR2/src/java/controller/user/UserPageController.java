@@ -8,6 +8,7 @@ package controller.user;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
 import dal.FThreadDBContext;
+import dal.PostDBContext;
 import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FThread;
+import model.Post;
 import model.UserInfo;
 
 /**
@@ -36,7 +38,7 @@ public class UserPageController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,21 +51,29 @@ public class UserPageController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void  processGet (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { 
-        int userID =  ExtractURLPath.extractPathToID(request.getPathInfo());;    
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int userID = ExtractURLPath.extractPathToID(request.getPathInfo());;
         UserInfoDBContext userinfoDBC = new UserInfoDBContext();
         UserInfo user = userinfoDBC.getUser(userID);
-        if(user==null) {
+        request.setAttribute("user", user);
+        if (user == null) {
             String errorMessage = "User Not Found!";
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        } else {
+            String raw_postselect = request.getParameter("postselect");
+            if (raw_postselect == null) {
+                FThreadDBContext fthreadDBC = new FThreadDBContext();
+                ArrayList<FThread> fthreads = fthreadDBC.getFThreadsByUser(userID);
+                request.setAttribute("threads", fthreads);
+            } else {
+                PostDBContext postDBC = new PostDBContext();
+                ArrayList<Post> posts = postDBC.getPostsByUser(userID);
+                request.setAttribute("posts", posts);
+            }
+            request.getRequestDispatcher("/view/UserInfoView.jsp").forward(request, response);
         }
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
-        ArrayList<FThread> fthreads = fthreadDBC.getFThreadsByUser(userID);
-        request.setAttribute("threads", fthreads);
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("/view/UserInfoView.jsp").forward(request, response);
     }
 
     /**
@@ -77,7 +87,7 @@ public class UserPageController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

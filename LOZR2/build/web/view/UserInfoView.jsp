@@ -210,20 +210,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-select">
-                    <button
-                        href="https://nicepage.com/k/consulting-website-templates"
+<!--                <div class="content-select">
+                    <a
+                        href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}?postselect=1"
                         class="button button-change-content"
                         >
                         LAST POSTS
-                    </button>
+                    </a>
                     <button
                         href="https://nicepage.com/k/consulting-website-templates"
                         class="button button-change-content active"
                         >
                         LAST THREADS
                     </button>
-                </div>
+                </div>-->
             </div>
 
             <div class="body-header">    

@@ -27,7 +27,9 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
             />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/imgurupload.js" defer></script>
     </head>
     <body class="u-body">
         <header
@@ -64,8 +66,6 @@
                         action="signup"
                         method="POST"
                         class="u-clearfix u-form-spacing-19 u-form-vertical u-inner-form"
-                        style="padding: 10px"
-                        enctype="multipart/form-data"
                         >
                         <div class="u-form-group u-form-name u-form-group-1">
                             <label id="error"
@@ -212,8 +212,10 @@
                                 u-white
                                 u-input-7
                                 "
+                                onchange="doImgUpload('avatar', 'urlout')"
                                 />
                         </div>
+                                <div id="urlout"></div>
                         <div class="u-align-left u-form-group u-form-submit">
                             <input
                                 id="submit"
