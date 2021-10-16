@@ -5,6 +5,7 @@
  */
 package controller.thread;
 
+import controller.authentication.BaseRequiredAuthentication;
 import dal.ReportThreadDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author area1
  */
-public class ReportThreadController extends HttpServlet {
+public class ReportThreadController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,10 +31,7 @@ public class ReportThreadController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          int threadID = Integer.parseInt(request.getParameter("id"));
-          ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
-          reportThreadDBC.setReport(threadID);
-          response.sendRedirect(request.getHeader("referer"));
+         
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,9 +44,13 @@ public class ReportThreadController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         int threadID = Integer.parseInt(request.getParameter("id"));
+          ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
+          reportThreadDBC.setReport(threadID);
+          response.sendRedirect(request.getHeader("referer"));
     }
 
     /**
@@ -60,7 +62,7 @@ public class ReportThreadController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

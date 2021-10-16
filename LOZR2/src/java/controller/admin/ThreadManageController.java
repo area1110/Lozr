@@ -6,18 +6,22 @@
 package controller.admin;
 
 import controller.authentication.BaseRequiredAuthentication;
+import dal.ReportThreadDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.FThread;
+import model.ReportThread;
 
 /**
  *
  * @author area1
  */
-public class ReportController extends BaseRequiredAuthentication {
+public class ThreadManageController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,34 +34,30 @@ public class ReportController extends BaseRequiredAuthentication {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ReportController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ReportController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
+        String raw_id = request.getParameter("id");
+        if (raw_id == null) {
+            ArrayList<FThread> reportThreads = reportThreadDBC.getReportThreads();
+            request.setAttribute("threads", reportThreads);
+        } else {
+            reportThreadDBC.remove(Integer.parseInt(raw_id));
         }
-    }
+        request.getRequestDispatcher("/view/moderator/ReportThread.jsp").forward(request, response);    
+}
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+       processRequest(request, response);
     }
 
     /**
@@ -69,7 +69,7 @@ public class ReportController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+        protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }
@@ -80,7 +80,7 @@ public class ReportController extends BaseRequiredAuthentication {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

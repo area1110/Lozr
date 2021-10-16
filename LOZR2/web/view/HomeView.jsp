@@ -147,10 +147,10 @@
                                             <a onclick="openCreateForum()" class="u-button-style u-nav-link">New Forum</a>
                                         </li>
                                         <li class="u-nav-item">
-                                            <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">Report Manager</a>
+                                            <a href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
                                         </li>
                                     </c:if>
-                                      <li class="u-nav-item">
+                                    <li class="u-nav-item">
                                         <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
                                     </li>
                                     <li class="u-nav-item">

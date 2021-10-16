@@ -49,7 +49,7 @@
     </servlet>
     <servlet>
         <servlet-name>ReportController</servlet-name>
-        <servlet-class>controller.admin.ReportController</servlet-class>
+        <servlet-class>controller.admin.ThreadManageController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserPageController</servlet-name>
@@ -127,7 +127,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReportController</servlet-name>
-        <url-pattern>/admin/report</url-pattern>
+        <url-pattern>/admin/report/thread</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserPageController</servlet-name>
