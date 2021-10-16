@@ -289,7 +289,7 @@
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                             <div id="myDropdown-${thread.threadID}" class="dropdown-content">
                                 <a href="#">Bookmark</a>
-
+                                <a href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
                                     <a onclick="openForm(${thread.threadID});">Change Title</a>
                                 </c:if>

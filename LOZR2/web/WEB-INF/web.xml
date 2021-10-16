@@ -89,6 +89,10 @@
             <file-size-threshold>1048576</file-size-threshold>
         </multipart-config>
     </servlet>
+    <servlet>
+        <servlet-name>ReportThreadController</servlet-name>
+        <servlet-class>controller.thread.ReportThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -152,6 +156,10 @@
     <servlet-mapping>
         <servlet-name>UpdateUserInfo</servlet-name>
         <url-pattern>/update/user/info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportThreadController</servlet-name>
+        <url-pattern>/report/thread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
