@@ -60,14 +60,14 @@ public class ForumController extends BaseRequiredAuthentication {
             throws ServletException, IOException {
 //        processRequest(request, response);
         UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        if (currentUser.isAdmin()) {
+        if (currentUser.isModerator()) {
             String forumName = request.getParameter("forumName");
+            String urlcover = request.getParameter("photo");
+            if (urlcover == null || urlcover.isEmpty()) {
+                urlcover = "https://i.ibb.co/gDD8MtZ/82761229-p17-master1200.jpg";
+            }
 
-            InputStream image = request.getPart("photo").getInputStream();
-            Encode encode = new Encode();
-            String forumB64Image = encode.EncodeToBase64(image);
-
-            if (setForum(forumName, forumB64Image)) {
+            if (setForum(forumName, urlcover)) {
 //            response.getWriter().print("<h1>Success Checkout DB</h1>");
                 response.sendRedirect(request.getContextPath());
 //            request.getRequestDispatcher(request.getContextPath()).forward(request, response);
@@ -79,7 +79,7 @@ public class ForumController extends BaseRequiredAuthentication {
 //            request.getRequestDispatcher("/post/ForumPost.jsp").forward(request, response);
             }
         } else {
-            String errorMessage = "You do not have permission";
+            String errorMessage = "Oops, threre are something wrong?!";
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
@@ -91,11 +91,11 @@ public class ForumController extends BaseRequiredAuthentication {
         return forumDBC.getForum(forumID);
     }
 
-    private boolean setForum(String forumName, String base64Image) {
+    private boolean setForum(String forumName, String urlcover) {
         ForumDBContext forumDBC = new ForumDBContext();
         Forum forum = new Forum();
         forum.setName(forumName);
-        forum.setBase64Image(base64Image);
+        forum.setCover(urlcover);
         return forumDBC.setForum(forum);
     }
 

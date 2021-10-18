@@ -12,7 +12,7 @@ package model;
 public class Forum {
     private int forumID;
     private String name;
-    private String base64Image;
+    private String cover;
     private boolean active;
     private int newPosts;
     private int newThreads;
@@ -36,12 +36,12 @@ public class Forum {
         this.newThreads = newThreads;
     }
     
-    public String getBase64Image() {
-        return base64Image;
+    public String getCover() {
+        return cover;
     }
 
-    public void setBase64Image(String base64Image) {
-        this.base64Image = base64Image;
+    public void setCover(String url) {
+        this.cover = url;
     }
 
     

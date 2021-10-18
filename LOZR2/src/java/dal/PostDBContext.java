@@ -48,7 +48,7 @@ public class PostDBContext extends DBContext {
                 UserInfo user = new UserInfo();
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 post.setUser(user);
 
                 if (rs.getInt("PostReplyTo") != 0) {
@@ -61,7 +61,7 @@ public class PostDBContext extends DBContext {
                     UserInfo repUser = new UserInfo();
                     repUser.setUserID(rs.getInt("RepPostUserID"));
                     repUser.setLoginName(rs.getString("URepLoginName"));
-                    repUser.setBase64ImageAvatar(rs.getString("URepImageAvatar"));
+                    repUser.setAvatar(rs.getString("URepImageAvatar"));
                     reply.setUser(repUser);
 
                     post.setReplyPost(reply);
@@ -88,7 +88,7 @@ public class PostDBContext extends DBContext {
                     + "		LEFT JOIN Post AS Rep ON P.PostReplyTo=Rep.PostID\n"
                     + "		LEFT JOIN UserInfo AS URep ON Rep.PostUserID=URep.UserID\n"
                     + "	WHERE P.PostUserID=? AND P.PostIsActive = 1"
-                    + "ORDER BY P.PostDateCreated ASC";
+                    + "ORDER BY P.PostDateCreated DESC";
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
@@ -103,7 +103,7 @@ public class PostDBContext extends DBContext {
                 UserInfo user = new UserInfo();
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 post.setUser(user);
 
                 if (rs.getInt("PostReplyTo") != 0) {
@@ -116,7 +116,7 @@ public class PostDBContext extends DBContext {
                     UserInfo repUser = new UserInfo();
                     repUser.setUserID(rs.getInt("RepPostUserID"));
                     repUser.setLoginName(rs.getString("URepLoginName"));
-                    repUser.setBase64ImageAvatar(rs.getString("URepImageAvatar"));
+                    repUser.setAvatar(rs.getString("URepImageAvatar"));
                     reply.setUser(repUser);
 
                     post.setReplyPost(reply);
@@ -156,7 +156,7 @@ public class PostDBContext extends DBContext {
                 UserInfo user = new UserInfo();
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 post.setUser(user);
 
                 if (rs.getInt("PostReplyTo") != 0) {
@@ -169,7 +169,7 @@ public class PostDBContext extends DBContext {
                     UserInfo repUser = new UserInfo();
                     repUser.setUserID(rs.getInt("RepPostUserID"));
                     repUser.setLoginName(rs.getString("URepLoginName"));
-                    repUser.setBase64ImageAvatar(rs.getString("URepImageAvatar"));
+                    repUser.setAvatar(rs.getString("URepImageAvatar"));
                     reply.setUser(repUser);
 
                     post.setReplyPost(reply);

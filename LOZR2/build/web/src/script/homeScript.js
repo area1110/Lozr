@@ -12,6 +12,12 @@ function doDeleteForum(id, name, ) {
     }
 }
 
+function openCreateForum() {
+    document.querySelector("#formEdit form").action = 'forum';
+    document.querySelector("#formEdit h2").innerHTML = "Create New Forum";
+document.querySelector("#formEdit").style.display = "flex";
+}
+
 
 
 

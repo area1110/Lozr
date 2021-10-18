@@ -6,16 +6,11 @@
 package controller.user;
 
 import controller.authentication.BaseRequiredAuthentication;
-import controller.module.Encode;
 import dal.UserInfoDBContext;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import model.UserInfo;
 
 /**
@@ -33,8 +28,6 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -48,7 +41,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserInfo user = (UserInfo) request.getSession().getAttribute("currentUser");
-         request.setAttribute("user", user);
+        request.setAttribute("user", user);
         request.getRequestDispatcher("/view/UpdateUserInfo.jsp").forward(request, response);
     }
 
@@ -71,7 +64,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String emailAddress = request.getParameter("email");
-        Part avatarRawPart = request.getPart("avatar");
+        String avatarurl = request.getParameter("avatar");
 
         UserInfo userInfo = new UserInfo();
         userInfo.setUserID(currentUser.getUserID());
@@ -80,14 +73,8 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
         userInfo.setFirstName(firstName.isEmpty() ? null : firstName);
         userInfo.setLastName(lastName.isEmpty() ? null : lastName);
         userInfo.setEmailAddress(emailAddress.isEmpty() ? null : emailAddress);
+        userInfo.setAvatar(avatarurl.isEmpty() ? null : avatarurl);
 
-        if (avatarRawPart.getSubmittedFileName().isEmpty()) {
-            userInfo.setBase64ImageAvatar(null);
-        } else {
-            InputStream is = avatarRawPart.getInputStream();
-            Encode encode = new Encode();
-            userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
-        }
         UserInfoDBContext userDBC = new UserInfoDBContext();
         int statusUpdate = userDBC.updateUserInfo(userInfo);
         switch (statusUpdate) {
@@ -103,8 +90,8 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
                 request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
             case 1:
-               UserInfo refressCurrent = userDBC.getUser(userInfo.getUserID());
-               request.getSession().setAttribute("currentUser", refressCurrent);
+                UserInfo refressCurrent = userDBC.getUser(userInfo.getUserID());
+                request.getSession().setAttribute("currentUser", refressCurrent);
                 response.sendRedirect(request.getContextPath());
                 break;
             default:

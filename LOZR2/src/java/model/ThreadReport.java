@@ -9,11 +9,11 @@ package model;
  *
  * @author area1
  */
-public class ReportThread {
+public class ThreadReport {
     private int reportID;
     private FThread thread;
 
-    public ReportThread() {
+    public ThreadReport() {
     }
 
     public int getReportID() {

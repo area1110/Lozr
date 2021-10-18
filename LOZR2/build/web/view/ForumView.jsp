@@ -15,10 +15,6 @@
 
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
-        <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
-
-        <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
-
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
@@ -27,18 +23,13 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
-        <script
-            type="text/javascript"
-            src="${contextPath}/src/script/jquery.js"
-            defer=""
-        ></script>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script
             type="text/javascript"
             src="${contextPath}/src/script/nicepage.js"
             defer=""
         ></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
-        <!-- <meta name="generator" content="Nicepage 3.26.0, nicepage.com" /> -->
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -87,7 +78,7 @@
                             </p>
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
-                                src= "${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
+                                src= "${your.avatar}"
                                 />
                         </div>
                     </div>
@@ -177,13 +168,13 @@
                 <div class="thread-table thread-card">
                     <div class="thread-cell thread-cell-author">
                         <div class="">
-                            <a href="/u/minhnhanbin.1768054/">
-                                <img src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}" />
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                                <img src="${your.avatar}" />
                             </a>
                         </div>
                     </div>
                     <div class="thread-cell thread-create">
-                        <form action="../thread" method="POST">
+                        <form id="create-thread" action="../thread" method="POST">
                             <div class="thread-create-insert">
                                 <input type="hidden" name="forumID"
                                        value="${requestScope.forum.forumID}"/>
@@ -211,14 +202,13 @@
             </c:if>
 
             <c:forEach items="${threads}" var="thread">
-                <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
                 <a href="#ádfa">
                     <div class="thread-table thread-card">
 
                         <div class="thread-cell thread-cell-author">
                             <div class="">
                                 <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}">
-                                    <img src="${(empty thread.startedBy.base64ImageAvatar)?  defaultImage : threadByAvatar}" />
+                                    <img src="${thread.startedBy.avatar}" />
                                 </a>
                             </div>
                         </div>
@@ -239,11 +229,11 @@
                                         >
                                     </li>
                                     <li class="">
-                                        <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
-                                            <time class="thread-latestDate">
-                                                <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
-                                            </time>
-                                        </a>
+
+                                        <time class="thread-latestDate">
+                                            <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                        </time>
+
                                     </li>
                                 </ul>
                             </div>
@@ -294,7 +284,7 @@
                                     <a onclick="openForm(${thread.threadID});">Change Title</a>
                                 </c:if>
 
-                                <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
                                     <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>
                             </div>

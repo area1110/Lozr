@@ -44,21 +44,19 @@ public class UpdateForumController extends BaseRequiredAuthentication {
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        if (currentUser.isAdmin()) {
+        if (currentUser.isModerator()) {
             String forumName = request.getParameter("forumName");
-            Part coverImg = request.getPart("photo");
             ForumDBContext forumDBC = new ForumDBContext();
             int forumID = Integer.parseInt(request.getParameter("forumID"));
-            String b64CoverImg = null;
-            if (!(coverImg == null || coverImg.getSubmittedFileName().isEmpty())) {
-                Encode encode = new Encode();
-                b64CoverImg = encode.EncodeToBase64(request.getPart("photo").getInputStream());
-            }         
+               String urlcover = request.getParameter("photo");
+            if(urlcover==null || urlcover.isEmpty()){
+                urlcover= "https://i.ibb.co/gDD8MtZ/82761229-p17-master1200.jpg";
+            }
             forumName = forumName.isEmpty()? null : forumName;      
             Forum forumUpdate = new Forum();
             forumUpdate.setForumID(forumID);
             forumUpdate.setName(forumName);
-            forumUpdate.setBase64Image(b64CoverImg);
+            forumUpdate.setCover(urlcover);
             forumDBC.updateNameNCover(forumUpdate);
             response.sendRedirect(request.getHeader("referer"));
 

@@ -23,11 +23,7 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
-        <script
-            type="text/javascript"
-            src="${contextPath}/src/script/jquery.js"
-            defer=""
-        ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script
             type="text/javascript"
             src="${contextPath}/src/script/nicepage.js"
@@ -270,7 +266,7 @@
                                 <a href="#">Bookmark</a>
 
                                 <a href="#">Change Title</a>
-                                <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
                                     <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>
                             </div>

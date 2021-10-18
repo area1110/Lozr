@@ -70,7 +70,7 @@ public class DeletePostController extends BaseRequiredAuthentication {
         PostDBContext postDBC = new PostDBContext();
         UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
         UserInfo userCreated = postDBC.getPost(postID).getUser();
-        if (currentUser.isAdmin() || currentUser.getUserID() == userCreated.getUserID()) {
+        if (currentUser.isModerator() || currentUser.getUserID() == userCreated.getUserID()) {
             postDBC.updateStatus(postID, false);
             response.sendRedirect(request.getHeader("referer"));
         } else {

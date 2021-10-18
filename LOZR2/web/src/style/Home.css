@@ -376,3 +376,20 @@
 /*.show {display:block;}*/
 
 
+#output-cover-img {
+    width: 200px;
+    height: 130px;
+}
+
+.cover-create{
+    margin-bottom: 20px;
+    
+}
+.cover-openfile{
+    display: block;
+}
+
+.cover-view{
+    text-align: center;
+}
+

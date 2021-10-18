@@ -19,10 +19,10 @@ public class UserInfo {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private String base64ImageAvatar;
+    private String avatar;
     private Timestamp timeJoined;
     private boolean active;
-    private boolean admin;
+    private boolean moderator;
     private String password;
     
 
@@ -39,12 +39,12 @@ public class UserInfo {
     
     
 
-    public String getBase64ImageAvatar() {
-        return base64ImageAvatar;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setBase64ImageAvatar(String base64ImageAvatar) {
-        this.base64ImageAvatar = base64ImageAvatar;
+    public void setAvatar(String url) {
+        this.avatar = url;
     }
 
     public int getUserID() {
@@ -95,12 +95,12 @@ public class UserInfo {
         this.timeJoined = timeJoined;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public boolean isModerator() {
+        return moderator;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setModerator(boolean moderator) {
+        this.moderator = moderator;
     }
 
     public boolean isActive() {

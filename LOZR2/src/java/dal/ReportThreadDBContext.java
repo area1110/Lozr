@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FThread;
 import model.Forum;
-import model.ReportThread;
+import model.ThreadReport;
 import model.UserInfo;
 
 /**
@@ -51,7 +51,7 @@ public class ReportThreadDBContext extends DBContext {
 
                 UserInfo started = new UserInfo();
                 started.setUserID(rs.getInt("UserID"));
-                started.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                started.setAvatar(rs.getString("UserImageAvatar"));
                 started.setLoginName(rs.getString("UserLoginName"));
 
                 thread.setStartedBy(started);

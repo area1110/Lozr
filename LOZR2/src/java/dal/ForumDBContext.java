@@ -40,7 +40,7 @@ public class ForumDBContext extends DBContext {
                 forum.setForumID(rs_select_forums.getInt("ForumID"));
                 forum.setName(rs_select_forums.getNString("ForumName"));
                 forum.setActive(rs_select_forums.getBoolean("ForumIsActive"));
-                forum.setBase64Image(rs_select_forums.getString("ForumImage"));
+                forum.setCover(rs_select_forums.getString("ForumImage"));
                 forum.setNewThreads(rs_select_forums.getInt("ThreadToday"));
                 forum.setNewPosts(rs_select_forums.getInt("PostToday"));
 
@@ -65,7 +65,7 @@ public class ForumDBContext extends DBContext {
                 Forum forum = new Forum();
                 forum.setForumID(rs.getInt("ForumID"));
                 forum.setName(rs.getNString("ForumName"));
-                forum.setBase64Image(rs.getString("ForumImage"));
+                forum.setCover(rs.getString("ForumImage"));
                 forum.setActive(rs.getBoolean("ForumIsActive"));
                 return forum;
             }
@@ -84,7 +84,7 @@ public class ForumDBContext extends DBContext {
                     + "VALUES (?,?)";
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setNString(1, forum.getName());
-            stm.setString(2, forum.getBase64Image());
+            stm.setString(2, forum.getCover());
             if (stm.executeUpdate() == 0) {
                 return false;
             } else {
@@ -154,7 +154,7 @@ public class ForumDBContext extends DBContext {
             PreparedStatement stm_update = connection.prepareStatement(sql_update);
 
             stm_update.setString(1, forum.getName());
-            stm_update.setString(2, forum.getBase64Image());
+            stm_update.setString(2, forum.getCover());
             stm_update.setInt(3, forum.getForumID());
             stm_update.executeUpdate();
         } catch (SQLException ex) {

@@ -14,8 +14,7 @@
 
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
-        <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
-        <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${thread.subject} | L0ZR</title>
@@ -23,7 +22,7 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
-        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
         <link
@@ -63,7 +62,7 @@
                             </p>
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
-                                src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
+                                src="${your.avatar}"
                                 />
                         </div>
                     </div>
@@ -160,8 +159,6 @@
                 </div>
             </c:if>
             <c:forEach var="post" items="${requestScope.posts}">
-                <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
-
                 <!--Body post-->
                 <div class="post">
                     <div class="post-user-cell">
@@ -171,7 +168,7 @@
                                     <a href="${transToPath.compressObjectToPath(contextPath, "user", post.user.loginName , post.user.userID)}" class="">
                                         <img
                                             class="post-user-img"
-                                            src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
+                                            src="${post.user.avatar}"
                                             />
                                     </a>
                                 </div>
@@ -222,7 +219,7 @@
                         <footer class="post-footer">
                             <div class="post-action">
                                 <div class="post-action-bar">
-                                    <c:if test="${your.admin || your.userID==post.user.userID}">
+                                    <c:if test="${your.moderator || your.userID==post.user.userID}">
                                         <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
                                     <a
@@ -233,7 +230,7 @@
                                     >
                                 </div>
                                 <div class="">
-                                    <a href="#go-to-report" class=""
+                                    <a href="${contextPath}/report/post?id=${post.postID}"
                                        >Report</a
                                     >
                                 </div>
@@ -252,7 +249,7 @@
                                     <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}" class="">
                                         <img
                                             class="post-user-img"
-                                            src="${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
+                                            src="${your.avatar}"
                                             />
                                     </a>
                                 </div>

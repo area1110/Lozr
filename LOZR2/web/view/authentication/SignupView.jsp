@@ -29,7 +29,7 @@
             />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
-        <script src="${contextPath}/src/script/imgurupload.js" defer></script>
+        <script src="${contextPath}/src/script/imgupload.js" defer></script>
     </head>
     <body class="u-body">
         <header
@@ -62,6 +62,18 @@
                     WELCOME TO LOZR
                 </h1>
                 <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
+
+                    <div class="avatar-create">
+                        <div class="avatar-input">
+                            <label class="u-custom-font u-label u-text-custom-color-1 u-label-7">
+                                Please choose Avatar
+                            </label >
+                            <input class="avatar-openfile" type='file' onchange="doImgUpload(this, 'avatar-url', 'output-img')">
+                        </div>
+                        <div class="avatar-view">
+                            <img src="https://i.ibb.co/cYVc6t4/blank-avatar.png" id="output-img"/>
+                        </div>
+                    </div>
                     <form
                         action="signup"
                         method="POST"
@@ -194,14 +206,10 @@
                                 />
                         </div>
                         <div class="u-form-group u-form-group-7">
-                            <label
-                                for="avatar"
-                                class="u-custom-font u-label u-text-custom-color-1 u-label-7"
-                                >Please choose Avatar</label
-                            >
+
                             <input
-                                type="file"
-                                id="avatar"
+                                type="hidden"
+                                id="avatar-url"
                                 name="avatar"
                                 class="
                                 u-border-1
@@ -215,7 +223,7 @@
                                 onchange="doImgUpload('avatar', 'urlout')"
                                 />
                         </div>
-                                <div id="urlout"></div>
+                        <div id="urlout"></div>
                         <div class="u-align-left u-form-group u-form-submit">
                             <input
                                 id="submit"

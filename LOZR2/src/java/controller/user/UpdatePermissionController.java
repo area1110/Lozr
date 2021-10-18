@@ -75,13 +75,13 @@ public class UpdatePermissionController extends BaseRequiredAuthentication {
             throws ServletException, IOException {
 //        processRequest(request, response);
         UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        if (currentUser.isAdmin()) {
+        if (currentUser.isModerator()) {
             int userID = Integer.parseInt(request.getParameter("userID"));
             String raw_isAdmin = request.getParameter("isAdmin");
             boolean isAdmin = (raw_isAdmin == null) ? false : true;
             UserInfo userSet = new UserInfo();
             userSet.setUserID(userID);
-            userSet.setAdmin(isAdmin);
+            userSet.setModerator(isAdmin);
             UserInfoDBContext userDBC = new UserInfoDBContext();
             userDBC.updatePermission(userSet);
             response.sendRedirect(request.getHeader("referer"));

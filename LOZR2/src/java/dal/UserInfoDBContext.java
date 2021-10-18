@@ -46,7 +46,7 @@ public class UserInfoDBContext extends DBContext {
             stm.setNString(3, user.getFirstName());
             stm.setNString(4, user.getLastName());
             stm.setString(5, user.getEmailAddress());
-            stm.setString(6, user.getBase64ImageAvatar());
+            stm.setString(6, user.getAvatar());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +58,7 @@ public class UserInfoDBContext extends DBContext {
 
         try {
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
-                    + "UserDateJoined, UserImageAvatar , UserIsAdmin FROM UserInfo\n"
+                    + "UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
                     + "WHERE UserLoginName=?"; //'" + userLoginName + "'
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
@@ -73,8 +73,8 @@ public class UserInfoDBContext extends DBContext {
                 user.setLastName(rs.getNString("UserLastName"));
                 user.setEmailAddress(rs.getString("UserEmailAddress"));
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
-                user.setAdmin(rs.getBoolean("UserIsAdmin"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -101,8 +101,8 @@ public class UserInfoDBContext extends DBContext {
                 user.setLastName(rs.getNString("UserLastName"));
                 user.setEmailAddress(rs.getString("UserEmailAddress"));
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
-                user.setAdmin(rs.getBoolean("UserIsAdmin"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -114,7 +114,7 @@ public class UserInfoDBContext extends DBContext {
     public UserInfo getUser(int userID) {
         try {
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
-                    + "UserDateJoined, UserImageAvatar , UserIsAdmin FROM UserInfo\n"
+                    + "UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
                     + "WHERE UserID=?"; //'" + userLoginName + "'
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
@@ -129,8 +129,8 @@ public class UserInfoDBContext extends DBContext {
                 user.setLastName(rs.getNString("UserLastName"));
                 user.setEmailAddress(rs.getString("UserEmailAddress"));
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
-                user.setAdmin(rs.getBoolean("UserIsAdmin"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 return user;
             }
         } catch (SQLException ex) {
@@ -142,10 +142,10 @@ public class UserInfoDBContext extends DBContext {
     public void updatePermission(UserInfo user) {
         try {
             String sql_update_isAdmin = "UPDATE [UserInfo]\n"
-                    + "   SET [UserIsAdmin] = ?\n"
+                    + "   SET [UserIsMod] = ?\n"
                     + " WHERE UserID = ?";
             PreparedStatement stm_update_isAdmin = connection.prepareStatement(sql_update_isAdmin);
-            stm_update_isAdmin.setBoolean(1, user.isAdmin());
+            stm_update_isAdmin.setBoolean(1, user.isModerator());
             stm_update_isAdmin.setInt(2, user.getUserID());
             stm_update_isAdmin.executeUpdate();
         } catch (SQLException ex) {
@@ -174,7 +174,7 @@ public class UserInfoDBContext extends DBContext {
             stm.setNString(3, user.getFirstName());
             stm.setNString(4, user.getLastName());
             stm.setString(5, user.getEmailAddress());
-            stm.setString(6, user.getBase64ImageAvatar());
+            stm.setString(6, user.getAvatar());
             stm.setInt(7, user.getUserID());
             stm.executeUpdate();
         } catch (SQLException ex) {

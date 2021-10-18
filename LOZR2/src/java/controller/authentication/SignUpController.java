@@ -79,10 +79,14 @@ public class SignUpController extends HttpServlet {
         userInfo.setFirstName(request.getParameter("firstName").trim());
         userInfo.setLastName(request.getParameter("lastName").trim());
         userInfo.setEmailAddress(request.getParameter("email").trim());
-
-        InputStream is = request.getPart("avatar").getInputStream();
-        Encode encode = new Encode();
-        userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
+        String raw_urlavatar = request.getParameter("avatar");
+        if(raw_urlavatar==null || raw_urlavatar.isEmpty()){
+            raw_urlavatar = "https://i.ibb.co/cYVc6t4/blank-avatar.png";
+        }
+        userInfo.setAvatar(raw_urlavatar);
+//        InputStream is = request.getPart("avatar").getInputStream();
+//        Encode encode = new Encode();
+//        userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
         UserInfoDBContext userDBC = new UserInfoDBContext();
 
         int statusUpdate = userDBC.createNewUser(userInfo);

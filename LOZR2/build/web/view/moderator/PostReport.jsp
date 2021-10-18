@@ -43,7 +43,7 @@
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="u-clearfix u-sheet u-sheet-1">
                 <a
-                    href="#main"
+                    href="${contextPath}"
                     class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
                     data-image-width="590"
                     data-image-height="90"
@@ -114,7 +114,7 @@
                                     "
                                     >
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link" href="Page-1.html"
+                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName , your.userID)}"
                                            >${(empty your)? "Account" : your.loginName}</a
                                         >
                                     </li>
@@ -133,29 +133,21 @@
         </header>
 
         <div class="main-zone">
+            <div class="content-select">            
+                <a href="${contextPath}/admin/report/post"
+                   class="button button-change-content" >
+                    GO BACK THREADS MANAGEMENT
+                </a>
+            </div>
             <div class="body-header">
-                <c:if test="${thread.active}">
-                    <div class="post-title">
-                        <h1>${thread.subject}</h1>
-                    </div>
-                </c:if>
-                <c:if test="${!thread.active}">
-                    <div class="post-title">
-                        <h1 class="deactive">${thread.subject}</h1>
-                        <h2>- Deactive -</h2>
-                    </div>
-                </c:if>
-                <div class="post-title-description">
-                    <ul>
-                        <li>${thread.startedBy.loginName}</li>
-                        <li><time><fmt:formatDate type="both" dateStyle="short"
-                                        timeStyle="short" value="${thread.timeCreated}"/></time></li>
-                    </ul>
-                </div>
+                
+                <div class="post-title">
+                    <h1>POSTS MANAGEMENT</h1>
+                </div>                      
             </div>
             <c:if test="${empty requestScope.posts}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Publish Your Mind?!</h1>
+                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Done! Everything is clear.</h1>
                 </div>
             </c:if>
             <c:forEach var="post" items="${requestScope.posts}">
@@ -192,20 +184,20 @@
                                 <fmt:formatDate type="both" dateStyle="short"
                                                 timeStyle="short" value="${post.timeCreated}"/>
                             </time>
-<!--                            <ul class="post-attribute-list">
+                            <ul class="post-attribute-list">
                                 <li>
-                                   
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}">Go to thread</a>
                                 </li>
-                            </ul>-->
+                            </ul>
                         </header>
 
                         <div class="post-main">
                             <c:if test="${!empty post.replyPost}">
                                 <blockquote class="post-block-reply">
                                     <div class="post-reply-user">
-                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", post.replyPost.user.loginName, post.replyPost.user.userID)}" class=""
-                                           >${post.replyPost.user.loginName} said:</a
-                                        >
+                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", post.replyPost.user.loginName, post.replyPost.user.userID)}">
+                                            ${post.replyPost.user.loginName} said:
+                                        </a>
                                     </div>
                                     <div class="post-reply-content">
                                         <div class="">
@@ -222,16 +214,16 @@
                                     <c:if test="${your.moderator || your.userID==post.user.userID}">
                                         <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
-                                    <a
+<!--                                    <a
                                         href="#post-create"
                                         class="post-reply-button"
                                         onclick="doReply(${post.postID})"
                                         >Reply</a
-                                    >
+                                    >-->
                                 </div>
                                 <div class="">
-                                    <a href="${contextPath}/report/post?id=${post.postID}"
-                                       >Report</a
+                                    <a href="${contextPath}/admin/report/post?id=${post.postID}"
+                                       >Remove From List</a
                                     >
                                 </div>
                             </div>
@@ -240,67 +232,8 @@
                 </div>
                 <!--/Body post-->
             </c:forEach>
-            <c:if test="${thread.active}">
-                <div class="post">
-                    <div class="post-user-cell">
-                        <section class="post-user">
-                            <div class="">
-                                <div class="post-user-avatar">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}" class="">
-                                        <img
-                                            class="post-user-img"
-                                            src="${your.avatar}"
-                                            />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="post-user-detail">
-                                <h4 class="post-user-name">
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}" class=""
-                                       >You</a
-                                    >
-                                </h4>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="post-main-cell">
-                        <div class="post-main">
-                            <blockquote class="post-block-reply" id="blockreply">
-                                <div class="post-reply-user">
-                                    <a id="replyUser" class=""></a> said:
-                                </div>
-                                <div class="post-reply-content">
-                                    <pre id="replySubject" class=""></pre>
-                                </div>
-                                <div class="cancel-reply">
-                                    <a href="#post-create" onclick="doCancel()">Cancel reply</a>
-                                </div>
-                            </blockquote>
-
-                            <div class="post-create" id="post-create">
-                                <form action="../post" method="POST" class="post-create-form">
-                                    <input type="hidden" name="replyID" id="replyID" value="" />
-                                    <input type="hidden" name="threadID" value="${thread.threadID}"/>
-                                    <div>
-                                        <label for="postSubject"></label>
-                                        <textarea
-                                            class="post-subject-textarea text-insert"
-                                            name="postSubject"
-                                            placeholder="What is your thinking?"
-                                            ></textarea>
-                                    </div>
-                                    <div class="post-create-submit">
-                                        <input class="submit-button" type="submit" value="Post" />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:if>
 
         </div>
-
         <footer
             class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
             id="sec-4768"

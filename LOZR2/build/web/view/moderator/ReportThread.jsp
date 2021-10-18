@@ -15,9 +15,7 @@
 
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
-        <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
 
-        <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
 
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,11 +25,7 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
-        <script
-            type="text/javascript"
-            src="${contextPath}/src/script/jquery.js"
-            defer=""
-        ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script
             type="text/javascript"
             src="${contextPath}/src/script/nicepage.js"
@@ -87,7 +81,7 @@
                             </p>
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
-                                src= "${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
+                                src= "${your.avatar}"
                                 />
                         </div>
                     </div>
@@ -159,8 +153,13 @@
         </header>
 
         <div class="main-zone">
+            <div class="content-select">            
+                    <a href="${contextPath}/admin/report/post"
+                       class="button button-change-content" >
+                        GO TO POSTS MANAGEMENT
+                    </a>
+                </div>
             <div class="body-header">
-
                 <div  class="post-title" >
                     <h1>THREAD MANAGEMENT</h1>
                 </div>
@@ -168,20 +167,18 @@
             <!--ThreadZone-->
             <c:if test="${empty requestScope.threads}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Oops, There is nothing here?!</h1>
+                    <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Done! Everything is clear.</h1>
                 </div>
             </c:if>
 
             <c:forEach items="${threads}" var="thread">
-                <%--<c:set var="thread" value="${reportthread.thread}"/>--%>
-                <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
                 <a href="#ádfa">
                     <div class="thread-table thread-card">
 
                         <div class="thread-cell thread-cell-author">
                             <div class="">
                                 <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}">
-                                    <img src="${(empty thread.startedBy.base64ImageAvatar)?  defaultImage : threadByAvatar}" />
+                                    <img src="${thread.startedBy.avatar}" />
                                 </a>
                             </div>
                         </div>
@@ -194,19 +191,19 @@
                                 >
                             </div>
 
-                            <div class="">
+                            <div >
                                 <ul class="thread-item-part">
                                     <li>
                                         <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}" class="username"
                                            >${thread.startedBy.loginName}</a
                                         >
                                     </li>
-                                    <li class="">
-                                        <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
+                                    <li >
+                                        
                                             <time class="thread-latestDate">
                                                 <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
                                             </time>
-                                        </a>
+                              
                                     </li>
                                 </ul>
                             </div>

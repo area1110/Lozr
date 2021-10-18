@@ -20,8 +20,6 @@
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
         <c:set var="your" value="${sessionScope.currentUser}"/>
         <c:set var="forums" value="${requestScope.forumsList}"/>
-        <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
-        <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
@@ -32,10 +30,12 @@
         <link rel="stylesheet" href="${contextPath}/src/style/Home.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
 
-        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/homeScript.js" defer></script>
+                <script type="text/javascript" src="${contextPath}/src/script/imgupload.js" defer></script>
+
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -52,16 +52,27 @@
     </head>
     <body>
         <div class="form-popup" id="formEdit">
-            <form action="update/forum" method="POST"  enctype="multipart/form-data" class="form-container">
+            <div class="form-container">
                 <h2>Edit Forum</h2>
-                <input type="hidden" id="elementeID"  name="forumID"/> 
-                <label  for="forumName">New Forum Title</label>
-                <input type="text" placeholder="New Name" name="forumName">
-                <label for="photo">New Cover</label>
-                <input   type="file"  name="photo">
-                <button type="submit" class="btn">Save</button>
-                <button type="button" class="btn" onclick="closeForm()">Close</button>
-            </form>
+                <div class="cover-create">
+                     <label for="photo">New Cover</label>
+                    <div class="cover-view">
+                        <img src="https://via.placeholder.com/200x130" id="output-cover-img"/>
+                    </div>
+                    <div class="cover-input">
+                        <input class="cover-openfile" id="choose-img" type='file' onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
+                    </div>
+                </div>
+                <form action="update/forum" method="POST" >  
+                    <input type="hidden" id="elementeID"  name="forumID"/> 
+                    <input   type="hidden" id="cover-url"  name="photo">
+                    <label  for="forumName">New Forum Title</label>
+                    <input type="text" placeholder="New Name" name="forumName">
+            
+                    <button type="submit" class="btn">Save</button>
+                    <button type="button" class="btn" onclick="closeForm()">Close</button>
+                </form>
+            </div>
         </div>
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="u-clearfix u-sheet u-sheet-1">
@@ -86,7 +97,7 @@
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
 
-                                src="${(empty your.base64ImageAvatar)? defaultImage: yourAvatar}"
+                                src="${your.avatar}"
                                 />
                         </div>
                     </div>
@@ -142,7 +153,7 @@
                                             ${(empty your.loginName)? "Account": your.loginName}
                                         </a>
                                     </li>
-                                    <c:if test="${your.admin}" >
+                                    <c:if test="${your.moderator}" >
                                         <li class="u-nav-item">
                                             <a onclick="openCreateForum()" class="u-button-style u-nav-link">New Forum</a>
                                         </li>
@@ -167,8 +178,6 @@
             </div>
         </header>
 
-
-
         <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="main">
             <c:if test="${empty forums}">
 
@@ -191,7 +200,7 @@
                     <div class="u-repeater u-repeater-1">
 
                         <c:forEach items="${forums}" var="forum">
-                            <c:set var="forumImage" value="data:image/jpg;base64,${forum.base64Image}"/>
+                            <c:set var="forumImage" value="data:image/jpg;base64,${forum.cover}"/>
                             <!--blog_post-->
                             <div id="forum-${forum.forumID}" class="u-align-center u-blog-post u-container-style u-repeater-item u-video-cover u-white u-repeater-item-2">
                                 <div class="u-container-layout u-similar-container u-container-layout-4">
@@ -199,7 +208,7 @@
 
                                         <span class="u-post-header-link">
                                             <img alt="Forum cover" class="u-blog-control u-expanded-width u-image u-image-default u-image-2" 
-                                                 src="${(empty forum.base64Image)? defaultImage: forumImage}"<!--/blog_post_image-->
+                                                 src="${forum.cover}"<!--/blog_post_image-->
                                         </span>
                                         <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-3">
                                             <div class="u-container-layout u-valign-middle u-container-layout-5">
@@ -210,7 +219,7 @@
 
                                         <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-grey-50 u-text-7">${forum.newThreads} New Threads Today</p>
                                     </a>
-                                    <c:if test="${your.admin}">
+                                    <c:if test="${your.moderator}">
                                         <div class="dropdown">
                                             <button onclick="showDropdownMenu(${forum.forumID})" class="dropbtn">Edit</button>
                                             <div id="myDropdown-${forum.forumID}" class="dropdown-content">

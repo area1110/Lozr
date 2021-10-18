@@ -47,7 +47,7 @@ public class DeleteForumController extends BaseRequiredAuthentication {
             throws ServletException, IOException {
 //        processRequest(request, response);
         UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        if (currentUser.isAdmin()) {
+        if (currentUser.isModerator()) {
             int forumID = Integer.parseInt(request.getParameter("id"));
             ForumDBContext forumDBC = new ForumDBContext();
             forumDBC.updateStatus(forumID, false);

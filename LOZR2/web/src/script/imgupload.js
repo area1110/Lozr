@@ -6,15 +6,17 @@
 /* global fetch */
 
 
-function doImgUpload(fileInputId, urlout) {
-    var file = document.getElementById(fileInputId);
+function doImgUpload(fileInputId, urlout, imgout) {
     var form = new FormData();
-    form.append("image", file.files[0]);
-
+    const outputURL = document.getElementById(urlout);
+    const outputImg = document.getElementById(imgout);
+    
+    form.append("image", fileInputId.files[0]);
     fetch("https://api.imgbb.com/1/upload?key=1af8cbe03c0cb11d90d17917021deeeb", {
         method: "post",
         body: form
     }).then(data => data.json()).then(data => {
-        document.getElementById(urlout).innerHTML = data.data.url;
+        outputURL.value = data.data.url;
+        outputImg.src = data.data.url;
     });
 }

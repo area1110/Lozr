@@ -170,3 +170,29 @@ body {
 #repassErr {
     display: none;
 }
+
+#output-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.avatar-create{
+    margin-top: 50px;
+    margin-bottom: 20px;
+    
+}
+
+.avatar-input {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.avatar-openfile{
+    display: block;
+}
+
+.avatar-view{
+    display: table-cell;
+    vertical-align: top;
+}

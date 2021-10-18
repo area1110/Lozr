@@ -15,19 +15,20 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}"/>   
     <c:set var="your" value="${sessionScope.currentUser}"/>
     <c:set var="forums" value="${requestScope.forumsList}"/>
-    <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
-    <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
+
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
 
-        <meta name="page_type" content="np-template-header-footer-from-plugin" />
         <title>Change Info | L0ZR</title>
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
-        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/imgupload.js" defer></script>
+        <script src="${contextPath}/src/script/script.js" defer></script>
+
 
         <link
             rel="stylesheet"
@@ -37,13 +38,13 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
             />
-        <script src="${contextPath}/src/script/script.js" defer></script>
+
     </head>
     <body class="u-body">
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="u-clearfix u-sheet u-sheet-1">
                 <a
-                    href="#main"
+                    href="${contextPath}"
                     class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
                     data-image-width="590"
                     data-image-height="90"
@@ -63,7 +64,7 @@
                             <img
                                 class="u-expanded-height-xl u-image u-image-circle u-image-2"
 
-                                src="${(empty your.base64ImageAvatar)? defaultImage: yourAvatar}"
+                                src="${your.avatar}"
                                 />
                         </div>
                     </div>
@@ -119,7 +120,7 @@
                                             ${(empty your.loginName)? "Account": your.loginName}
                                         </a>
                                     </li>
-                                    <c:if test="${your.admin}" >                             
+                                    <c:if test="${your.moderator}" >                             
                                         <li class="u-nav-item">
                                             <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">Report Manager</a>
                                         </li>
@@ -153,7 +154,18 @@
                     >
                     CHANGE YOUR INFORMATION
                 </h1>
-                <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
+                <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">          
+                    <div class="avatar-create">
+                        <div class="avatar-input">
+                            <label class="u-custom-font u-label u-text-custom-color-1 u-label-7">
+                                Please choose Avatar
+                            </label >
+                            <input class="avatar-openfile" type='file' onchange="doImgUpload(this, 'avatar-url', 'output-img')">
+                        </div>
+                        <div class="avatar-view">
+                            <img src="https://i.ibb.co/cYVc6t4/blank-avatar.png" id="output-img"/>
+                        </div>
+                    </div>
                     <form
                         action="${contextPath}/update/user/info"
                         method="POST"
@@ -243,9 +255,7 @@
                                 u-white
                                 u-input-4
                                 "
-
                                 value="${user.emailAddress}"
-
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-5">
@@ -286,15 +296,10 @@
 
                                 />
                         </div>
-                        <div class="u-form-group u-form-group-7">
-                            <label
-                                for="avatar"
-                                class="u-custom-font u-label u-text-custom-color-1 u-label-7"
-                                >Please choose Avatar</label
-                            >
+                        <div class="u-form-group u-form-group-7">                    
                             <input
-                                type="file"
-                                id="avatar"
+                                type="hidden"
+                                id="avatar-url"
                                 name="avatar"
                                 class="
                                 u-border-1
@@ -311,8 +316,7 @@
                             <input
                                 id="submit"
                                 type="submit"
-                                value="submit"
-                                onclick="removeSpace();"
+                                value="Save"
                                 class="u-btn
                                 u-btn-round
                                 u-btn-submit
@@ -322,7 +326,7 @@
                                 u-radius-10
                                 u-text-active-palette-1-dark-1
                                 u-btn-1"
-
+                                onclick="removeSpace();"
                                 />
                         </div>
                     </form>

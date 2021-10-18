@@ -12,7 +12,7 @@ function check_pass() {
 }
 
 function removeSpace() {
-    let input = document.getElementsByTagName("input");
+    let input = document.querySelectorAll("input[type=text]");
     for (let eachInput of input) {
         eachInput.value = eachInput.value.trim();
     }
@@ -74,16 +74,13 @@ function openForm(forumID) {
 
 function closeForm() {
     document.getElementById("formEdit").style.display = "none";
-    document.getElementById("elementeID").removeAttribute("value");
+//    document.getElementById("elementeID").removeAttribute("value");
+//    document.getElementById("cover-url").removeAttribute("value");
+//    document.getElementById("output-cover-img").src = 'https://via.placeholder.com/200x130';
 }
 //
 //
-function openCreateForum() {
-    document.querySelector("#formEdit>form").action = 'forum';
-    document.querySelector("#formEdit>form>h2").innerHTML = "Create New Forum";
-    document.querySelector("#formEdit").style.display = "flex";
 
-}
 
 //autosubmit-changing-admin-in-user-page
 function changePermission(userID) {

@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="${contextPath}/src/style/Home.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
 
-        <script type="text/javascript" src="${contextPath}/src/script/jquery.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
         <link

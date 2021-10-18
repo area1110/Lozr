@@ -15,10 +15,6 @@
 
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
-        <c:set var="defaultImage" value="${contextPath}/images/82761229_p17_master1200.jpg"/>
-        <c:set var="userAvatar" value="data:image/jpg;base64,${user.base64ImageAvatar}"/>
-        <c:set var="yourAvatar" value="data:image/jpg;base64,${your.base64ImageAvatar}"/>
-
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
@@ -30,18 +26,10 @@
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/User.css" />
 
-        <script
-            type="text/javascript"
-            src="${contextPath}/src/script/jquery.js"
-            defer=""
-        ></script>
-        <script
-            type="text/javascript"
-            src="${contextPath}/src/script/nicepage.js"
-            defer=""
-        ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+        <script src="${contextPath}/src/script/nicepage.js"   defer="" ></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
-        <!-- <meta name="generator" content="Nicepage 3.26.0, nicepage.com" /> -->
+
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -59,31 +47,25 @@
     <body class="u-body">
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="u-clearfix u-sheet u-sheet-1">
-                <a
-                    href="#main"
-                    class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
-                    data-image-width="590"
-                    data-image-height="90"
-                    >
+                <a href="${contextPath}" class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1" >
                     <img src="${contextPath}/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>
-                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", user.userID)}">
-                    <div class="u-align-left u-container-style u-group u-group-1">
-                        <div class="u-container-layout u-container-layout-1">
-                            <p
-                                class="
-                                u-align-right u-custom-font u-font-montserrat u-text u-text-1
-                                "
-                                >
-                                ${(empty your)? "Account" : your.loginName}
+                <div class="u-align-left u-container-style u-group u-group-1">
+                    <div class="u-container-layout u-container-layout-1">
+                        <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+
+                            <p class="u-align-right u-custom-font u-font-montserrat u-text u-text-1">
+                                ${(empty your.loginName)? "Account": your.loginName}
                             </p>
-                            <img
-                                class="u-expanded-height-xl u-image u-image-circle u-image-2"
-                                src= "${(empty your.base64ImageAvatar)?  defaultImage : yourAvatar}"
-                                />
-                        </div>
+                        </a>
+
+                        <img
+                            class="u-expanded-height-xl u-image u-image-circle u-image-2"
+
+                            src="${your.avatar}"
+                            />
                     </div>
-                </a>
+                </div>
 
                 <nav
                     class="
@@ -131,9 +113,20 @@
                                     "
                                     >
                                     <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}"
-                                           >${(empty your)? "Account" : your.loginName}</a
-                                        >
+                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                                            ${(empty your.loginName)? "Account": your.loginName}
+                                        </a>
+                                    </li>
+                                    <c:if test="${your.moderator}" >
+                                        <li class="u-nav-item">
+                                            <a onclick="openCreateForum()" class="u-button-style u-nav-link">New Forum</a>
+                                        </li>
+                                        <li class="u-nav-item">
+                                            <a href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
+                                        </li>
+                                    </c:if>
+                                    <li class="u-nav-item">
+                                        <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
                                     </li>
                                     <li class="u-nav-item">
                                         <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
@@ -141,9 +134,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div
-                            class="u-custom-color-4 u-menu-overlay u-opacity u-opacity-65"
-                            ></div>
+                        <div class="u-custom-color-4 u-menu-overlay u-opacity u-opacity-65" ></div>
                     </div>
                 </nav>
             </div>
@@ -154,7 +145,7 @@
             <div class="" id="user">
                 <div class="user-card user-card">
                     <div class="user-avatar user-cell">
-                        <img src="${(empty user.base64ImageAvatar)?  defaultImage : userAvatar}" />
+                        <img src="${user.avatar}" />
                     </div>
                     <div class="user-cell">
                         <div class="user-loginname">
@@ -194,80 +185,72 @@
                         <button class="button report-button">REPORT</button>
 
                         <div class="user-permisson">
-                            <c:if test="${!your.admin && user.admin}">
+                            <c:if test="${!your.moderator && user.moderator}">
                                 <div class="user-isadmin">
-                                    <label>Admin</label>
+                                    <label>Moderator</label>
                                 </div>
                             </c:if>
-                            <c:if test="${your.admin}">
+                            <c:if test="${your.moderator}">
                                 <form action="../update/user/permission" method="POST" id="changePermissionForm">
                                     <input type="hidden" value="${user.userID}" name="userID" />
-                                    <input id="admin-tickbox" name="isAdmin" onchange ="changePermission('${user.userID}');" 
-                                           ${user.admin? "checked" : ""} type="checkbox">
-                                    <label>Admin permission</label>
+                                    <input id="moderator-tickbox" name="isAdmin" onchange ="changePermission('${user.userID}');" 
+                                           ${user.moderator? "checked" : ""} type="checkbox">
+                                    <label>Moderator permission</label>
                                 </form>
                             </c:if>
                         </div>
                     </div>
                 </div>
-<!--                <div class="content-select">
-                    <a
-                        href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}?postselect=1"
-                        class="button button-change-content"
-                        >
+                <div class="content-select">            
+                    <a href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}?postselect=1"
+                       class="button button-change-content" >
                         LAST POSTS
                     </a>
-                    <button
-                        href="https://nicepage.com/k/consulting-website-templates"
-                        class="button button-change-content active"
-                        >
+                    <a
+                        href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}"
+                        class="button button-change-content" >
                         LAST THREADS
-                    </button>
-                </div>-->
-            </div>
-
-            <div class="body-header">    
-                <div  class="post-title" >
-                    <h1>Last Threads</h1>
+                    </a>
                 </div>
             </div>
+            <!--        <div class="body-header">    
+                        <div  class="post-title" >
+                            <h1>Last Threads</h1>
+                        </div>
+                    </div>-->
             <!--ThreadZone-->
 
 
             <c:forEach items="${threads}" var="thread">
-                <c:set var="threadByAvatar" value="data:image/jpg;base64,${thread.startedBy.base64ImageAvatar}"/>
                 <a href="#ádfa">
                     <div class="thread-table thread-card">
 
                         <div class="thread-cell thread-cell-author">
                             <div class="">
-                                <a href="#">
-                                    <img src="${(empty thread.startedBy.base64ImageAvatar)?defaultImage :  threadByAvatar }" />
+                                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}">
+                                    <img src="${thread.startedBy.avatar}" />
                                 </a>
                             </div>
                         </div>
 
                         <div class="thread-cell">
                             <div class="thread-subject">
-                                <a
-                                    href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}"
-                                    >${thread.subject}</a
-                                >
+                                <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
+                                    ${thread.subject}
+                                </a>
                             </div>
-
-                            <div class="">
+                            <div>
                                 <ul class="thread-item-part">
                                     <li>
-                                        <a href="#" class="username"
+                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}" class="username"
                                            >${thread.startedBy.loginName}</a
                                         >
                                     </li>
-                                    <li class="">
-                                        <a href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/">
-                                            <time class="thread-latestDate">
-                                                <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
-                                            </time>
-                                        </a>
+                                    <li>
+                                        <time class="thread-latestDate">
+                                            <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                        </time>
+
                                     </li>
                                 </ul>
                             </div>
@@ -315,7 +298,7 @@
                                 <a href="#">Bookmark</a>
 
                                 <a href="#">Change Title</a>
-                                <c:if test="${your.admin || your.userID == thread.startedBy.userID}">
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
                                     <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>
                             </div>
@@ -327,18 +310,17 @@
             </c:forEach>
 
             <c:forEach var="post" items="${requestScope.posts}">
-                <c:set var="postByAvatar" value="data:image/jpg;base64,${post.user.base64ImageAvatar}"/>
 
                 <!--Body post-->
                 <div class="post">
                     <div class="post-user-cell">
-                        <section itemtype="https://schema.org/Person" class="post-user">
+                        <section class="post-user">
                             <div class="">
                                 <div class="post-user-avatar">
-                                    <a href="https://f95zone.to/members/molvaeth.2791234/" class="">
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", user.userID)}" class="">
                                         <img
                                             class="post-user-img"
-                                            src="${(empty post.user.base64ImageAvatar)?  defaultImage : postByAvatar}"
+                                            src="${post.user.avatar}"
                                             />
                                     </a>
                                 </div>
@@ -347,7 +329,7 @@
                                 <h4 class="post-user-name">
                                     <a
                                         name="${post.postID}"
-                                        href="https://f95zone.to/members/molvaeth.2791234/"
+                                        href="${transToPath.compressObjectToPath(contextPath, "user", "", user.userID)}"
                                         class=""
                                         >${post.user.loginName}</a
                                     >
@@ -365,11 +347,18 @@
                             <ul class="post-attribute-list">
                                 <li>
                                     <a
-                                        href="https://f95zone.to/threads/boxing-fantasy-final-pinclude-studio.95408/post-6647695"
+                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}"
                                         >
-                                        #7
+                                        Go to Thread
                                     </a>
                                 </li>
+                                <li>
+                                    <a
+                                        href="#go-to-bookmark-servlet"
+                                        >
+                                        Bookmark
+                                    </a>
+                                </li>                              
                             </ul>
                         </header>
 
@@ -377,7 +366,7 @@
                             <c:if test="${!empty post.replyPost}">
                                 <blockquote class="post-block-reply">
                                     <div class="post-reply-user">
-                                        <a href="https://f95zone.to/goto/post?id=6647317" class=""
+                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", post.replyPost.user.userID)}" class=""
                                            >${post.replyPost.user.loginName} said:</a
                                         >
                                     </div>
@@ -402,7 +391,7 @@
                                     >
                                 </div>
                                 <div class="">
-                                    <a href="https://f95zone.to/posts/6647695/report" class=""
+                                    <a href="#go-to-report-servlet" class=""
                                        >Report</a
                                     >
                                 </div>

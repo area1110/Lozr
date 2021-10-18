@@ -25,7 +25,7 @@ public class FThreadDBContext extends DBContext {
         ArrayList<FThread> fThreads = new ArrayList<>();
         try {
             String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
-                    + "	U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar, T.ThreadIsActive,\n"
+                    + "	U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
                     + "		(SELECT COUNT(PostID) FROM Post\n"
                     + "                                     WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
                     + "FROM Thread AS T JOIN UserInfo AS U\n"
@@ -51,8 +51,8 @@ public class FThreadDBContext extends DBContext {
                 UserInfo user = new UserInfo();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
-                user.setAdmin(rs.getBoolean("UserIsAdmin"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 fThread.setStartedBy(user);
                 fThread.setNumPosts(rs.getInt("TotalPosts"));
                 fThreads.add(fThread);
@@ -67,7 +67,7 @@ public class FThreadDBContext extends DBContext {
         ArrayList<FThread> fThreads = new ArrayList<>();
         try {
             String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
-                    + "	U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar, T.ThreadIsActive,\n"
+                    + "	U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
                     + "		(SELECT COUNT(PostID) FROM Post\n"
                     + "                                     WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
                     + "FROM Thread AS T JOIN UserInfo AS U\n"
@@ -93,8 +93,8 @@ public class FThreadDBContext extends DBContext {
                 UserInfo user = new UserInfo();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
-                user.setAdmin(rs.getBoolean("UserIsAdmin"));
-                user.setBase64ImageAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
                 fThread.setStartedBy(user);
                 fThread.setNumPosts(rs.getInt("TotalPosts"));
                 fThreads.add(fThread);
@@ -109,7 +109,7 @@ public class FThreadDBContext extends DBContext {
         FThread fthread = null;
         try {
             String sql_select_thread = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID, T.ThreadIsActive,\n"
-                    + "U.UserID, U.UserLoginName, U.UserIsAdmin, U.UserImageAvatar\n"
+                    + "U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar\n"
                     + "FROM Thread AS T JOIN UserInfo AS U\n"
                     + "	ON T.ThreadStartedBy=U.UserID\n"
                     + "	WHERE T.ThreadID=?";
