@@ -68,12 +68,12 @@ function doDelete(ID, feature) {
 
 //popup-form-edit
 function openForm(forumID) {
-    document.getElementById("formEdit").style.display = "flex";
+    document.getElementById("formEdit").style.visibility = "visible";
     document.getElementById("elementeID").value = forumID;
 }
 
 function closeForm() {
-    document.getElementById("formEdit").style.display = "none";
+    document.getElementById("formEdit").style.visibility = "hidden";
 //    document.getElementById("elementeID").removeAttribute("value");
 //    document.getElementById("cover-url").removeAttribute("value");
 //    document.getElementById("output-cover-img").src = 'https://via.placeholder.com/200x130';
@@ -92,4 +92,17 @@ function changePermission(userID) {
     document.getElementById("changePermissionForm").submit();
 }
 
+
+//navbar diy
+/* Set the width of the sidebar to 250px (show it) */
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "300px";
+//  $("#mySidepanel").toggle("slow");
+}
+
+/* Set the width of the sidebar to 0 (hide it) */
+function closeNav() {
+//    $("#mySidepanel").toggle("slow");
+  document.getElementById("mySidepanel").style.width = "0";
+}
 

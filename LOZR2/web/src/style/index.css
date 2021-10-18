@@ -15,7 +15,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
-  background-image: url("../../images/82761229_p17_master1200.jpg");
+    background-image: url("../../images/82761229_p17_master1200.jpg");
 }
 
 .text-insert {
@@ -42,14 +42,105 @@ a.menu-button {
     text-decoration: line-through;
     color: #ef002f;
 }
-
-.u-sticky-fixed.u-sticky-1ec8,
-.u-body.u-sticky-fixed .u-sticky-1ec8 {
-    box-shadow: 0 2px 8px 0 rgba(128, 128, 128, 1) !important;
+/*head navbar*/
+header {
+   border-bottom: 1px solid #999;
 }
-.u-sticky-fixed.u-sticky-1ec8:before,
-.u-body.u-sticky-fixed .u-sticky-1ec8:before {
-    border: top right bottom left !important;
+.header{
+    display: flex;
+    margin: 10px 3em;
+}
+
+.header-logo {
+    display: inline-block;
+}
+
+.header-logo img{
+    width: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.header-action{
+    margin-left: auto;
+}
+
+.header-action-item{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px; 
+}
+
+.header-user-name{
+    font-size: 20px;
+}
+
+.header-avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 1.5;
+}
+
+/*header*/
+
+/*Nav bar diy*/
+
+/* The sidepanel menu */
+
+.menu-user-name{
+    margin-bottom: 30px; 
+}
+.sidepanel {
+    height: 100vh; /* Specify a height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    right: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+}
+
+/* The sidepanel links */
+.sidepanel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #CCC;
+    display: block;
+    transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidepanel a:hover {
+    color: teal;
+}
+
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 40px;
+    margin-left: 50px;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+}
+
+.openbtn:hover {
+    color: teal;
 }
 
 #main, .main-zone {
@@ -159,7 +250,8 @@ a.menu-button {
     height: 100%;
     position: fixed;
     z-index: 100;
-    display: none; 
+    display: flex;
+    visibility: hidden;
     justify-content: center;
 
 }
@@ -207,3 +299,4 @@ a.menu-button {
     font-family: "Monaco", "Courier New", monospace;
     text-transform: uppercase;
 }
+

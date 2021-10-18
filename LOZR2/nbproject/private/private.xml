@@ -3,8 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/authentication/SignupView.jsp</file>
             <file>file:/D:/Github/Lozr/LOZR2/web/view/HomeView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/moderator/ReportThread.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/BookmarkView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/ErrorView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/authentication/LoginView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/UpdateUserInfo.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/src/script/homeScript.js</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/src/style/index.css</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/src/script/script.js</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/moderator/PostReport.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/ForumView.jsp</file>
             <file>file:/D:/Github/Lozr/LOZR2/web/view/UserInfoView.jsp</file>
+            <file>file:/D:/Github/Lozr/LOZR2/web/view/ThreadView.jsp</file>
         </group>
     </open-files>
 </project-private>

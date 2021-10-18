@@ -36,12 +36,7 @@
             id="sec-2137"
             >
             <div class="u-clearfix u-sheet u-sheet-1">
-                <a
-                    href="https://nicepage.com"
-                    class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
-                    data-image-width="590"
-                    data-image-height="90"
-                    >
+                <a href="${contextPath}" class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1" >
                     <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
                 </a>    
             </div>

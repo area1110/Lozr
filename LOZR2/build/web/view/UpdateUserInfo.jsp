@@ -25,7 +25,6 @@
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
-        <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/imgupload.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
 
@@ -41,103 +40,37 @@
 
     </head>
     <body class="u-body">
-        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <a
-                    href="${contextPath}"
-                    class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
-                    data-image-width="590"
-                    data-image-height="90"
-                    >
-                    <img src="${contextPath}/images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
-                </a>
-                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
-                    <div class="u-align-left u-container-style u-group u-group-1">
-                        <div class="u-container-layout u-container-layout-1">
-                            <p
-                                class="
-                                u-align-right u-custom-font u-font-montserrat u-text u-text-1
-                                "
-                                >
-                                ${(empty your.loginName)? "Account": your.loginName}
-                            </p>
-                            <img
-                                class="u-expanded-height-xl u-image u-image-circle u-image-2"
-
-                                src="${your.avatar}"
-                                />
-                        </div>
-                    </div>
-                </a>
-
-                <nav
-                    class="
-                    u-align-left
-                    u-menu
-                    u-menu-dropdown
-                    u-menu-open-right
-                    u-nav-spacing-25
-                    u-offcanvas
-                    u-menu-1
-                    "
-                    data-responsive-from="XL"
-                    >
-                    <div class="menu-collapse">
-                        <a class="menu-button" href="#">
-                            <i class="fa fa-bars"></i>
+       <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+            <div class="header">
+                <div  class="header-logo">
+                    <a href="${contextPath}">
+                        <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
+                    </a>
+                </div>
+                <div class="header-action">
+                    <div class="header-action-item">
+                        <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                            <div class="header-user">                
+                                <span  class="header-user-name header-action-item"  >
+                                    ${(empty your.loginName)? "Account": your.loginName}
+                                </span>
+                                <img  class="header-avatar header-action-item" src="${your.avatar}" />    
+                            </div>
                         </a>
                     </div>
-                    <div class="u-custom-menu u-nav-container-collapse">
-                        <div
-                            class="
-                            u-align-center
-                            u-black
-                            u-container-style
-                            u-inner-container-layout
-                            u-sidenav
-                            u-sidenav-1
-                            "
-                            data-offcanvas-width="341.5626"
-                            >
-                            <div class="u-inner-container-layout u-sidenav-overflow">
-                                <div class="u-menu-close"></div>
-                                <ul
-                                    class="
-                                    u-align-center
-                                    u-custom-font
-                                    u-font-montserrat
-                                    u-nav
-                                    u-popupmenu-items
-                                    u-spacing-16
-                                    u-text-active-palette-1-dark-1
-                                    u-text-hover-palette-4-base
-                                    u-unstyled
-                                    u-nav-2
-                                    "
-                                    >
-                                    <li class="u-nav-item">
-                                        <a class="u-button-style u-nav-link" href="${transToPath.compressObjectToPath(contextPath, "user", "", your.userID)}">
-                                            ${(empty your.loginName)? "Account": your.loginName}
-                                        </a>
-                                    </li>
-                                    <c:if test="${your.moderator}" >                             
-                                        <li class="u-nav-item">
-                                            <a href="test/CreateNewForum.jsp" class="u-button-style u-nav-link">Report Manager</a>
-                                        </li>
-                                    </c:if>
-
-
-                                    <li class="u-nav-item">
-                                        <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
-                                    </li>
-                                </ul>
-                            </div>
+                    <nav class="header-action-item">
+                        <div id="mySidepanel" class="sidepanel">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                            <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
+                            <c:if test="${your.moderator}" >                             
+                                <a href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
+                            </c:if>
+                            <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
+                            <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                         </div>
-                        <div
-                            class="u-custom-color-4 u-menu-overlay u-opacity u-opacity-65"
-                            ></div>
-                    </div>
-                </nav>
+                        <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                    </nav>              
+                </div>
             </div>
         </header>
         <section

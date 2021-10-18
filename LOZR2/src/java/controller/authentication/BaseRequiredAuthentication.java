@@ -19,10 +19,9 @@ import model.UserInfo;
 public abstract class BaseRequiredAuthentication extends HttpServlet {
 
     private boolean isAuthenticated(HttpServletRequest request) {
-//        return true;
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-//        request.getSession().setAttribute("admin", currentUser.isAdmin());
-        return currentUser != null;
+        return true;
+//        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+//        return currentUser != null;
     }
 
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
