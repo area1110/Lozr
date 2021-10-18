@@ -48,15 +48,13 @@ public class UpdateForumController extends BaseRequiredAuthentication {
             String forumName = request.getParameter("forumName");
             ForumDBContext forumDBC = new ForumDBContext();
             int forumID = Integer.parseInt(request.getParameter("forumID"));
-               String urlcover = request.getParameter("photo");
-            if(urlcover==null || urlcover.isEmpty()){
-                urlcover= "https://i.ibb.co/gDD8MtZ/82761229-p17-master1200.jpg";
-            }
-            forumName = forumName.isEmpty()? null : forumName;      
+            String urlcover = request.getParameter("photo");
+            
+           
             Forum forumUpdate = new Forum();
             forumUpdate.setForumID(forumID);
-            forumUpdate.setName(forumName);
-            forumUpdate.setCover(urlcover);
+            forumUpdate.setName(forumName.isEmpty() ? null : forumName);
+            forumUpdate.setCover(urlcover.isEmpty() ? null : urlcover);
             forumDBC.updateNameNCover(forumUpdate);
             response.sendRedirect(request.getHeader("referer"));
 

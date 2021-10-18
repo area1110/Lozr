@@ -26,6 +26,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 
         <script src="${contextPath}/src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/thread.js" defer></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -42,7 +43,7 @@
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
-            <form action="${contextPath}/update/thread" method="POST" class="form-container">
+            <form onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
                 <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
@@ -55,7 +56,7 @@
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
-                     <a href="${contextPath}">
+                    <a href="${contextPath}">
                         <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
                     </a>
                 </div>
@@ -111,7 +112,7 @@
                         </div>
                     </div>
                     <div class="thread-cell thread-create">
-                        <form id="create-thread" action="../thread" method="POST">
+                        <form onsubmit="window.location.reload();" target="dummyframe" id="create-thread" action="../thread" method="POST">
                             <div class="thread-create-insert">
                                 <input type="hidden" name="forumID"
                                        value="${requestScope.forum.forumID}"/>
@@ -244,7 +245,7 @@
                 </p>
             </div>
         </footer>
-
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </body>
 </html>
 

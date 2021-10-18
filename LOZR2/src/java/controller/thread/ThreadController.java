@@ -74,7 +74,7 @@ public class ThreadController extends BaseRequiredAuthentication {
         forum.setForumID(forumID);
         fthread.setForum(forum);
         fthreadDBC.setFThread(fthread);
-        response.sendRedirect(request.getHeader("referer"));
+//        response.sendRedirect(request.getHeader("referer"));
     }
 
     /**

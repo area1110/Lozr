@@ -285,7 +285,7 @@
                             <ul class="post-attribute-list">
                                 <li>
                                     <a
-                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}"
+                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}#${post.postID}"
                                         >
                                         Go to Thread
                                     </a>
@@ -322,14 +322,14 @@
                                 <div class="post-action-bar">
                                     <a href="#" class="post-reply-button">Delete</a>
                                     <a
-                                        href="#post-create"
+                                        href="javascript:void(0)"
                                         class="post-reply-button"
                                         onclick="doReply(${post.postID})"
                                         >Reply</a
                                     >
                                 </div>
                                 <div class="">
-                                    <a href="#go-to-report-servlet" class=""
+                                    <a href="${contextPath}/report/post?id=${post.postID}" class=""
                                        >Report</a
                                     >
                                 </div>

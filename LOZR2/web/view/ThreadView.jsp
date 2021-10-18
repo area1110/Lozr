@@ -101,7 +101,7 @@
             </c:if>
             <c:forEach var="post" items="${requestScope.posts}">
                 <!--Body post-->
-                <div class="post">
+                <div class="post" id="${post.postID}">
                     <div class="post-user-cell">
                         <section  class="post-user">
                             <div class="">

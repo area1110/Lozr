@@ -126,7 +126,7 @@
                             </time>
                             <ul class="post-attribute-list">
                                 <li>
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}">Go to thread</a>
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}#${post.postID}">Go to thread</a>
                                 </li>
                             </ul>
                         </header>
