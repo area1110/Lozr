@@ -83,8 +83,6 @@ public class PostController extends BaseRequiredAuthentication {
 
         PostDBContext postDBC = new PostDBContext();
         postDBC.setPost(post);
-
-        response.sendRedirect(request.getHeader("referer"));
     }
 
     /**

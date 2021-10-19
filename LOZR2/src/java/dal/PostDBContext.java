@@ -24,7 +24,7 @@ public class PostDBContext extends DBContext {
         ArrayList<Post> posts = new ArrayList<>();
         try {
             String sqlStatement = "SELECT P.PostID, P.PostSubject, P.PostThreadID, P.PostDateCreated,\n"
-                    + "	P.PostIsActive ,P.PostUserID, U.UserLoginName, U.UserImageAvatar, P.PostReplyTo,\n"
+                    + "	P.PostIsActive ,P.PostUserID, U.UserLoginName, U.UserImageAvatar, U.UserIsMod, P.PostReplyTo,\n"
                     + "	Rep.PostSubject AS RepPostSubject, Rep.PostDateCreated AS RepPostDateCreated, \n"
                     + "	Rep.PostIsActive AS RepPostIsActive, Rep.PostUserID AS RepPostUserID,\n"
                     + "	URep.UserLoginName AS URepLoginName, URep.UserImageAvatar AS URepImageAvatar\n"
@@ -49,6 +49,7 @@ public class PostDBContext extends DBContext {
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
                 post.setUser(user);
 
                 if (rs.getInt("PostReplyTo") != 0) {
@@ -79,7 +80,7 @@ public class PostDBContext extends DBContext {
         ArrayList<Post> posts = new ArrayList<>();
         try {
             String sqlStatement = "SELECT P.PostID, P.PostSubject, P.PostThreadID, P.PostDateCreated,\n"
-                    + "	P.PostIsActive ,P.PostUserID, U.UserLoginName, U.UserImageAvatar, P.PostReplyTo,\n"
+                    + "	P.PostIsActive ,P.PostUserID, U.UserLoginName, U.UserImageAvatar, U.UserIsMod, P.PostReplyTo,\n"
                     + "	Rep.PostSubject AS RepPostSubject, Rep.PostDateCreated AS RepPostDateCreated, \n"
                     + "	Rep.PostIsActive AS RepPostIsActive, Rep.PostUserID AS RepPostUserID,\n"
                     + "	URep.UserLoginName AS URepLoginName, URep.UserImageAvatar AS URepImageAvatar\n"
@@ -104,6 +105,7 @@ public class PostDBContext extends DBContext {
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
                 post.setUser(user);
 
                 if (rs.getInt("PostReplyTo") != 0) {

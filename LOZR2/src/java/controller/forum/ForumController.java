@@ -69,7 +69,7 @@ public class ForumController extends BaseRequiredAuthentication {
 
             if (setForum(forumName, urlcover)) {
 //            response.getWriter().print("<h1>Success Checkout DB</h1>");
-                response.sendRedirect(request.getContextPath());
+//                response.sendRedirect(request.getContextPath());
 //            request.getRequestDispatcher(request.getContextPath()).forward(request, response);
             } else {
                 response.getWriter().print("<h1>Error Try Again</h1>");

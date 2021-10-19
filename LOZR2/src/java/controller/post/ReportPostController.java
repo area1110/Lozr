@@ -62,7 +62,6 @@ public class ReportPostController extends BaseRequiredAuthentication {
          int postID = Integer.parseInt(request.getParameter("id"));
           ReportPostDBContext reportPostDBC = new ReportPostDBContext();
           reportPostDBC.setReport(postID);
-          response.sendRedirect(request.getHeader("referer"));
     }
 
     /**

@@ -5,10 +5,12 @@
  */
 
 function doDeleteForum(id, name, ) {
+    const dummyframe = document.querySelector("#dummyframe");
     const message = `Do you want to delete forum: ${name}\nType 'confirm'`;
     let confirm = window.prompt(message);
     if (confirm === 'confirm') {
-        window.location.href = "delete/forum?id=" + id;
+        dummyframe.src = "delete/forum?id=" + id;
+        reloadDelay();
     }
 }
 

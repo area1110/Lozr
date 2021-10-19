@@ -50,7 +50,6 @@ public class ReportThreadController extends BaseRequiredAuthentication {
          int threadID = Integer.parseInt(request.getParameter("id"));
           ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
           reportThreadDBC.setReport(threadID);
-          response.sendRedirect(request.getHeader("referer"));
     }
 
     /**

@@ -59,7 +59,7 @@
                         <input class="cover-openfile" id="choose-img" type='file' onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
                     </div>
                 </div>
-                <form action="update/forum" method="POST" >  
+                <form onsubmit="reloadDelay()" action="update/forum" target="dummyframe" method="POST" >  
                     <input type="hidden" id="elementeID"  name="forumID"/> 
                     <input   type="hidden" id="cover-url"  name="photo">
                     <label  for="forumName">New Forum Title</label>
@@ -177,9 +177,7 @@
             </div>
         </footer>
 
-
-
-
+    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </body>
 
 </html>

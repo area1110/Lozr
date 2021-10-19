@@ -123,7 +123,7 @@
                                         >${post.user.loginName}</a
                                     >
                                 </h4>
-                                <h5 class="post-user-title">New Member</h5>
+                                <h5 class="post-user-title">${post.user.moderator? "Moderator" : ""}</h5>
                             </div>
                         </section>
                     </div>
@@ -133,11 +133,11 @@
                                 <fmt:formatDate type="both" dateStyle="short"
                                                 timeStyle="short" value="${post.timeCreated}"/>
                             </time>
-<!--                            <ul class="post-attribute-list">
-                                <li>
-                                   
-                                </li>
-                            </ul>-->
+                            <!--                            <ul class="post-attribute-list">
+                                                            <li>
+                                                               
+                                                            </li>
+                                                        </ul>-->
                         </header>
 
                         <div class="post-main">
@@ -161,7 +161,7 @@
                             <div class="post-action">
                                 <div class="post-action-bar">
                                     <c:if test="${your.moderator || your.userID==post.user.userID}">
-                                        <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
+                                        <a href="javascript:void(0)" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
                                     <a
                                         href="#post-create"
@@ -171,7 +171,7 @@
                                     >
                                 </div>
                                 <div class="">
-                                    <a href="${contextPath}/report/post?id=${post.postID}"
+                                    <a onclick="alert('This post has been reported to moderator');" target="dummyframe" href="${contextPath}/report/post?id=${post.postID}"
                                        >Report</a
                                     >
                                 </div>
@@ -219,7 +219,7 @@
                             </blockquote>
 
                             <div class="post-create" id="post-create">
-                                <form action="../post" method="POST" class="post-create-form">
+                                <form onsubmit="reloadDelay();" target="dummyframe" action="../post" method="POST" class="post-create-form">
                                     <input type="hidden" name="replyID" id="replyID" value="" />
                                     <input type="hidden" name="threadID" value="${thread.threadID}"/>
                                     <div>
@@ -253,6 +253,8 @@
                 </p>
             </div>
         </footer>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+
     </body>
 </html>
 

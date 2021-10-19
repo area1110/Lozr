@@ -56,15 +56,20 @@ function showDropdownMenu(id) {
     $("#myDropdown-" + id).toggle("show");
 }
 
-
+function reloadDelay(){
+    window.setTimeout( ()=>{window.location.reload();} ,500);
+}
 
 function doDelete(ID, feature) {
+    const dummyframe = document.querySelector("#dummyframe");
     const message = `Do you want to delete this ${feature}`;
     let confirm = window.confirm(message);
     if (confirm) {
-        window.location.href = "../delete/" + feature + "?id=" + ID;
+        dummyframe.src = "../delete/" + feature + "?id=" + ID;
+        reloadDelay();
     }
 }
+
 
 //popup-form-edit
 function openForm(forumID) {

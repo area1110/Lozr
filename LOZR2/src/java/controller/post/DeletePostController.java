@@ -72,7 +72,6 @@ public class DeletePostController extends BaseRequiredAuthentication {
         UserInfo userCreated = postDBC.getPost(postID).getUser();
         if (currentUser.isModerator() || currentUser.getUserID() == userCreated.getUserID()) {
             postDBC.updateStatus(postID, false);
-            response.sendRedirect(request.getHeader("referer"));
         } else {
             String errorMessage = "You do not have permission";
             request.setAttribute("errorMessage", errorMessage);
