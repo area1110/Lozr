@@ -23,14 +23,14 @@ function display_error() {
     errorLabel.style.display = "none";
 }
 
-function checkSubmit() {
-    const insertTitle = document.getElementById("insert-title");
-    const submitTitle = document.getElementById("submit-title");
-    insertTitle.value = insertTitle.value.trim();
-    if (!insertTitle.value) {
-        submitTitle.disabled = true;
-    } else {
-        submitTitle.disabled = false;
+function checkSubmit( event, formId, inputId) {
+    event.preventDefault();
+    const insert = document.getElementById(inputId);
+    const form = document.getElementById(formId);
+    checkString= insert.value.trim();
+    if(checkString !== "") {
+        form.submit();
+        reloadDelay();
     }
 }
 

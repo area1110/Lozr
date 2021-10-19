@@ -316,3 +316,32 @@ header {
     text-transform: uppercase;
 }
 
+
+.searchbar{
+    margin-bottom: 70px;
+}
+
+.search-input {
+        padding: 10px;
+         border: none;
+}
+
+.search-texttype{
+    width: 20em;
+}
+
+.search-button {
+    background-color: #478AC9;
+    color: white;
+}
+
+.search-texttype:focus {
+    outline: 1px solid #00bef7;
+}
+.search-button:hover{
+    background-color: #1e6797;
+}
+
+.search-button:active {
+    background-color: #478A88;
+}

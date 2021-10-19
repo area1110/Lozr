@@ -72,7 +72,6 @@ public class UpdateThreadController extends BaseRequiredAuthentication {
 
             FThreadDBContext fthreadDBC = new FThreadDBContext();
             fthreadDBC.updateThread(fthread);
-            response.sendRedirect(request.getHeader("referer"));
         }
 
     }

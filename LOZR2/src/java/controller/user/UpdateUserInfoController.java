@@ -92,7 +92,6 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
             case 1:
                 UserInfo refressCurrent = userDBC.getUser(userInfo.getUserID());
                 request.getSession().setAttribute("currentUser", refressCurrent);
-                response.sendRedirect(request.getContextPath());
                 break;
             default:
         }

@@ -1,8 +1,4 @@
-<%-- 
-    Document   : ThreadView
-    Created on : Oct 4, 2021, 5:18:21 PM
-    Author     : Khanh
---%>
+
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,7 +14,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${forum.name} | L0ZR</title>
+        <title>${requestScope.query} | LOZR</title>
 
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -88,49 +84,20 @@
         </header>
 
         <div class="main-zone">
-            <div class="body-header">
-                <c:if test="${forum.active}">
-                    <div  class="post-title" >
-                        <h1>${forum.name}</h1>
-                    </div>
-                </c:if>
-                <c:if test="${!forum.active}">
-                    <div  class="post-title " >
-                        <h1 class="deactive">${forum.name}</h1>
-                        <h2> - Deactive -</h2>
-                    </div>
-                </c:if>
+
+            <div class="body-header">       
+                <div  class="post-title" >
+                    <h1>Search: ${requestScope.query}</h1>
+                </div>              
+            </div>
+
+            <div class="searchbar">
+                <form id="form-search" action="${contextPath}/search/thread" method="GET">
+                    <input id="insert-query" class="search-input search-texttype" name="q" placeholder="Find your interesting" value="${requestScope.query}"/>
+                    <button class="search-input search-button" onclick="checkSubmit(event, 'form-search', 'insert-query');"><i class="fa fa-search"></i></button>
+                </form>
             </div>
             <!--ThreadZone-->
-            <c:if test="${forum.active}">
-                <div class="thread-table thread-card">
-                    <div class="thread-cell thread-cell-author">
-                        <div class="">
-                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
-                                <img src="${your.avatar}" />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="thread-cell thread-create">
-                        <form target="dummyframe" id="create-thread" action="../thread" method="POST">
-                            <div class="thread-create-insert">
-                                <input type="hidden" name="forumID"
-                                       value="${requestScope.forum.forumID}"/>
-                                <input
-                                    id="insert-title"
-                                    class="text-insert"               
-                                    type="text"
-                                    name="threadName"
-                                    placeholder="Thread title"                             
-                                    />
-                            </div>
-                            <div class="thread-create-submit">
-                                <button id="submit-title" class="submit-button" onclick="checkSubmit(event, 'create-thread', 'insert-title')">Create</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </c:if>
 
             <c:if test="${empty requestScope.threads}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
@@ -181,37 +148,8 @@
                             <dt>Replies</dt>
                             <dd>${thread.numPosts}</dd>
                         </dl>
-                        <!-- <dl class="thread-status-pair">
-                          <dt>Views</dt>
-                          <dd>88</dd>
-                        </dl> -->
                     </div>
 
-                    <!--                        <div class="thread-table thread-cell thread-lastest-active">
-                                                <div class="thread-cell thread-cell-unborder">
-                                                    <a
-                                                        href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                                                        rel="nofollow"
-                                                        ><time class="thread-latestDate">11:13 05/10/2021</time></a
-                                                    >
-                                                    <div class="">
-                                                        <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                                                    </div>
-                                                </div>
-                                                <div class="thread-cell thread-latest-user thread-cell-unborder">
-                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                        <img src="images/82761229_p17_master1200.jpg" />
-                                                    </a>
-                    
-                                                </div>
-                                            </div>-->
-
-                    <!--                        <div class="thread-cell thread-latest-user">
-                                                <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                    <img src="images/82761229_p17_master1200.jpg" />
-                                                </a>
-                    
-                                            </div>-->
                     <div class="thread-cell thread-cell-option  dropdown">
                         <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                         <div id="myDropdown-${thread.threadID}" class="dropdown-content">

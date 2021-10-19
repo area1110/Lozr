@@ -37,10 +37,13 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
             />
-
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
     </head>
     <body class="u-body">
-       <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
                     <a href="${contextPath}">
@@ -76,8 +79,6 @@
         <section
             class="skrollable u-clearfix u-image u-section-1"
             id="sec-a288"
-            data-image-width="612"
-            data-image-height="612"
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <h1
@@ -103,8 +104,8 @@
                         action="${contextPath}/update/user/info"
                         method="POST"
                         class="u-clearfix u-form-spacing-19 u-form-vertical u-inner-form"
-                        style="padding: 10px"
-                        enctype="multipart/form-data"
+
+
                         >
                         <div class="u-form-group u-form-name u-form-group-1">
                             <label id="error"
@@ -117,7 +118,6 @@
                                 placeholder="NEW Username"
                                 id="loginName"
                                 name="loginName"
-                                oninput="display_error()"
                                 class="
                                 u-border-1
                                 u-border-grey-30
@@ -127,7 +127,6 @@
                                 u-white
                                 u-input-1
                                 "
-
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-2">
@@ -146,7 +145,6 @@
                                 u-white
                                 u-input-2
                                 "
-
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-3">
@@ -279,7 +277,7 @@
             </div>
         </footer>
 
-
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </body>
 </html>
 

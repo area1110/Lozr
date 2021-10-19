@@ -56,7 +56,6 @@ public class UpdateForumController extends BaseRequiredAuthentication {
             forumUpdate.setName(forumName.isEmpty() ? null : forumName);
             forumUpdate.setCover(urlcover.isEmpty() ? null : urlcover);
             forumDBC.updateNameNCover(forumUpdate);
-            response.sendRedirect(request.getHeader("referer"));
 
 //            request.getRequestDispatcher(request.getHeader("referer")).forward(request, response);
         } else {

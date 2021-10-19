@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <div class="thread-cell thread-create">
-                        <form onsubmit="window.location.reload();" target="dummyframe" id="create-thread" action="../thread" method="POST">
+                        <form target="dummyframe" id="create-thread" action="../thread" method="POST">
                             <div class="thread-create-insert">
                                 <input type="hidden" name="forumID"
                                        value="${requestScope.forum.forumID}"/>
@@ -121,12 +121,11 @@
                                     class="text-insert"               
                                     type="text"
                                     name="threadName"
-                                    placeholder="Thread title"
-                                    onchange="checkSubmit();"
+                                    placeholder="Thread title"                             
                                     />
                             </div>
                             <div class="thread-create-submit">
-                                <input id="submit-title" class="submit-button" type="submit" value="Create" disabled="true"/>
+                                <button id="submit-title" class="submit-button" onclick="checkSubmit(event, 'create-thread', 'insert-title')">Create</button>
                             </div>
                         </form>
                     </div>

@@ -91,6 +91,10 @@
         <servlet-name>ReportPostController</servlet-name>
         <servlet-class>controller.post.ReportPostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchThreadController</servlet-name>
+        <servlet-class>controller.search.SearchThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -166,6 +170,10 @@
     <servlet-mapping>
         <servlet-name>ReportPostController</servlet-name>
         <url-pattern>/report/post</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchThreadController</servlet-name>
+        <url-pattern>/search/thread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -46,7 +46,7 @@
             />
     </head>
     <body>
-        
+
         <div class="form-popup" id="formEdit">
             <div class="form-container">
                 <h2>Edit Forum</h2>
@@ -70,7 +70,7 @@
                 </form>
             </div>
         </div>
-        
+
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
@@ -125,6 +125,12 @@
                 </div>
 
                 <div class="u-blog u-blog-1">
+                    <div class="searchbar">
+                        <form id="form-search"  action="search/thread" method="GET">
+                            <input id="insert-query" class="search-input search-texttype" name="q" placeholder="Find your interesting"/>
+                            <button class="search-input search-button" onclick="checkSubmit(event, 'form-search', 'insert-query')"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
                     <div class="u-repeater u-repeater-1">
 
                         <c:forEach items="${forums}" var="forum">
@@ -162,7 +168,8 @@
                             <!--/blog_post-->
                         </c:forEach>
                     </div>
-                </c:if>
+                </div>
+            </c:if>
         </section>
 
         <footer
@@ -177,7 +184,7 @@
             </div>
         </footer>
 
-    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </body>
 
 </html>
