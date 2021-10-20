@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FThread;
 import model.Forum;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -59,7 +59,7 @@ public class ForumController extends BaseRequiredAuthentication {
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (currentUser.isModerator()) {
             String forumName = request.getParameter("forumName");
             String urlcover = request.getParameter("photo");

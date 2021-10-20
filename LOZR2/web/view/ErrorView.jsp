@@ -23,10 +23,10 @@
 
 
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Home.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
-        <script type="text/javascript" src="${contextPath}/src/script/nicepage.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
         <link
             rel="stylesheet"
@@ -46,7 +46,7 @@
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
-                      <a href="${contextPath}">
+                    <a href="${contextPath}">
                         <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
                     </a>
                 </div>
@@ -76,8 +76,8 @@
                 </div>
             </div>
         </header>
-                        
-                        
+
+
         <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="main">
 
             <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">

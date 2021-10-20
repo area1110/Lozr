@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  *
  * @author Khanh
  */
-public class UserInfo {
+public class User {
 
     private int userID;
     private String loginName;
@@ -26,7 +26,7 @@ public class UserInfo {
     private String password;
     
 
-    public UserInfo() {
+    public User() {
     }
 
     public String getPassword() {

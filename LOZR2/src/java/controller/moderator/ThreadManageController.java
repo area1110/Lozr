@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller.moderator;
 
+import controller.authentication.BaseAuthorization;
 import controller.authentication.BaseRequiredAuthentication;
 import dal.ReportThreadDBContext;
 import java.io.IOException;
@@ -21,7 +22,7 @@ import model.ThreadReport;
  *
  * @author area1
  */
-public class ThreadManageController extends BaseRequiredAuthentication {
+public class ThreadManageController extends BaseAuthorization {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +33,7 @@ public class ThreadManageController extends BaseRequiredAuthentication {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
-        String raw_id = request.getParameter("id");
-        if (raw_id == null) {
-            ArrayList<FThread> reportThreads = reportThreadDBC.getReportThreads();
-            request.setAttribute("threads", reportThreads);
-        } else {
-            reportThreadDBC.remove(Integer.parseInt(raw_id));
-        }
-        request.getRequestDispatcher("/view/moderator/ReportThread.jsp").forward(request, response);    
-}
+
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 /**
@@ -55,9 +45,17 @@ public class ThreadManageController extends BaseRequiredAuthentication {
  * @throws IOException if an I/O error occurs
  */
 @Override
-        protected void processGet(HttpServletRequest request, HttpServletResponse response)
+        protected void actionGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       processRequest(request, response);
+         ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
+        String raw_id = request.getParameter("id");
+        if (raw_id == null) {
+            ArrayList<FThread> reportThreads = reportThreadDBC.getReportThreads();
+            request.setAttribute("threads", reportThreads);
+        } else {
+            reportThreadDBC.remove(Integer.parseInt(raw_id));
+        }
+        request.getRequestDispatcher("/view/moderator/ReportThread.jsp").forward(request, response);    
     }
 
     /**
@@ -69,9 +67,8 @@ public class ThreadManageController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void processPost(HttpServletRequest request, HttpServletResponse response)
+        protected void actionPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
     }
 
     /**

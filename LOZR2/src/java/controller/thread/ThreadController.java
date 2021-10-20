@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.FThread;
 import model.Forum;
 import model.Post;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -65,7 +65,7 @@ public class ThreadController extends BaseRequiredAuthentication {
         int forumID = Integer.parseInt(request.getParameter("forumID"));
         FThreadDBContext fthreadDBC = new FThreadDBContext();
         FThread fthread = new FThread();
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
 
         fthread.setSubject(threadName);
         fthread.setStartedBy(currentUser);

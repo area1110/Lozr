@@ -3,23 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.search;
 
 import controller.authentication.BaseRequiredAuthentication;
 import dal.UserInfoDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UserInfo;
+import model.User;
 
 /**
  *
  * @author area1
  */
-public class UpdatePermissionController extends BaseRequiredAuthentication {
+public class SearchUserController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,22 +29,7 @@ public class UpdatePermissionController extends BaseRequiredAuthentication {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdatePermissionController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdatePermissionController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -59,7 +43,12 @@ public class UpdatePermissionController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        String query = request.getParameter("q");
+        UserInfoDBContext userDBC = new UserInfoDBContext();
+        ArrayList<User> users =   userDBC.getUsersByName(query);
+        request.setAttribute("query", query);
+        request.setAttribute("users", users);
+        request.getRequestDispatcher("/view/SearchUserView.jsp").forward(request, response);
     }
 
     /**
@@ -73,23 +62,6 @@ public class UpdatePermissionController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        if (currentUser.isModerator()) {
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            String raw_isAdmin = request.getParameter("isAdmin");
-            boolean isAdmin = (raw_isAdmin == null) ? false : true;
-            UserInfo userSet = new UserInfo();
-            userSet.setUserID(userID);
-            userSet.setModerator(isAdmin);
-            UserInfoDBContext userDBC = new UserInfoDBContext();
-            userDBC.updatePermission(userSet);
-            response.sendRedirect(request.getHeader("referer"));
-        } else {
-            String errorMessage = "You do not have permission";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
-        }
     }
 
     /**

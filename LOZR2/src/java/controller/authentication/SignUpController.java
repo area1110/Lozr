@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -71,7 +71,7 @@ public class SignUpController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        UserInfo userInfo = new UserInfo();
+        User userInfo = new User();
         String loginName = request.getParameter("loginName").trim();
 
         userInfo.setLoginName(loginName);
@@ -107,7 +107,7 @@ public class SignUpController extends HttpServlet {
                 break;
             case 1:
                 UserInfoDBContext userInfoDBC = new UserInfoDBContext();
-                UserInfo user = userInfoDBC.getUser(loginName);
+                User user = userInfoDBC.getUser(loginName);
                 request.getSession().setAttribute("currentUser", user);
                 response.sendRedirect(request.getContextPath());
                 break;

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller.moderator;
 
+import controller.authentication.BaseAuthorization;
 import controller.authentication.BaseRequiredAuthentication;
 import dal.ReportPostDBContext;
 import dal.ReportThreadDBContext;
@@ -22,7 +23,7 @@ import model.Post;
  *
  * @author area1
  */
-public class PostManageController extends BaseRequiredAuthentication {
+public class PostManageController extends BaseAuthorization {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,7 +57,7 @@ public class PostManageController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void actionGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
           
@@ -71,7 +72,7 @@ public class PostManageController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void actionPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Post;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -45,7 +45,7 @@ public class PostDBContext extends DBContext {
                 post.setTimeCreated(rs.getTimestamp("PostDateCreated"));
                 post.setActive(rs.getBoolean("PostIsActive"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
@@ -59,7 +59,7 @@ public class PostDBContext extends DBContext {
                     reply.setTimeCreated(rs.getTimestamp("RepPostDateCreated"));
                     reply.setActive(rs.getBoolean("RepPostIsActive"));
 
-                    UserInfo repUser = new UserInfo();
+                    User repUser = new User();
                     repUser.setUserID(rs.getInt("RepPostUserID"));
                     repUser.setLoginName(rs.getString("URepLoginName"));
                     repUser.setAvatar(rs.getString("URepImageAvatar"));
@@ -101,7 +101,7 @@ public class PostDBContext extends DBContext {
                 post.setTimeCreated(rs.getTimestamp("PostDateCreated"));
                 post.setActive(rs.getBoolean("PostIsActive"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
@@ -115,7 +115,7 @@ public class PostDBContext extends DBContext {
                     reply.setTimeCreated(rs.getTimestamp("RepPostDateCreated"));
                     reply.setActive(rs.getBoolean("RepPostIsActive"));
 
-                    UserInfo repUser = new UserInfo();
+                    User repUser = new User();
                     repUser.setUserID(rs.getInt("RepPostUserID"));
                     repUser.setLoginName(rs.getString("URepLoginName"));
                     repUser.setAvatar(rs.getString("URepImageAvatar"));
@@ -155,7 +155,7 @@ public class PostDBContext extends DBContext {
                 post.setTimeCreated(rs.getTimestamp("PostDateCreated"));
                 post.setActive(rs.getBoolean("PostIsActive"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("PostUserID"));
                 user.setLoginName(rs.getString("UserLoginName"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
@@ -168,7 +168,7 @@ public class PostDBContext extends DBContext {
                     reply.setTimeCreated(rs.getTimestamp("RepPostDateCreated"));
                     reply.setActive(rs.getBoolean("RepPostIsActive"));
 
-                    UserInfo repUser = new UserInfo();
+                    User repUser = new User();
                     repUser.setUserID(rs.getInt("RepPostUserID"));
                     repUser.setLoginName(rs.getString("URepLoginName"));
                     repUser.setAvatar(rs.getString("URepImageAvatar"));

@@ -11,7 +11,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -46,7 +46,7 @@ public class DeleteForumController extends BaseRequiredAuthentication {
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (currentUser.isModerator()) {
             int forumID = Integer.parseInt(request.getParameter("id"));
             ForumDBContext forumDBC = new ForumDBContext();

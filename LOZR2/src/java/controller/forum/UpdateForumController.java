@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import model.Forum;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -43,7 +43,7 @@ public class UpdateForumController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (currentUser.isModerator()) {
             String forumName = request.getParameter("forumName");
             ForumDBContext forumDBC = new ForumDBContext();

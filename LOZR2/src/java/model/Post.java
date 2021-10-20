@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class Post {
     private int postID;
     private String subject;
-    private UserInfo user;
+    private User user;
     private int threadId;
     private Post replyPost;
     private Timestamp timeCreated;
@@ -62,11 +62,11 @@ public class Post {
         this.subject = subject;
     }
 
-    public UserInfo getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserInfo user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

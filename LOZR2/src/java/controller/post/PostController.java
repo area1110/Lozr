@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Post;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -66,7 +66,7 @@ public class PostController extends BaseRequiredAuthentication {
         String postSubject = request.getParameter("postSubject");
         int threadID = Integer.parseInt(request.getParameter("threadID"));
 
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
 
         Post post = new Post();
         post.setSubject(postSubject);

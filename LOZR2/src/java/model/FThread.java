@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class FThread {
     private int threadID;
     private String subject;
-    private UserInfo startedBy;
+    private User startedBy;
     private Timestamp timeCreated;
     private boolean active;
     private Forum forum;
@@ -68,11 +68,11 @@ public class FThread {
         this.subject = subject;
     }
 
-    public UserInfo getStartedBy() {
+    public User getStartedBy() {
         return startedBy;
     }
 
-    public void setStartedBy(UserInfo startedBy) {
+    public void setStartedBy(User startedBy) {
         this.startedBy = startedBy;
     }
 

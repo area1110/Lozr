@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.post;
+package controller.moderator;
 
+import controller.authentication.BaseAuthorization;
 import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
-import dal.PostDBContext;
+import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ import model.User;
  *
  * @author area1
  */
-public class DeletePostController extends BaseRequiredAuthentication {
+public class UpdatePermissionController extends BaseAuthorization {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,25 +45,9 @@ public class DeletePostController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void actionGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String raw_id = request.getParameter("id");
-        if(raw_id == null || raw_id.isEmpty()){
-            String errorMessage = "Wrong Action!";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
-        }
-        int postID = Integer.parseInt(raw_id);
-        PostDBContext postDBC = new PostDBContext();
-        User currentUser = (User) request.getSession().getAttribute("currentUser");
-        User userCreated = postDBC.getPost(postID).getUser();
-        if (currentUser.isModerator() || currentUser.getUserID() == userCreated.getUserID()) {
-            postDBC.updateStatus(postID, false);
-        } else {
-            String errorMessage = "You do not have permission";
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
-        }
+//        processRequest(request, response);
     }
 
     /**
@@ -75,9 +59,25 @@ public class DeletePostController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void actionPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        if (currentUser.isModerator()) {
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            String raw_isAdmin = request.getParameter("isAdmin");
+            boolean isAdmin = (raw_isAdmin != null);
+            User userSet = new User();
+            userSet.setUserID(userID);
+            userSet.setModerator(isAdmin);
+            UserInfoDBContext userDBC = new UserInfoDBContext();
+            userDBC.updatePermission(userSet);
+            response.sendRedirect(request.getHeader("referer"));
+        } else {
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+        }
     }
 
     /**

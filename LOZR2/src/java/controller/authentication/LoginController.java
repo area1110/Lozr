@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -48,7 +48,7 @@ public class LoginController extends HttpServlet {
         String loginName = request.getParameter("loginName").trim();
         String password = request.getParameter("password").trim();
         UserInfoDBContext userDBC = new UserInfoDBContext();
-        UserInfo user = userDBC.getUserLogin(loginName, password);
+        User user = userDBC.getUserLogin(loginName, password);
 
         HttpSession session = request.getSession();
         if (user != null) { //login sucesss

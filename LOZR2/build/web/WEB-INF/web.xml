@@ -44,7 +44,7 @@
     </servlet>
     <servlet>
         <servlet-name>ReportController</servlet-name>
-        <servlet-class>controller.admin.ThreadManageController</servlet-class>
+        <servlet-class>controller.moderator.ThreadManageController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UserPageController</servlet-name>
@@ -68,7 +68,7 @@
     </servlet>
     <servlet>
         <servlet-name>UpdatePermissionController</servlet-name>
-        <servlet-class>controller.user.UpdatePermissionController</servlet-class>
+        <servlet-class>controller.moderator.UpdatePermissionController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateUserInfo</servlet-name>
@@ -85,7 +85,7 @@
     </servlet>
     <servlet>
         <servlet-name>PostManageController</servlet-name>
-        <servlet-class>controller.admin.PostManageController</servlet-class>
+        <servlet-class>controller.moderator.PostManageController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReportPostController</servlet-name>
@@ -94,6 +94,10 @@
     <servlet>
         <servlet-name>SearchThreadController</servlet-name>
         <servlet-class>controller.search.SearchThreadController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchUserController</servlet-name>
+        <servlet-class>controller.search.SearchUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
@@ -174,6 +178,10 @@
     <servlet-mapping>
         <servlet-name>SearchThreadController</servlet-name>
         <url-pattern>/search/thread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchUserController</servlet-name>
+        <url-pattern>/search/user</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

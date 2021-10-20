@@ -11,7 +11,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -40,7 +40,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserInfo user = (UserInfo) request.getSession().getAttribute("currentUser");
+        User user = (User) request.getSession().getAttribute("currentUser");
         request.setAttribute("user", user);
         request.getRequestDispatcher("/view/UpdateUserInfo.jsp").forward(request, response);
     }
@@ -57,7 +57,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
 
         String loginName = request.getParameter("loginName");
         String password = request.getParameter("password");
@@ -66,7 +66,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
         String emailAddress = request.getParameter("email");
         String avatarurl = request.getParameter("avatar");
 
-        UserInfo userInfo = new UserInfo();
+        User userInfo = new User();
         userInfo.setUserID(currentUser.getUserID());
         userInfo.setLoginName(loginName.isEmpty() ? null : loginName);
         userInfo.setPassword(password.isEmpty() ? null : password);
@@ -90,7 +90,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
                 request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
             case 1:
-                UserInfo refressCurrent = userDBC.getUser(userInfo.getUserID());
+                User refressCurrent = userDBC.getUser(userInfo.getUserID());
                 request.getSession().setAttribute("currentUser", refressCurrent);
                 break;
             default:

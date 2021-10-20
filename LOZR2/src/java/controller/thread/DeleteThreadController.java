@@ -14,7 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -56,8 +56,8 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
         }
         int threadID = Integer.parseInt(raw_id);
         FThreadDBContext fthreadDBC = new FThreadDBContext();
-        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currentUser");
-        UserInfo userCreated = fthreadDBC.getFThread(threadID).getStartedBy();
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        User userCreated = fthreadDBC.getFThread(threadID).getStartedBy();
         if (currentUser.isModerator() || currentUser.getUserID() == userCreated.getUserID()) {
             fthreadDBC.updateStatus(threadID, false);
         } else {

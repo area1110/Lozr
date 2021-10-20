@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FThread;
 import model.Forum;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -48,7 +48,7 @@ public class FThreadDBContext extends DBContext {
                 fThread.setForum(forum);
                 fThread.setActive(rs.getBoolean("ThreadIsActive"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
@@ -90,7 +90,7 @@ public class FThreadDBContext extends DBContext {
                 fThread.setForum(forum);
                 fThread.setActive(rs.getBoolean("ThreadIsActive"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
@@ -132,7 +132,7 @@ public class FThreadDBContext extends DBContext {
                 fThread.setForum(forum);
                 fThread.setActive(rs.getBoolean("ThreadIsActive"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
@@ -164,7 +164,7 @@ public class FThreadDBContext extends DBContext {
                 fthread.setSubject(rs_select_thread.getString("ThreadSubject"));
                 fthread.setTimeCreated(rs_select_thread.getTimestamp("ThreadDateCreated"));
 
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs_select_thread.getInt("UserID"));
                 user.setLoginName(rs_select_thread.getString("UserLoginName"));
                 fthread.setStartedBy(user);

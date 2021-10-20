@@ -8,9 +8,10 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -18,7 +19,7 @@ import model.UserInfo;
  */
 public class UserInfoDBContext extends DBContext {
 
-    public int createNewUser(UserInfo user) {
+    public int createNewUser(User user) {
         UserInfoDBContext userDBC = new UserInfoDBContext();
         if (user.getLoginName().isEmpty() || user.getPassword().isEmpty()
                 || user.getEmailAddress().isEmpty()) {
@@ -54,7 +55,7 @@ public class UserInfoDBContext extends DBContext {
         return 1;
     }
 
-    public UserInfo getUser(String userLoginName) {
+    public User getUser(String userLoginName) {
 
         try {
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
@@ -66,7 +67,7 @@ public class UserInfoDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setFirstName(rs.getNString("UserFirstName"));
@@ -83,7 +84,7 @@ public class UserInfoDBContext extends DBContext {
         return null;
     }
 
-    public UserInfo getUserLogin(String loginName, String password) {
+    public User getUserLogin(String loginName, String password) {
         try {
             String sqlStatement = "EXEC verifyUser\n"
                     + "	@pLoginName=?,\n"
@@ -94,7 +95,7 @@ public class UserInfoDBContext extends DBContext {
             stm.setNString(2, password);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setFirstName(rs.getNString("UserFirstName"));
@@ -111,7 +112,42 @@ public class UserInfoDBContext extends DBContext {
         return null;
     }
 
-    public UserInfo getUser(int userID) {
+    public ArrayList<User> getUsersByName(String query) {
+        ArrayList<User> users = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
+                    + "      UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
+                    + "WHERE UserLoginName LIKE '%' + ? + '%'\n"
+                    + "	OR UserEmailAddress LIKE '%' + ? + '%'\n"
+                    + "	OR UserFirstName LIKE '%' + ? + '%'\n"
+                    + "	OR UserLastName LIKE '%' + ? + '%'";
+
+            PreparedStatement stm = connection.prepareStatement(sqlStatement);
+            stm.setString(1, query);
+            stm.setString(2, query);
+            stm.setString(3, query);
+            stm.setString(4, query);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setLoginName(rs.getNString("UserLoginName"));
+                user.setFirstName(rs.getNString("UserFirstName"));
+                user.setLastName(rs.getNString("UserLastName"));
+                user.setEmailAddress(rs.getString("UserEmailAddress"));
+                user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public User getUser(int userID) {
         try {
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
@@ -122,7 +158,7 @@ public class UserInfoDBContext extends DBContext {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
-                UserInfo user = new UserInfo();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setFirstName(rs.getNString("UserFirstName"));
@@ -139,7 +175,7 @@ public class UserInfoDBContext extends DBContext {
         return null;
     }
 
-    public void updatePermission(UserInfo user) {
+    public void updatePermission(User user) {
         try {
             String sql_update_isAdmin = "UPDATE [UserInfo]\n"
                     + "   SET [UserIsMod] = ?\n"
@@ -153,7 +189,7 @@ public class UserInfoDBContext extends DBContext {
         }
     }
 
-    public int updateUserInfo(UserInfo user) {
+    public int updateUserInfo(User user) {
         UserInfoDBContext userDBC = new UserInfoDBContext();
         if (userDBC.getUser(user.getLoginName()) != null) {
             return -2;

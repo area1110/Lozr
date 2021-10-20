@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FThread;
 import model.Post;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -55,7 +55,7 @@ public class UserPageController extends BaseRequiredAuthentication {
             throws ServletException, IOException {
         int userID = ExtractURLPath.extractPathToID(request.getPathInfo());;
         UserInfoDBContext userinfoDBC = new UserInfoDBContext();
-        UserInfo user = userinfoDBC.getUser(userID);
+        User user = userinfoDBC.getUser(userID);
         request.setAttribute("user", user);
         if (user == null) {
             String errorMessage = "User Not Found!";

@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FThread;
 import model.Forum;
-import model.UserInfo;
+import model.User;
 
 /**
  *
@@ -47,7 +47,7 @@ public class ReportThreadDBContext extends DBContext {
                 thread.setForum(forum);
                 thread.setActive(rs.getBoolean("ThreadIsActive"));
 
-                UserInfo started = new UserInfo();
+                User started = new User();
                 started.setUserID(rs.getInt("UserID"));
                 started.setAvatar(rs.getString("UserImageAvatar"));
                 started.setLoginName(rs.getString("UserLoginName"));
