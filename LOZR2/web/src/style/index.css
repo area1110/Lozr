@@ -1,5 +1,6 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
 }
 
 a {
@@ -20,6 +21,10 @@ body {
     background-attachment: fixed;
     background-size: cover;
     background-image: url("../../images/82761229_p17_master1200.jpg");
+}
+
+.u-body {
+    background-color: #D5F1FF;
 }
 
 .text-insert {
@@ -48,7 +53,7 @@ a.menu-button {
 }
 /*head navbar*/
 header {
-   border-bottom: 1px solid #999;
+    border-bottom: 1px solid #999;
 }
 .header{
     display: flex;
@@ -154,6 +159,7 @@ header {
 .main-zone{
     margin-left: 1em;
     margin-right: 1em;
+    padding-top: 50px;
 }
 
 .submit-button {
@@ -324,8 +330,8 @@ header {
 }
 
 .search-input {
-        padding: 10px;
-         border: none;
+    padding: 10px;
+    border: none;
 }
 
 .search-texttype{

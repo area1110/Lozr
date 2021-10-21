@@ -23,8 +23,8 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
-
         <script src="${contextPath}/src/script/script.js" defer></script>
         <script src="${contextPath}/src/script/thread.js" defer></script>
         <link

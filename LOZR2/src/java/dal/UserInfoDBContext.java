@@ -153,9 +153,8 @@ public class UserInfoDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
-            User user = null;
             if (rs.next()) {
-                user = new User();
+                User user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setFirstName(rs.getNString("UserFirstName"));
@@ -164,12 +163,33 @@ public class UserInfoDBContext extends DBContext {
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
+
+                String sql_count_PostThread = "SELECT (SELECT COUNT([ThreadID]) \n"
+                        + "	FROM [Thread]\n"
+                        + "	WHERE ThreadStartedBy=?) AS Threads,\n"
+                        + "(SELECT COUNT([PostID])\n"
+                        + "	FROM Post\n"
+                        + "	WHERE PostUserID=?) AS Posts";
+                PreparedStatement stm_count_PostThread = connection.prepareStatement(sql_count_PostThread);
+                stm_count_PostThread.setInt(1, userID);
+                stm_count_PostThread.setInt(2, userID);
+                ResultSet rs_count_PostThread = stm_count_PostThread.executeQuery();
+                if (rs_count_PostThread.next()) {
+                    user.setTotalPosts(rs_count_PostThread.getInt("Posts"));
+                    user.setTotalThreads(rs_count_PostThread.getInt("Threads"));
+                }
+                connection.commit();
+                return user;
             }
-            
-            String sql_count_PostThread = "";
-            return user;
+
         } catch (SQLException ex) {
             Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }

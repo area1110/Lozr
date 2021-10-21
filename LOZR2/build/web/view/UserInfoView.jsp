@@ -101,8 +101,8 @@
                                         <span>${user.emailAddress}</span>
                                     </div>
                                     <div class="">
-                                        <span>Posts:</span>
-                                        <span>Threads:</span>
+                                        <span>Posts: ${user.totalPosts}</span>
+                                        <span>Threads: ${user.totalThreads}</span>
                                     </div>
                                 </div>
                                 <div class="user-detail-name">
@@ -288,7 +288,7 @@
                             <ul class="post-attribute-list">
                                 <li>
                                     <a
-                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}#${post.postID}"
+                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}#post-${post.postID}"
                                         >
                                         Go to Thread
                                     </a>
