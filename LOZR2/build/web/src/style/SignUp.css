@@ -2,9 +2,6 @@ body {
   background-image: url("../../images/istockphoto-1136956450-612x612.jpg");
 }
 
-.u-section-1 .u-sheet-1 {
-  min-height: 1150px;
-}
 
 .u-section-1 .u-text-1 {
   font-size: 3rem;
@@ -195,4 +192,8 @@ body {
 .avatar-view{
     display: table-cell;
     vertical-align: top;
+}
+
+.signup-main {
+    margin-bottom: 7em;
 }

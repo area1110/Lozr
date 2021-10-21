@@ -5,7 +5,6 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="model.UserInfo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
@@ -32,31 +31,32 @@
         <script src="${contextPath}/src/script/imgupload.js" defer></script>
     </head>
     <body class="u-body">
-        <header
-            class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header"
-            id="sec-2137"
-            >
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <a
-                    href="${contextPath}"
-                    class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1"
-                    >
-                    <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
-                </a>
+        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+            <div class="header">
+                <div  class="header-logo">
+                    <a>
+                        <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
+                    </a>
+                </div>
+                <div class="header-action">
+                    <div class="header-action-item">
+                        <a href="${contextPath}/login">
+                            <div class="header-user">                
+                                <span  class="header-user-name header-action-item"  >
+                                  Login
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </header>
         <section
-            class="skrollable u-clearfix u-image u-section-1"
-            id="sec-a288"
-            data-image-width="612"
-            data-image-height="612"
+            class="u-clearfix u-image u-section-1"
             >
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <h1
-                    class="
-                    u-align-center u-custom-font u-text u-text-palette-1-dark-1 u-text-1
-                    "
-                    >
+            <div class="signup-main u-clearfix u-sheet u-sheet-1">
+                <h1 class="  u-align-center u-custom-font u-text u-text-palette-1-dark-1 u-text-1 ">
                     WELCOME TO LOZR
                 </h1>
                 <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
@@ -256,8 +256,6 @@
                 </p>
             </div>
         </footer>
-
-
     </body>
 </html>
 

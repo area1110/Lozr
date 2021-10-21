@@ -54,7 +54,7 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/authentication/SignupView.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/authentication/SignupView.jsp").forward(request, response);
 
     }
 

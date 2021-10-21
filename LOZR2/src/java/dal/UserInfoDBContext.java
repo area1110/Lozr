@@ -118,15 +118,11 @@ public class UserInfoDBContext extends DBContext {
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "      UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
                     + "WHERE UserLoginName LIKE '%' + ? + '%'\n"
-                    + "	OR UserEmailAddress LIKE '%' + ? + '%'\n"
-                    + "	OR UserFirstName LIKE '%' + ? + '%'\n"
-                    + "	OR UserLastName LIKE '%' + ? + '%'";
+                    + "	OR UserEmailAddress LIKE '%' + ? + '%'\n";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setString(1, query);
             stm.setString(2, query);
-            stm.setString(3, query);
-            stm.setString(4, query);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -149,6 +145,7 @@ public class UserInfoDBContext extends DBContext {
 
     public User getUser(int userID) {
         try {
+            connection.setAutoCommit(false);
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
                     + "WHERE UserID=?"; //'" + userLoginName + "'
@@ -156,9 +153,9 @@ public class UserInfoDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setInt(1, userID);
             ResultSet rs = stm.executeQuery();
-
+            User user = null;
             if (rs.next()) {
-                User user = new User();
+                user = new User();
                 user.setUserID(rs.getInt("UserID"));
                 user.setLoginName(rs.getNString("UserLoginName"));
                 user.setFirstName(rs.getNString("UserFirstName"));
@@ -167,8 +164,10 @@ public class UserInfoDBContext extends DBContext {
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
-                return user;
             }
+            
+            String sql_count_PostThread = "";
+            return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

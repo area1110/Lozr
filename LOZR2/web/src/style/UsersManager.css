@@ -7,5 +7,38 @@ and open the template in the editor.
     Created on : Oct 20, 2021, 10:55:54 PM
     Author     : area1
 */
+.user-card {
+    box-shadow: 0 1px 3px gray;
+    margin-top: 0;
+    margin-bottom: 20px;
+    transition: 100ms;
+    background-color: white;
+}
+
+.user-card:hover{
+     box-shadow: 0 5px 20px gray;
+}
+
+.user-link{
+    color: black;
+}
+
+.user-link:hover {
+    color: #2980B9;
+}
+
+.user-link:focus{
+   color: #259bca;
+}
+.user-avatar img {
+    width: 100px;
+    height: 100px;
+}
+
+.user-loginname h2 {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 
 

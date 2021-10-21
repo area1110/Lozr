@@ -24,10 +24,30 @@ public class User {
     private boolean active;
     private boolean moderator;
     private String password;
+    private int totalPosts;
+    private int totalThreads;
     
 
     public User() {
     }
+
+    public int getTotalPosts() {
+        return totalPosts;
+    }
+
+    public void setTotalPosts(int totalPosts) {
+        this.totalPosts = totalPosts;
+    }
+
+    public int getTotalThreads() {
+        return totalThreads;
+    }
+
+    public void setTotalThreads(int totalThreads) {
+        this.totalThreads = totalThreads;
+    }
+    
+    
 
     public String getPassword() {
         return password;

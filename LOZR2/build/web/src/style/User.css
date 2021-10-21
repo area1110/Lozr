@@ -45,7 +45,7 @@ span {
 #firstname,
 #lastname {
     text-align: left;
-    margin: none;
+    margin: 0;
     display: inline-block;
 }
 .user-detail-name {

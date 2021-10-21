@@ -11,6 +11,7 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
 
   private static java.util.List<String> _jspx_dependants;
 
+  private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_forEach_var_items;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_set_var_value_nobody;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_c_if_test;
   private org.apache.jasper.runtime.TagHandlerPool _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody;
@@ -22,12 +23,14 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
   }
 
   public void _jspInit() {
+    _jspx_tagPool_c_forEach_var_items = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_set_var_value_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_c_if_test = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
     _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody = org.apache.jasper.runtime.TagHandlerPool.getTagHandlerPool(getServletConfig());
   }
 
   public void _jspDestroy() {
+    _jspx_tagPool_c_forEach_var_items.release();
     _jspx_tagPool_c_set_var_value_nobody.release();
     _jspx_tagPool_c_if_test.release();
     _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.release();
@@ -89,7 +92,7 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n");
       out.write("        <meta charset=\"utf-8\" />\n");
       out.write("        <title>");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${forum.name}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.query}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write(" | L0ZR</title>\n");
       out.write("\n");
       out.write("        <link rel=\"stylesheet\" href=\"");
@@ -100,13 +103,10 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("/src/style/index.css\" />\n");
       out.write("        <link rel=\"stylesheet\" href=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/src/style/Forum.css\" />\n");
-      out.write("        <link rel=\"stylesheet\" href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/src/style/Post.css\" />\n");
-      out.write("        <link rel=\"stylesheet\" href=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/src/style/User.css\" />\n");
+      out.write("        <link rel=\"stylesheet\" href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/src/style/UsersManager.css\" />\n");
       out.write("\n");
       out.write("        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\" defer></script>\n");
       out.write("        <script src=\"");
@@ -183,91 +183,35 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        </header>\n");
       out.write("\n");
       out.write("        <div class=\"main-zone\">\n");
+      out.write("            <div class=\"body-header\">       \n");
+      out.write("                <div  class=\"post-title\" >\n");
+      out.write("                    <h1>Search: ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.query}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("</h1>\n");
+      out.write("                </div>              \n");
+      out.write("            </div>\n");
       out.write("\n");
-      out.write("            <div class=\"\" id=\"user\">\n");
-      out.write("                <div class=\"user-card user-card\">\n");
-      out.write("                    <div class=\"user-avatar user-cell\">\n");
-      out.write("                        <img src=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.avatar}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" />\n");
-      out.write("                    </div>\n");
-      out.write("                    <div class=\"user-cell\">\n");
-      out.write("                        <div class=\"user-loginname\">\n");
-      out.write("                            <h2>");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.loginName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</h2>\n");
-      out.write("                            <div class=\"user-detail\">\n");
-      out.write("                                <div class=\"user-total-numbers\">\n");
-      out.write("                                    <div class=\"user-joineddate\">\n");
-      out.write("                                        <span>Joined:</span>\n");
-      out.write("                                        <time>\n");
-      out.write("                                            ");
-      if (_jspx_meth_fmt_formatDate_0(_jspx_page_context))
-        return;
-      out.write("\n");
-      out.write("                                        </time>\n");
-      out.write("                                    </div>\n");
-      out.write("                                    <div>\n");
-      out.write("                                        <span>Email:</span>\n");
-      out.write("                                        <span>");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.emailAddress}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</span>\n");
-      out.write("                                    </div>\n");
-      out.write("                                    <div class=\"\">\n");
-      out.write("                                        <span>Posts:</span>\n");
-      out.write("                                        <span>Threads:</span>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("                                <div class=\"user-detail-name\">\n");
-      out.write("                                    <div class=\"user-firstname\">\n");
-      out.write("                                        <span>FirstName:</span>\n");
-      out.write("                                        <span id=\"firstname\">");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.firstName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</span>\n");
-      out.write("                                    </div>\n");
-      out.write("                                    <div class=\"user-lastname\">\n");
-      out.write("                                        <span>LastName:</span>\n");
-      out.write("                                        <span id=\"lastname\">");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.lastName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</span>\n");
-      out.write("                                    </div>\n");
-      out.write("                                </div>\n");
-      out.write("\n");
-      out.write("                            </div>\n");
-      out.write("                        </div>\n");
-      out.write("                    </div>\n");
-      out.write("                    <div class=\"user-cell user-cell-report\">\n");
-      out.write("                        <button onclick=\"showDropdownMenu(");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write(")\" class=\"dropbtn\">Option</button>\n");
-      out.write("                        <div style=\"display: block;\" id=\"myDropdown-");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\" class=\"dropdown-content\">\n");
-      out.write("                            <a href=\"#\">Bookmark</a>\n");
-      out.write("                            <a onclick=\"alert('This thread has been reported to moderator');\" target=\"dummyframe\" href=\"");
+      out.write("            <div class=\"searchbar\">\n");
+      out.write("                <form id=\"form-search\" action=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/report/thread?id=");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${thread.threadID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\">Report</a>\n");
-      out.write("                            ");
+      out.write("/search/user\" method=\"GET\">\n");
+      out.write("                    <input id=\"insert-query\" class=\"search-input search-texttype\" name=\"q\" placeholder=\"Provide Username\" value=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.query}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\"/>\n");
+      out.write("                    <button class=\"search-input search-button\" onclick=\"checkSubmit(event, 'form-search', 'insert-query');\"><i class=\"fa fa-search\"></i></button>\n");
+      out.write("                </form>\n");
+      out.write("            </div>\n");
+      out.write("\n");
+      out.write("            ");
       if (_jspx_meth_c_if_1(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("                        </div>\n");
       out.write("\n");
-      out.write("                        <div class=\"user-permisson\">\n");
-      out.write("                            ");
-      if (_jspx_meth_c_if_2(_jspx_page_context))
+      out.write("            ");
+      if (_jspx_meth_c_forEach_0(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("                            ");
-      if (_jspx_meth_c_if_3(_jspx_page_context))
-        return;
       out.write("\n");
-      out.write("                        </div>\n");
-      out.write("                    </div>\n");
-      out.write("                </div>\n");
-      out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("\n");
       out.write("        <footer\n");
@@ -281,7 +225,7 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("                </p>\n");
       out.write("            </div>\n");
       out.write("        </footer>\n");
-      out.write("\n");
+      out.write("        <iframe name=\"dummyframe\" id=\"dummyframe\" style=\"display: none;\"></iframe>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
@@ -365,26 +309,6 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
     return false;
   }
 
-  private boolean _jspx_meth_fmt_formatDate_0(PageContext _jspx_page_context)
-          throws Throwable {
-    PageContext pageContext = _jspx_page_context;
-    JspWriter out = _jspx_page_context.getOut();
-    //  fmt:formatDate
-    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_0 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
-    _jspx_th_fmt_formatDate_0.setPageContext(_jspx_page_context);
-    _jspx_th_fmt_formatDate_0.setParent(null);
-    _jspx_th_fmt_formatDate_0.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.timeJoined}", java.util.Date.class, (PageContext)_jspx_page_context, null));
-    _jspx_th_fmt_formatDate_0.setType("date");
-    _jspx_th_fmt_formatDate_0.setDateStyle("short");
-    int _jspx_eval_fmt_formatDate_0 = _jspx_th_fmt_formatDate_0.doStartTag();
-    if (_jspx_th_fmt_formatDate_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
-      _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
-      return true;
-    }
-    _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
-    return false;
-  }
-
   private boolean _jspx_meth_c_if_1(PageContext _jspx_page_context)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
@@ -393,25 +317,15 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_1 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_1.setPageContext(_jspx_page_context);
     _jspx_th_c_if_1.setParent(null);
-    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${your.moderator}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_1.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${empty requestScope.users}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_1 = _jspx_th_c_if_1.doStartTag();
     if (_jspx_eval_c_if_1 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\n");
-        out.write("                                <form action=\"../update/user/permission\" method=\"POST\" id=\"changePermissionForm\">\n");
-        out.write("                                    <input type=\"hidden\" value=\"");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("\" name=\"userID\" />\n");
-        out.write("                                    <input id=\"moderator-tickbox\" name=\"isAdmin\" onchange =\"changePermission('");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("');\" \n");
-        out.write("                                           ");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.moderator? \"checked\" : \"\"}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write(" type=\"checkbox\">\n");
-        out.write("                                    <label>Moderator permission</label>\n");
-        out.write("                                </form>\n");
-        out.write("                                <a>Ban</a>\n");
-        out.write("                            ");
+        out.write("                <div class=\"u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1\">\n");
+        out.write("                    <h1 class=\"u-align-center-xs  u-font-playfair-display u-text u-text-1\">Oops, There is nothing here?!</h1>\n");
+        out.write("                </div>\n");
+        out.write("            ");
         int evalDoAfterBody = _jspx_th_c_if_1.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -425,23 +339,151 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
     return false;
   }
 
-  private boolean _jspx_meth_c_if_2(PageContext _jspx_page_context)
+  private boolean _jspx_meth_c_forEach_0(PageContext _jspx_page_context)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  c:forEach
+    org.apache.taglibs.standard.tag.rt.core.ForEachTag _jspx_th_c_forEach_0 = (org.apache.taglibs.standard.tag.rt.core.ForEachTag) _jspx_tagPool_c_forEach_var_items.get(org.apache.taglibs.standard.tag.rt.core.ForEachTag.class);
+    _jspx_th_c_forEach_0.setPageContext(_jspx_page_context);
+    _jspx_th_c_forEach_0.setParent(null);
+    _jspx_th_c_forEach_0.setItems((java.lang.Object) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${requestScope.users}", java.lang.Object.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_c_forEach_0.setVar("user");
+    int[] _jspx_push_body_count_c_forEach_0 = new int[] { 0 };
+    try {
+      int _jspx_eval_c_forEach_0 = _jspx_th_c_forEach_0.doStartTag();
+      if (_jspx_eval_c_forEach_0 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
+        do {
+          out.write("\n");
+          out.write("\n");
+          out.write("                <div class=\"\" id=\"user\">\n");
+          out.write("                    <div class=\"user-card\">\n");
+          out.write("                        <div class=\"user-avatar user-cell\">\n");
+          out.write("                            <img src=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.avatar}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" />\n");
+          out.write("                        </div>\n");
+          out.write("                        <div class=\"user-cell\">\n");
+          out.write("                            <div class=\"user-loginname\">\n");
+          out.write("                                <h2>");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.loginName}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</h2>\n");
+          out.write("                                <div class=\"user-detail\">\n");
+          out.write("                                    <div class=\"user-total-numbers\">\n");
+          out.write("                                        <div class=\"user-joineddate\">\n");
+          out.write("                                            <span>Joined:</span>\n");
+          out.write("                                            <time>\n");
+          out.write("                                                ");
+          if (_jspx_meth_fmt_formatDate_0((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+            return true;
+          out.write("\n");
+          out.write("                                            </time>\n");
+          out.write("                                        </div>\n");
+          out.write("                                        <div>\n");
+          out.write("                                            <span>Email:</span>\n");
+          out.write("                                            <span>");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.emailAddress}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("</span>\n");
+          out.write("                                        </div>\n");
+          out.write("                                    </div>\n");
+          out.write("                                </div>\n");
+          out.write("                            </div>\n");
+          out.write("                        </div>\n");
+          out.write("                        <div class=\"user-cell user-cell-report\">\n");
+          out.write("                            <button onclick=\"showDropdownMenu(");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write(")\" class=\"dropbtn\">Option</button>\n");
+          out.write("                            <div  id=\"myDropdown-");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\" class=\"dropdown-content\">\n");
+          out.write("                                <a href=\"#\">Bookmark</a>\n");
+          out.write("                                <a onclick=\"alert('This thread has been reported to moderator');\" target=\"dummyframe\" href=\"");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("/report/thread?id=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${thread.threadID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+          out.write("\">Report</a>\n");
+          out.write("                                ");
+          if (_jspx_meth_c_if_2((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+            return true;
+          out.write("\n");
+          out.write("                            </div>\n");
+          out.write("\n");
+          out.write("                            <div class=\"user-permisson\">\n");
+          out.write("                                ");
+          if (_jspx_meth_c_if_3((javax.servlet.jsp.tagext.JspTag) _jspx_th_c_forEach_0, _jspx_page_context, _jspx_push_body_count_c_forEach_0))
+            return true;
+          out.write("                              \n");
+          out.write("                            </div>\n");
+          out.write("                        </div>\n");
+          out.write("                    </div>\n");
+          out.write("                </div>\n");
+          out.write("            ");
+          int evalDoAfterBody = _jspx_th_c_forEach_0.doAfterBody();
+          if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
+            break;
+        } while (true);
+      }
+      if (_jspx_th_c_forEach_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+        return true;
+      }
+    } catch (Throwable _jspx_exception) {
+      while (_jspx_push_body_count_c_forEach_0[0]-- > 0)
+        out = _jspx_page_context.popBody();
+      _jspx_th_c_forEach_0.doCatch(_jspx_exception);
+    } finally {
+      _jspx_th_c_forEach_0.doFinally();
+      _jspx_tagPool_c_forEach_var_items.reuse(_jspx_th_c_forEach_0);
+    }
+    return false;
+  }
+
+  private boolean _jspx_meth_fmt_formatDate_0(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
+          throws Throwable {
+    PageContext pageContext = _jspx_page_context;
+    JspWriter out = _jspx_page_context.getOut();
+    //  fmt:formatDate
+    org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag _jspx_th_fmt_formatDate_0 = (org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag) _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.get(org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag.class);
+    _jspx_th_fmt_formatDate_0.setPageContext(_jspx_page_context);
+    _jspx_th_fmt_formatDate_0.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
+    _jspx_th_fmt_formatDate_0.setValue((java.util.Date) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.timeJoined}", java.util.Date.class, (PageContext)_jspx_page_context, null));
+    _jspx_th_fmt_formatDate_0.setType("date");
+    _jspx_th_fmt_formatDate_0.setDateStyle("short");
+    int _jspx_eval_fmt_formatDate_0 = _jspx_th_fmt_formatDate_0.doStartTag();
+    if (_jspx_th_fmt_formatDate_0.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {
+      _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
+      return true;
+    }
+    _jspx_tagPool_fmt_formatDate_value_type_dateStyle_nobody.reuse(_jspx_th_fmt_formatDate_0);
+    return false;
+  }
+
+  private boolean _jspx_meth_c_if_2(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:if
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_2 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_2.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_2.setParent(null);
-    _jspx_th_c_if_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${!your.moderator && user.moderator}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_2.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
+    _jspx_th_c_if_2.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${your.moderator}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_2 = _jspx_th_c_if_2.doStartTag();
     if (_jspx_eval_c_if_2 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\n");
-        out.write("                                <div class=\"user-isadmin\">\n");
-        out.write("                                    <label>Moderator</label>\n");
-        out.write("                                </div>\n");
-        out.write("                            ");
+        out.write("                                    <form action=\"../update/user/permission\" method=\"POST\" id=\"changePermissionForm\">\n");
+        out.write("                                        <input type=\"hidden\" value=\"");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write("\" name=\"userID\" />\n");
+        out.write("                                        <input id=\"moderator-tickbox\" name=\"isAdmin\" onchange =\"changePermission('");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write("');\" \n");
+        out.write("                                               ");
+        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.moderator? \"checked\" : \"\"}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+        out.write(" type=\"checkbox\">\n");
+        out.write("                                        <label>Moderator permission</label>\n");
+        out.write("                                    </form>\n");
+        out.write("                                    <a>Ban</a>\n");
+        out.write("                                ");
         int evalDoAfterBody = _jspx_th_c_if_2.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;
@@ -455,32 +497,23 @@ public final class SearchUserView_jsp extends org.apache.jasper.runtime.HttpJspB
     return false;
   }
 
-  private boolean _jspx_meth_c_if_3(PageContext _jspx_page_context)
+  private boolean _jspx_meth_c_if_3(javax.servlet.jsp.tagext.JspTag _jspx_th_c_forEach_0, PageContext _jspx_page_context, int[] _jspx_push_body_count_c_forEach_0)
           throws Throwable {
     PageContext pageContext = _jspx_page_context;
     JspWriter out = _jspx_page_context.getOut();
     //  c:if
     org.apache.taglibs.standard.tag.rt.core.IfTag _jspx_th_c_if_3 = (org.apache.taglibs.standard.tag.rt.core.IfTag) _jspx_tagPool_c_if_test.get(org.apache.taglibs.standard.tag.rt.core.IfTag.class);
     _jspx_th_c_if_3.setPageContext(_jspx_page_context);
-    _jspx_th_c_if_3.setParent(null);
-    _jspx_th_c_if_3.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${your.moderator}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
+    _jspx_th_c_if_3.setParent((javax.servlet.jsp.tagext.Tag) _jspx_th_c_forEach_0);
+    _jspx_th_c_if_3.setTest(((java.lang.Boolean) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.moderator}", java.lang.Boolean.class, (PageContext)_jspx_page_context, null)).booleanValue());
     int _jspx_eval_c_if_3 = _jspx_th_c_if_3.doStartTag();
     if (_jspx_eval_c_if_3 != javax.servlet.jsp.tagext.Tag.SKIP_BODY) {
       do {
         out.write("\n");
-        out.write("                                <form action=\"../update/user/permission\" method=\"POST\" id=\"changePermissionForm\">\n");
-        out.write("                                    <input type=\"hidden\" value=\"");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("\" name=\"userID\" />\n");
-        out.write("                                    <input id=\"moderator-tickbox\" name=\"isAdmin\" onchange =\"changePermission('");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.userID}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write("');\" \n");
-        out.write("                                           ");
-        out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${user.moderator? \"checked\" : \"\"}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-        out.write(" type=\"checkbox\">\n");
-        out.write("                                    <label>Moderator permission</label>\n");
-        out.write("                                </form>\n");
-        out.write("                            ");
+        out.write("                                    <div class=\"user-isadmin\">\n");
+        out.write("                                        <label>Mod</label>\n");
+        out.write("                                    </div>\n");
+        out.write("                                ");
         int evalDoAfterBody = _jspx_th_c_if_3.doAfterBody();
         if (evalDoAfterBody != javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_AGAIN)
           break;

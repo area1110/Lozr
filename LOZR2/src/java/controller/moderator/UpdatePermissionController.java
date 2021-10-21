@@ -65,14 +65,13 @@ public class UpdatePermissionController extends BaseAuthorization {
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (currentUser.isModerator()) {
             int userID = Integer.parseInt(request.getParameter("userID"));
-            String raw_isAdmin = request.getParameter("isAdmin");
-            boolean isAdmin = (raw_isAdmin != null);
+            String raw_isMod = request.getParameter("isAdmin");
+            boolean isMod = (raw_isMod != null);
             User userSet = new User();
             userSet.setUserID(userID);
-            userSet.setModerator(isAdmin);
+            userSet.setModerator(isMod);
             UserInfoDBContext userDBC = new UserInfoDBContext();
             userDBC.updatePermission(userSet);
-            response.sendRedirect(request.getHeader("referer"));
         } else {
             String errorMessage = "You do not have permission";
             request.setAttribute("errorMessage", errorMessage);

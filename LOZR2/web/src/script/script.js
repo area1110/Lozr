@@ -94,7 +94,7 @@ function changePermission(userID) {
 //    formData.set('userID', userID);
 //    formData.set('isAdmin', isadmin);
 //    fetch('../update/user/permission', {method: "POST", body: formData});
-    document.getElementById("changePermissionForm").submit();
+    document.getElementById("changePermissionForm-"+userID).submit();
 }
 
 

@@ -44,7 +44,7 @@
             />
     </head>
     <body class="u-body">
-         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
                     <a href="${contextPath}">
@@ -81,11 +81,11 @@
         <div class="main-zone">
 
             <div class="" id="user">
-                <div class="user-card user-card">
+                <div class="user-card">
                     <div class="user-avatar user-cell">
                         <img src="${user.avatar}" />
                     </div>
-                    <div class="user-cell">
+                    <div class="user-cell user-info">
                         <div class="user-loginname">
                             <h2>${user.loginName}</h2>
                             <div class="user-detail">
@@ -119,22 +119,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="user-cell user-cell-report">
-                        <button class="button report-button">REPORT</button>
-
-                        <div class="user-permisson">
-                            <c:if test="${!your.moderator && user.moderator}">
-                                <div class="user-isadmin">
-                                    <label>Moderator</label>
-                                </div>
-                            </c:if>
+                    <div class="user-cell user-cell-report dropdown">
+                        <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
+                        <div  id="myDropdown-${user.userID}" class="dropdown-content">
+                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
                             <c:if test="${your.moderator}">
-                                <form action="../update/user/permission" method="POST" id="changePermissionForm">
+                                <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                     <input type="hidden" value="${user.userID}" name="userID" />
-                                    <input id="moderator-tickbox" name="isAdmin" onchange ="changePermission('${user.userID}');" 
+                                    <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
                                            ${user.moderator? "checked" : ""} type="checkbox">
-                                    <label>Moderator permission</label>
+                                    <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
+                                <a>Ban</a>
+                            </c:if>
+                        </div>
+                        <div class="user-permisson">
+                            <c:if test="${user.moderator}">
+                                <div class="user-isadmin">
+                                    <label>Mod</label>
+                                </div>
                             </c:if>
                         </div>
                     </div>
@@ -352,6 +355,7 @@
                 </p>
             </div>
         </footer>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 
     </body>
 </html>

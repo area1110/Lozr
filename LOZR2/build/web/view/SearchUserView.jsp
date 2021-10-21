@@ -80,13 +80,13 @@
         <div class="main-zone">
             <div class="body-header">       
                 <div  class="post-title" >
-                    <h1>Search: ${requestScope.query}</h1>
+                    <h1>Search user: ${requestScope.query}</h1>
                 </div>              
             </div>
 
             <div class="searchbar">
                 <form id="form-search" action="${contextPath}/search/user" method="GET">
-                    <input id="insert-query" class="search-input search-texttype" name="q" placeholder="Find user" value="${requestScope.query}"/>
+                    <input id="insert-query" class="search-input search-texttype" name="q" placeholder="Provide Username" value="${requestScope.query}"/>
                     <button class="search-input search-button" onclick="checkSubmit(event, 'form-search', 'insert-query');"><i class="fa fa-search"></i></button>
                 </form>
             </div>
@@ -98,80 +98,59 @@
             </c:if>
 
             <c:forEach items="${requestScope.users}" var="user">
-
+                <!--<EachUser>-->
                 <div class="" id="user">
-                    <div class="user-card user-card">
-                        <div class="user-avatar user-cell">
-                            <img src="${user.avatar}" />
-                        </div>
-                        <div class="user-cell">
-                            <div class="user-loginname">
-                                <h2>${user.loginName}</h2>
-                                <div class="user-detail">
-                                    <div class="user-total-numbers">
-                                        <div class="user-joineddate">
-                                            <span>Joined:</span>
-                                            <time>
-                                                <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
-                                            </time>
-                                        </div>
-                                        <div>
-                                            <span>Email:</span>
-                                            <span>${user.emailAddress}</span>
-                                        </div>
-                                        <div class="">
-                                            <span>Posts:</span>
-                                            <span>Threads:</span>
+                    <div class="user-card">
+                        <a class="user-link"  href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}">
+                            <div class="user-avatar user-cell">
+                                <img src="${user.avatar}" />
+                            </div>
+                            <div class="user-cell user-info">
+                                <div class="user-loginname">
+                                    <h2>${user.loginName}</h2>
+                                    <div class="user-detail">
+                                        <div class="user-total-numbers">
+                                            <div class="user-joineddate">
+                                                <span>Joined:</span>
+                                                <time>
+                                                    <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
+                                                </time>
+                                            </div>
+                                            <div>
+                                                <span>Email:</span>
+                                                <span>${user.emailAddress}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="user-detail-name">
-                                        <div class="user-firstname">
-                                            <span>FirstName:</span>
-                                            <span id="firstname">${user.firstName}</span>
-                                        </div>
-                                        <div class="user-lastname">
-                                            <span>LastName:</span>
-                                            <span id="lastname">${user.lastName}</span>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
-                        <div class="user-cell user-cell-report">
+                        </a>
+                        <div class="user-cell user-cell-report dropdown">
                             <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
-                            <div style="display: block;" id="myDropdown-${user.userID}" class="dropdown-content">
-                                <a href="#">Bookmark</a>
+                            <div  id="myDropdown-${user.userID}" class="dropdown-content">
                                 <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
                                 <c:if test="${your.moderator}">
-                                    <form action="../update/user/permission" method="POST" id="changePermissionForm">
+                                    <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />
-                                        <input id="moderator-tickbox" name="isAdmin" onchange ="changePermission('${user.userID}');" 
+                                        <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
                                                ${user.moderator? "checked" : ""} type="checkbox">
-                                        <label>Moderator permission</label>
+                                        <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                     </form>
                                     <a>Ban</a>
                                 </c:if>
                             </div>
 
                             <div class="user-permisson">
-                                <c:if test="${!your.moderator && user.moderator}">
+                                <c:if test="${user.moderator}">
                                     <div class="user-isadmin">
-                                        <label>Moderator</label>
+                                        <label>Mod</label>
                                     </div>
-                                </c:if>
-                                <c:if test="${your.moderator}">
-                                    <form action="../update/user/permission" method="POST" id="changePermissionForm">
-                                        <input type="hidden" value="${user.userID}" name="userID" />
-                                        <input id="moderator-tickbox" name="isAdmin" onchange ="changePermission('${user.userID}');" 
-                                               ${user.moderator? "checked" : ""} type="checkbox">
-                                        <label for="moderator-tickbox">Moderator</label>
-                                    </form>
-                                </c:if>
+                                </c:if>                              
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--</EachUser>-->                  
             </c:forEach>
 
         </div>
@@ -187,6 +166,6 @@
                 </p>
             </div>
         </footer>
-
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </body>
 </html>

@@ -97,6 +97,7 @@
                                 <a href="javascript:void(0)" onclick="openCreateForum()" class="u-button-style u-nav-link">New Forum</a>
                                 <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
                             </c:if>
+                            <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
                             <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
                             <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                         </div>
@@ -158,7 +159,6 @@
                                             <button onclick="showDropdownMenu(${forum.forumID})" class="dropbtn">Edit</button>
                                             <div id="myDropdown-${forum.forumID}" class="dropdown-content">
                                                 <a   onclick="openForm(${forum.forumID})">Change Title & Cover</a>
-
                                                 <a onclick="doDeleteForum(${forum.forumID}, '${forum.name}');">Delete Forum</a>
                                             </div>
                                         </div>

@@ -4,19 +4,18 @@
     Author     : Khanh
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px">
-    <%
-        String loginErrorMessage = (String) request.getAttribute("loginError");
-    %>
+    <c:set value="${pageContext.request.contextPath}" var="contextPath"/>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>LogIn</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/src/style/nicepage.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/src/style/index.css" />
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/src/style/LogIn.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
+        <link rel="stylesheet" href="${contextPath}/src/style/LogIn.css" />
         <link
             id="u-theme-google-font"
             rel="stylesheet"
@@ -27,42 +26,38 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
             />
-        <script src="${pageContext.request.contextPath}/src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/script.js" defer></script>
 
     </head>
     <body class="u-body">
-        <header
-            class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header"
-            id="sec-2137"
-            >
-            <div class="u-clearfix u-sheet u-sheet-1">
-                <a href="${contextPath}" class="u-hidden-sm u-hidden-xs u-image u-logo u-image-1" >
-                    <img src="images/lozr4rum1.png" class="u-logo-image u-logo-image-1" />
-                </a>    
+        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+            <div class="header">
+                <div  class="header-logo">
+                    <a>
+                        <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
+                    </a>
+                </div>
+                <div class="header-action">
+                    <div class="header-action-item">
+                        <a href="${contextPath}/signup">
+                            <div class="header-user">                
+                                <span  class="header-user-name header-action-item"  >
+                                    Signup
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </header>
         <section
-            class="u-clearfix u-image u-section-1"
-            id="sec-7598"
-            data-image-width="1200"
-            data-image-height="836"
-            >
+            class="u-clearfix u-image u-section-1">
             <div class="u-clearfix u-sheet u-sheet-1">
                 <div class="u-container-style u-expanded-width-xs u-group u-group-1">
                     <div class="u-container-layout">
-                        <h1
-                            class="
-                            u-custom-font
-                            u-font-ubuntu
-                            u-text
-                            u-text-default
-                            u-text-palette-1-base
-                            u-text-1
-                            "
-                            >
-                            Welcome back<span style="font-weight: 700">
-                                <span style="font-weight: 400"></span>
-                            </span>
+                        <h1 class=" u-custom-font u-font-ubuntu  u-text  u-text-default  u-text-palette-1-base u-text-1 ">
+                            Welcome back
                         </h1>
                         <div class="u-expanded-width u-form u-form-1">
                             <form
@@ -93,13 +88,12 @@
                                         />
                                 </div>
                                 <div class="u-form-email u-form-group">
-                                    <% if (loginErrorMessage != null) {%>
+
                                     <label
                                         for="password"
                                         class="u-label u-text-custom-color-1 u-label-2"
-                                        ><%= loginErrorMessage%></label
-                                    >
-                                    <%}%>
+                                        >${loginError}
+                                    </label>
                                     <input
                                         type="password"
                                         placeholder="Password"
