@@ -17,13 +17,14 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${thread.subject} | L0ZR</title>
+        <title>${thread.subject} | LOZR</title>
 
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/paging.js"></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -171,7 +172,7 @@
                                     >
                                 </div>
                                 <div class="">
-                                    <a onclick="alert('This post has been reported to moderator');" target="dummyframe" href="${contextPath}/report/post?id=${post.postID}"
+                                    <a href="javascript:void(0)" onclick="doReport('${contextPath}',${post.postID}, 'post')"
                                        >Report</a
                                     >
                                 </div>
@@ -181,6 +182,9 @@
                 </div>
                 <!--/Body post-->
             </c:forEach>
+            <div class="align-right">
+                <div id="pagerBottom" class="pagination" ></div>
+            </div>
             <c:if test="${thread.active}">
                 <div class="post">
                     <div class="post-user-cell">
@@ -239,12 +243,10 @@
                     </div>
                 </div>
             </c:if>
-
         </div>
 
         <footer
             class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
-            id="sec-4768"
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
@@ -254,7 +256,9 @@
             </div>
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-
+        <script>
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
+        </script>
     </body>
 </html>
 

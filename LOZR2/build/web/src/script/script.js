@@ -23,12 +23,12 @@ function display_error() {
     errorLabel.style.display = "none";
 }
 
-function checkSubmit( event, formId, inputId) {
+function checkSubmit(event, formId, inputId) {
     event.preventDefault();
     const insert = document.getElementById(inputId);
     const form = document.getElementById(formId);
-    checkString= insert.value.trim();
-    if(checkString !== "") {
+    checkString = insert.value.trim();
+    if (checkString !== "") {
         form.submit();
         reloadDelay();
     }
@@ -53,23 +53,36 @@ function doCancel() {
 }
 
 function showDropdownMenu(id) {
-    $("#myDropdown-" + id).toggle("show");
+    $("#myDropdown-" + id).toggle("fast");
 }
 
-function reloadDelay(){
-    window.setTimeout( ()=>{window.location.reload();} ,500);
+
+function reloadDelay() {
+    window.setTimeout(() => {
+        window.location.reload();
+    }, 500);
 }
 
-function doDelete(ID, feature) {
+function doDelete(ID, reportFor) {
     const dummyframe = document.querySelector("#dummyframe");
-    const message = `Do you want to delete this ${feature}`;
+    const message = `Do you want to delete this ${reportFor}`;
     let confirm = window.confirm(message);
     if (confirm) {
-        dummyframe.src = "../delete/" + feature + "?id=" + ID;
+        dummyframe.src = "../delete/" + reportFor + "?id=" + ID;
         reloadDelay();
     }
 }
 
+function doReport(rootPath ,ID, reportFor) {
+    const dummyframe = document.querySelector("#dummyframe");
+    let reason = window.prompt("Please provide the reason for the report");
+    if (!reason || reason === "") {
+        return;
+    } else {
+        reason = reason.replaceAll(" ", "+");
+        window.location.href = `${rootPath}/report/${reportFor}?id=${ID}&reason=${reason}`;
+    }
+}
 
 //popup-form-edit
 function openForm(forumID) {
@@ -94,20 +107,20 @@ function changePermission(userID) {
 //    formData.set('userID', userID);
 //    formData.set('isAdmin', isadmin);
 //    fetch('../update/user/permission', {method: "POST", body: formData});
-    document.getElementById("changePermissionForm-"+userID).submit();
+    document.getElementById("changePermissionForm-" + userID).submit();
 }
 
 
 //navbar diy
 /* Set the width of the sidebar to 250px (show it) */
 function openNav() {
-  document.getElementById("mySidepanel").style.width = "300px";
+    document.getElementById("mySidepanel").style.width = "300px";
 //  $("#mySidepanel").toggle("slow");
 }
 
 /* Set the width of the sidebar to 0 (hide it) */
 function closeNav() {
 //    $("#mySidepanel").toggle("slow");
-  document.getElementById("mySidepanel").style.width = "0";
+    document.getElementById("mySidepanel").style.width = "0";
 }
 

@@ -6,13 +6,11 @@ package controller.forum;
  * and open the template in the editor.
  */
 import controller.authentication.BaseRequiredAuthentication;
-import controller.module.Encode;
+import controller.module.PagingModule;
 import controller.module.ExtractURLPath;
 import dal.FThreadDBContext;
 import dal.ForumDBContext;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +34,7 @@ public class ForumController extends BaseRequiredAuthentication {
             throws ServletException, IOException {
         FThreadDBContext fThreadDBC = new FThreadDBContext();
         int forumID = ExtractURLPath.extractPathToID(request.getPathInfo());
+
         if (forumID == 0) {
             String errorMsg = "The requested forum could not be found.";
             request.setAttribute("errorMsg", errorMsg);
@@ -47,8 +46,24 @@ public class ForumController extends BaseRequiredAuthentication {
                 request.setAttribute("errorMsg", errorMsg);
                 request.getRequestDispatcher("").forward(request, response);
             } else {
+                String raw_pageIndex = request.getParameter("page");
+                if (raw_pageIndex == null || raw_pageIndex.isEmpty()) {
+                    raw_pageIndex = "1";
+                }
+                int pageIndex = Integer.parseInt(raw_pageIndex);
                 request.setAttribute("forum", forum);
-                ArrayList<FThread> fThreads = fThreadDBC.getFThreads(forumID);
+                int totalRecord = fThreadDBC.getTotalThreads(forumID);
+                int totalPage = PagingModule.calcTotalPage(totalRecord);
+                if (totalPage < pageIndex) {
+                    pageIndex = totalPage;
+                }
+                if(pageIndex<1){
+                    pageIndex = 1;
+                }
+                ArrayList<FThread> fThreads = fThreadDBC.getFThreads(forumID, pageIndex);
+
+                request.setAttribute("totalPage", totalPage);
+                request.setAttribute("pageIndex", pageIndex);
                 request.setAttribute("threads", fThreads);
                 request.getRequestDispatcher("/view/ForumView.jsp").forward(request, response);
             }

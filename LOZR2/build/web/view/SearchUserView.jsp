@@ -127,7 +127,7 @@
                         </a>
                         <div class="user-cell user-cell-report dropdown">
                             <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
-                            <div  id="myDropdown-${user.userID}" class="dropdown-content">
+                            <div  id="myDropdown-${user.userID}" class="dropdown-content" onclick="showDropdownMenu(${user.userID})">
                                 <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
                                 <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">

@@ -7,11 +7,13 @@ package controller.thread;
 
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
+import controller.module.PagingModule;
 import dal.FThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javafx.scene.control.Pagination;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,22 +34,28 @@ public class ThreadController extends BaseRequiredAuthentication {
             throws ServletException, IOException {
 //        System.out.println("Path" +request.getPathInfo());
         int threadID = ExtractURLPath.extractPathToID(request.getPathInfo());
-        if (threadID == 0) {
-            response.getWriter().print("0");
+        FThreadDBContext fthreadDBC = new FThreadDBContext();
+        FThread fthread = fthreadDBC.getFThread(threadID);
+        if (fthread == null) {
+            String errorMessage = "Oops, threre are something wrong?!";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         } else {
-            FThreadDBContext fthreadDBC = new FThreadDBContext();
-            FThread fthread = fthreadDBC.getFThread(threadID);
-            if (fthread == null) {
-                response.getWriter().print("null");
-            } else {
-                PostDBContext postDBC = new PostDBContext();
-                ArrayList<Post> posts = postDBC.getPosts(threadID);
-                request.setAttribute("thread", fthread);
-                request.setAttribute("posts", posts);
-                request.getRequestDispatcher("../view/ThreadView.jsp").forward(request, response);
+            PostDBContext postDBC = new PostDBContext();
+            int totalRecord = postDBC.getTotalPosts(threadID);
+            int totalPage = PagingModule.calcTotalPage(totalRecord);
+            String raw_pageIndex = request.getParameter("page");
+            if (raw_pageIndex == null || raw_pageIndex.isEmpty()) {
+                raw_pageIndex = "" + totalPage;
             }
+            int pageIndex = Integer.parseInt(raw_pageIndex);
+            ArrayList< Post> posts = postDBC.getPosts(threadID, pageIndex);
+            request.setAttribute("totalPage", totalPage);
+            request.setAttribute("pageIndex", pageIndex);
+            request.setAttribute("thread", fthread);
+            request.setAttribute("posts", posts);
+            request.getRequestDispatcher("../view/ThreadView.jsp").forward(request, response);
         }
-
     }
 
     /**

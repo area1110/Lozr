@@ -5,7 +5,7 @@
  */
 package controller.authentication;
 
-import controller.module.Encode;
+import controller.module.PagingModule;
 import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.io.InputStream;

@@ -5,6 +5,7 @@
  */
 package dal;
 
+import controller.module.PagingModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,22 +21,42 @@ import model.User;
  */
 public class PostDBContext extends DBContext {
 
-    public ArrayList<Post> getPosts(int threadID) {
+    public int getTotalPosts(int threadID) {
+        try {
+            String sql_countPosts = "SELECT COUNT(PostID) AS TotalPost FROM Post\n"
+                    + "	WHERE PostThreadID=? AND PostIsActive=1";
+            PreparedStatement stm_countPosts = connection.prepareStatement(sql_countPosts);
+            stm_countPosts.setInt(1, threadID);
+            ResultSet rs_countPosts = stm_countPosts.executeQuery();
+            if (rs_countPosts.next()) {
+                return rs_countPosts.getInt("TotalPost");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<Post> getPosts(int threadID, int pageIndex) {
+        int[] recordFromTo = PagingModule.calcFromToRecord(pageIndex);
         ArrayList<Post> posts = new ArrayList<>();
         try {
-            String sqlStatement = "SELECT P.PostID, P.PostSubject, P.PostThreadID, P.PostDateCreated,\n"
+            String sqlStatement = "SELECT * FROM\n"
+                    + "	(SELECT ROW_NUMBER() OVER (ORDER BY P.PostDateCreated) AS Row_count, P.PostID, P.PostSubject, P.PostThreadID, P.PostDateCreated,\n"
                     + "	P.PostIsActive ,P.PostUserID, U.UserLoginName, U.UserImageAvatar, U.UserIsMod, P.PostReplyTo,\n"
-                    + "	Rep.PostSubject AS RepPostSubject, Rep.PostDateCreated AS RepPostDateCreated, \n"
-                    + "	Rep.PostIsActive AS RepPostIsActive, Rep.PostUserID AS RepPostUserID,\n"
-                    + "	URep.UserLoginName AS URepLoginName, URep.UserImageAvatar AS URepImageAvatar\n"
-                    + "	FROM POST AS P \n"
-                    + "		JOIN UserInfo AS U ON P.PostUserID=U.UserID\n"
-                    + "		LEFT JOIN Post AS Rep ON P.PostReplyTo=Rep.PostID\n"
-                    + "		LEFT JOIN UserInfo AS URep ON Rep.PostUserID=URep.UserID\n"
-                    + "	WHERE P.PostThreadID=? AND P.PostIsActive = 1"
-                    + "ORDER BY P.PostDateCreated ASC";
+                    + " 	Rep.PostSubject AS RepPostSubject, Rep.PostDateCreated AS RepPostDateCreated,\n"
+                    + "         	Rep.PostIsActive AS RepPostIsActive, Rep.PostUserID AS RepPostUserID,\n"
+                    + "            URep.UserLoginName AS URepLoginName, URep.UserImageAvatar AS URepImageAvatar\n"
+                    + "            FROM POST AS P\n"
+                    + "            JOIN UserInfo AS U ON P.PostUserID=U.UserID\n"
+                    + "            LEFT JOIN Post AS Rep ON P.PostReplyTo=Rep.PostID\n"
+                    + "            LEFT JOIN UserInfo AS URep ON Rep.PostUserID=URep.UserID\n"
+                    + "            WHERE P.PostThreadID=? AND P.PostIsActive = 1) AS Main\n"
+                    + "	WHERE Main.Row_count BETWEEN ? AND ?";
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setInt(1, threadID);
+            stm.setInt(2, recordFromTo[0]);
+            stm.setInt(3, recordFromTo[1]);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Post post = new Post();

@@ -23,10 +23,11 @@
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
         <script src="${contextPath}/src/script/thread.js" defer></script>
+        <script src="${contextPath}/src/script/paging.js"></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -214,7 +215,7 @@
                                             </div>-->
                     <div class="thread-cell thread-cell-option  dropdown">
                         <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                        <div id="myDropdown-${thread.threadID}" class="dropdown-content">
+                        <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
                             <a href="#">Bookmark</a>
                             <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
                             <c:if test="${your.userID == thread.startedBy.userID}">
@@ -228,11 +229,13 @@
                     </div>
                 </div>
             </c:forEach>
+            <div class="align-right">
+                <div id="pagerBottom" class="pagination" ></div>
+            </div>
         </div>
 
         <footer
             class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
-            id="sec-4768"
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
@@ -242,6 +245,9 @@
             </div>
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+        <script>
+          createPager('pagerBottom', ${pageIndex}, ${totalPage});
+        </script>
     </body>
 </html>
 

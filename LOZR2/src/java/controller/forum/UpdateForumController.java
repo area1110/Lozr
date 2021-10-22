@@ -6,7 +6,7 @@
 package controller.forum;
 
 import controller.authentication.BaseRequiredAuthentication;
-import controller.module.Encode;
+import controller.module.PagingModule;
 import dal.ForumDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;

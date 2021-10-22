@@ -44,6 +44,16 @@
             />
     </head>
     <body class="u-body">
+        <div class="form-popup" id="formEdit">
+            <form onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
+                <h2>Edit Thread</h2>
+                <input type="hidden" id="elementeID"  name="threadID"/> 
+                <label  for="threadSubject">New Thread Title</label>
+                <input type="text" placeholder="New Name" name="threadSubject">
+                <button type="submit" class="btn">Save</button>
+                <button type="button" class="btn" onclick="closeForm()">Close</button>
+            </form>
+        </div>
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
@@ -120,8 +130,8 @@
                         </div>
                     </div>
                     <div class="user-cell user-cell-report dropdown">
-                        <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
-                        <div  id="myDropdown-${user.userID}" class="dropdown-content">
+                        <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
+                        <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
                             <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
                             <c:if test="${your.moderator}">
                                 <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
@@ -233,17 +243,19 @@
                                                     </a>
                         
                                                 </div>-->
-                        <div class="thread-cell thread-cell-option  dropdown">
-                            <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                            <div id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="#">Bookmark</a>
-
-                                <a href="#">Change Title</a>
-                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                    <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                                </c:if>
-                            </div>
+                         <div class="thread-cell thread-cell-option  dropdown">
+                        <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
+                        <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
+                            <a href="#">Bookmark</a>
+                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+                            <c:if test="${your.userID == thread.startedBy.userID}">
+                                <a onclick="openForm(${thread.threadID});">Change Title</a>
+                            </c:if>
+                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                            </c:if>
                         </div>
+                    </div>
                     </div>
 
                 </a>

@@ -5,6 +5,7 @@
  */
 package dal;
 
+import controller.module.PagingModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,20 +22,41 @@ import model.User;
  */
 public class FThreadDBContext extends DBContext {
 
-    public ArrayList<FThread> getFThreads(int forumID) {
+    public int getTotalThreads(int forumID) {
+        try {
+            String sql_countThreads = "SELECT COUNT(ThreadID) AS TotalRecords FROM Thread\n"
+                    + "WHERE ThreadForumID=? AND ThreadIsActive=1";
+            PreparedStatement stm_countThreads = connection.prepareStatement(sql_countThreads);
+            stm_countThreads.setInt(1, forumID);
+            ResultSet rs_countThreads = stm_countThreads.executeQuery();
+            if (rs_countThreads.next()) {
+                return rs_countThreads.getInt("TotalRecords");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<FThread> getFThreads(int forumID, int pageIndex) {
+        int[] recordFromTo = PagingModule.calcFromToRecord(pageIndex);
         ArrayList<FThread> fThreads = new ArrayList<>();
         try {
-            String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+            String sqlStatement = "SELECT * FROM \n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY T.ThreadDateCreated DESC) AS Row_count,\n"
+                    + "	T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
                     + "	U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
-                    + "		(SELECT COUNT(PostID) FROM Post\n"
-                    + "                                     WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
+                    + "	(SELECT COUNT(PostID) FROM Post\n"
+                    + "			WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
                     + "FROM Thread AS T JOIN UserInfo AS U\n"
                     + "	ON T.ThreadStartedBy=U.UserID\n"
-                    + "WHERE T.ThreadForumID=? AND T.ThreadIsActive=1\n"
-                    + "ORDER BY T.ThreadDateCreated DESC";
+                    + "WHERE T.ThreadForumID=? AND T.ThreadIsActive=1) AS Main\n"
+                    + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setInt(1, forumID);
+            stm.setInt(2, recordFromTo[0]);
+            stm.setInt(3, recordFromTo[1]);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
