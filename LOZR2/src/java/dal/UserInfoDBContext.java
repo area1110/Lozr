@@ -5,6 +5,7 @@
  */
 package dal;
 
+import controller.module.PagingModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -112,17 +113,41 @@ public class UserInfoDBContext extends DBContext {
         return null;
     }
 
-    public ArrayList<User> getUsersByName(String query) {
-        ArrayList<User> users = new ArrayList<>();
+    public int getTotalUsersByName(String query) {
         try {
-            String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
-                    + "      UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
-                    + "WHERE UserLoginName LIKE '%' + ? + '%'\n"
-                    + "	OR UserEmailAddress LIKE '%' + ? + '%'\n";
+            String sql_count_user = "SELECT COUNT(UserID) as TotalRecord FROM  UserInfo\n"
+                    + "  WHERE UserLoginName LIKE '%' + ? + '%'\n"
+                    + "  OR UserEmailAddress LIKE '%' + ? + '%'";
+            PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);
+            stm_count_user.setString(1, query);
+            stm_count_user.setString(2, query);
+            ResultSet rs_count_user = stm_count_user.executeQuery();
+            if(rs_count_user.next()){
+                return rs_count_user.getInt("TotalRecord");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<User> getUsersByName(String query, int pageIndex) {
+        ArrayList<User> users = new ArrayList<>();
+        int fromToRecord[] = PagingModule.calcFromToRecord(pageIndex);
+        try {
+            String sqlStatement = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER(ORDER BY UserLoginName ASC) AS Row_count,\n"
+                    + "	UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
+                    + "	UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
+                    + "  WHERE UserLoginName LIKE '%' + ? + '%'\n"
+                    + "  OR UserEmailAddress LIKE '%' + ? + '%') AS Main\n"
+                    + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setString(1, query);
             stm.setString(2, query);
+            stm.setInt(3, fromToRecord[0]);
+            stm.setInt(4, fromToRecord[1]);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 User user = new User();

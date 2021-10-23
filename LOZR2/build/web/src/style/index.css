@@ -3,9 +3,19 @@ html {
     scroll-padding-top: 100px;
 }
 
-a {
+a, span {
     word-wrap: break-word;
 }
+
+a:hover {
+    color: #79c9af;
+}
+
+a:active{
+    color: #339f8b;
+}
+
+
 
 input:focus {
     outline: 1px solid cadetblue;

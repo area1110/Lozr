@@ -27,6 +27,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/paging.js"></script>
 
         <link
             rel="stylesheet"
@@ -150,9 +151,11 @@
                         </div>
                     </div>
                 </div>
-                <!--</EachUser>-->                  
+                <!--</EachUser>-->                    
             </c:forEach>
-
+  <div class="align-right">
+                <div id="pagerBottom" class="pagination" ></div>
+            </div>
         </div>
 
         <footer
@@ -167,5 +170,8 @@
             </div>
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+                   <script>
+          createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+        </script>
     </body>
 </html>

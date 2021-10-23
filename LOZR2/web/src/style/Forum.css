@@ -3,8 +3,6 @@
 
 }
 
-
-
 .thread-table {
      display: table;
 }
@@ -68,6 +66,12 @@
     font-size: 13px;
 }
 
+.thread-status-pair td:last-child{
+    width: 50px;
+    text-align: right;
+}
+
+
 .thread-status-pair>dt {
     float: left;
     margin: 0;
@@ -109,4 +113,8 @@
 
 .thread-cell-option {
     width: 5em;
+}
+
+.thread-report {
+   max-width: 2em;
 }

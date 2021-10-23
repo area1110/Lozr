@@ -42,7 +42,7 @@
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
-                   <a href="${contextPath}">
+                    <a href="${contextPath}">
                         <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
                     </a>
                 </div>
@@ -80,7 +80,7 @@
                 </a>
             </div>
             <div class="body-header">
-                
+
                 <div class="post-title">
                     <h1>POSTS MANAGEMENT</h1>
                 </div>                      
@@ -120,6 +120,11 @@
                     </div>
                     <div class="post-main-cell">
                         <header class="post-attribute">
+                            <span>This is place for report reason display</span>
+                            <span>This is place for report reason display</span>
+                            <span>This is place for report reason display</span>
+                        </header>
+                        <header class="post-attribute">
                             <time class="post-attribute-time">
                                 <fmt:formatDate type="both" dateStyle="short"
                                                 timeStyle="short" value="${post.timeCreated}"/>
@@ -154,12 +159,12 @@
                                     <c:if test="${your.moderator || your.userID==post.user.userID}">
                                         <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
-<!--                                    <a
-                                        href="#post-create"
-                                        class="post-reply-button"
-                                        onclick="doReply(${post.postID})"
-                                        >Reply</a
-                                    >-->
+                                    <!--                                    <a
+                                                                            href="#post-create"
+                                                                            class="post-reply-button"
+                                                                            onclick="doReply(${post.postID})"
+                                                                            >Reply</a
+                                                                        >-->
                                 </div>
                                 <div class="">
                                     <a href="${contextPath}/admin/report/post?id=${post.postID}"

@@ -6,6 +6,7 @@
 package controller.search;
 
 import controller.authentication.BaseRequiredAuthentication;
+import controller.module.PagingModule;
 import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,8 +30,6 @@ public class SearchUserController extends BaseRequiredAuthentication {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -43,9 +42,25 @@ public class SearchUserController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String query = request.getParameter("q");
         UserInfoDBContext userDBC = new UserInfoDBContext();
-        ArrayList<User> users =   userDBC.getUsersByName(query);
+        String query = request.getParameter("q");
+
+        String raw_pageIndex = request.getParameter("page");
+        if (raw_pageIndex == null || raw_pageIndex.isEmpty()) {
+            raw_pageIndex = "1";
+        }
+        int pageIndex = Integer.parseInt(raw_pageIndex);
+        int totalRecord = userDBC.getTotalUsersByName(query);
+        int totalPage = PagingModule.calcTotalPage(totalRecord);
+        if (totalPage < pageIndex) {
+            pageIndex = totalPage;
+        }
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+        ArrayList<User> users = userDBC.getUsersByName(query, pageIndex);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("query", query);
         request.setAttribute("users", users);
         request.getRequestDispatcher("/view/SearchUserView.jsp").forward(request, response);
