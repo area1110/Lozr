@@ -85,20 +85,40 @@ public class FThreadDBContext extends DBContext {
         return fThreads;
     }
 
-    public ArrayList<FThread> getFThreads(String querySubject) {
+    public int getTotalThread(String querySubject) {
+        try {
+            String sql_count_thread = "SELECT COUNT(ThreadID) AS TotalThread FROM Thread\n"
+                    + "WHERE ThreadIsActive=1 AND ThreadSubject LIKE '%' + ? + '%'";
+            PreparedStatement stm_count_thread = connection.prepareStatement(sql_count_thread);
+            stm_count_thread.setString(1, querySubject);
+            ResultSet rs_count_thread = stm_count_thread.executeQuery();
+            if(rs_count_thread.next()){
+                return rs_count_thread.getInt("TotalThread");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<FThread> getFThreads(String querySubject, int pageIndex) {
+        int[] fromToRecord = PagingModule.calcFromToRecord(pageIndex);
         ArrayList<FThread> fThreads = new ArrayList<>();
         try {
-            String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
-                    + "  U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
-                    + "  (SELECT COUNT(PostID) FROM Post\n"
-                    + "	WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
-                    + "	FROM Thread AS T JOIN UserInfo AS U\n"
-                    + "	ON T.ThreadStartedBy=U.UserID\n"
-                    + "WHERE  T.ThreadIsActive=1 AND T.ThreadSubject LIKE '%' + ? + '%'\n"
-                    + "ORDER BY T.ThreadDateCreated DESC";
+            String sqlStatement = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY T.ThreadDateCreated DESC) AS Row_count, T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+                    + "    U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
+                    + "    (SELECT COUNT(PostID) FROM Post\n"
+                    + "WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
+                    + "     FROM Thread AS T JOIN UserInfo AS U\n"
+                    + "     ON T.ThreadStartedBy=U.UserID\n"
+                    + "WHERE  T.ThreadIsActive=1 AND T.ThreadSubject LIKE '%' + ? + '%') AS Main\n"
+                    + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setString(1, querySubject);
+            stm.setInt(2, fromToRecord[0]);
+            stm.setInt(3, fromToRecord[1]);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {

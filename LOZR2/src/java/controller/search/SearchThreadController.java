@@ -6,12 +6,11 @@
 package controller.search;
 
 import controller.authentication.BaseRequiredAuthentication;
+import controller.module.PagingModule;
 import dal.FThreadDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FThread;
@@ -48,12 +47,28 @@ public class SearchThreadController extends BaseRequiredAuthentication {
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-          String query =  request.getParameter("q");
-           FThreadDBContext threadDBC = new FThreadDBContext();
-           ArrayList<FThread> threads = threadDBC.getFThreads(query);
-           request.setAttribute("query", query);
-           request.setAttribute("threads", threads);
-           request.getRequestDispatcher("/view/SearchThreadView.jsp").forward(request, response);
+        FThreadDBContext threadDBC = new FThreadDBContext();
+
+        String query = request.getParameter("q");
+        String raw_pageIndex = request.getParameter("page");
+        if (raw_pageIndex == null || raw_pageIndex.isEmpty()) {
+            raw_pageIndex = "1";
+        }
+        int pageIndex = Integer.parseInt(raw_pageIndex);
+        int totalRecord = threadDBC.getTotalThread(query);
+        int totalPage = PagingModule.calcTotalPage(totalRecord);
+        if (totalPage < pageIndex) {
+            pageIndex = totalPage;
+        }
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+        ArrayList<FThread> threads = threadDBC.getFThreads(query, pageIndex);
+        request.setAttribute("totalPage", totalPage);
+        request.setAttribute("pageIndex", pageIndex);
+        request.setAttribute("query", query);
+        request.setAttribute("threads", threads);
+        request.getRequestDispatcher("/view/SearchThreadView.jsp").forward(request, response);
     }
 
     /**
