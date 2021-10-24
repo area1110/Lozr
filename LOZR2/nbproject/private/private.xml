@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/thread/ThreadController.java</file>
-            <file>file:/D:/Github/Lozr/LOZR2/web/src/style/Post.css</file>
-            <file>file:/D:/Github/Lozr/LOZR2/web/src/style/index.css</file>
-            <file>file:/D:/Github/Lozr/LOZR2/src/java/dal/FThreadDBContext.java</file>
-            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/forum/ForumController.java</file>
-            <file>file:/D:/Github/Lozr/LOZR2/web/view/ForumView.jsp</file>
-            <file>file:/D:/Github/Lozr/LOZR2/web/src/script/paging.js</file>
-            <file>file:/D:/Github/Lozr/LOZR2/src/java/controller/module/PagingModule.java</file>
-            <file>file:/D:/Github/Lozr/LOZR2/src/java/dal/PostDBContext.java</file>
-            <file>file:/D:/Github/Lozr/LOZR2/web/view/ThreadView.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

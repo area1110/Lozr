@@ -28,6 +28,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 
         <script src="${contextPath}/src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/paging.js"></script>
         <!-- <meta name="generator" content="Nicepage 3.26.0, nicepage.com" /> -->
         <link
             rel="stylesheet"
@@ -102,13 +103,14 @@
                 </div>
             </div>
             <!--ThreadZone-->
-            <c:if test="${empty requestScope.threads}">
+            <c:if test="${empty requestScope.reports}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
                     <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Done! Everything is clear.</h1>
                 </div>
             </c:if>
 
-            <c:forEach items="${threads}" var="thread">
+            <c:forEach items="${reports}" var="report">
+                <c:set var="thread" value="${report.thread}"/>
                 <a href="#ádfa">
                     <div class="thread-table thread-card">
 
@@ -150,9 +152,8 @@
                             </table>
                         </div>
                         <div class=" thread-cell thread-report">                
-                            <span>Thistextisplacefffffffffffffffffffffffffffffffffffffffffffffffffffff</span>                  
-                            <span>Thistextisplacefffffffffffffffffffffffffffffffffffffffffffffffffffff</span>                  
-                            <span>Thistextisplacefffffffffffffffffffffffffffffffffffffffffffffffffffff</span>                  
+                            <span>Reason: </span>                        
+                            <span>${report.reason}</span>                        
                         </div>                
                         <div class="thread-cell thread-cell-option  dropdown">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
@@ -161,15 +162,19 @@
                                 <c:if test="${your.userID == thread.startedBy.userID}">
                                     <a onclick="openForm(${thread.threadID});">Change Title</a>
                                 </c:if>
-                                <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                                <a href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
+                                     <a  href="javascript:void(0)" onclick="doDelete('${contexPath}' , ${thread.threadID}, 'thread');">Delete</a>
+                                <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
                             </div>
                         </div>
                     </div>
 
                 </a>
 
+                            
             </c:forEach>
+                    <div class="align-right">
+                <div id="pagerBottom" class="pagination" ></div>
+            </div>
         </div>
 
         <footer
@@ -183,7 +188,10 @@
                 </p>
             </div>
         </footer>
-
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+        <script>
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
+        </script>
     </body>
 </html>
 

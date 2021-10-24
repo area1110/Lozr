@@ -46,10 +46,7 @@ public class ReportThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-         int threadID = Integer.parseInt(request.getParameter("id"));
-          ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
-          reportThreadDBC.setReport(threadID);
+     
     }
 
     /**
@@ -63,7 +60,11 @@ public class ReportThreadController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                processRequest(request, response);
+         int threadID = Integer.parseInt(request.getParameter("id"));
+         String reason = request.getParameter("reason");
+          ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
+          reportThreadDBC.setReport(threadID, reason);
     }
 
     /**

@@ -242,6 +242,7 @@ public class FThreadDBContext extends DBContext {
 
     public void updateStatus(int threadID, boolean status) {
         try {
+            connection.setAutoCommit(false);
             String sql_update_active = "UPDATE [Thread]\n"
                     + "   SET [ThreadIsActive] = ?\n"
                     + " WHERE ThreadID = ?";
@@ -249,8 +250,23 @@ public class FThreadDBContext extends DBContext {
             stm_update_active.setBoolean(1, status);
             stm_update_active.setInt(2, threadID);
             stm_update_active.executeUpdate();
+            ReportThreadDBContext reportTDBC = new ReportThreadDBContext();
+            reportTDBC.remove(threadID);
+            connection.commit();
         } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }

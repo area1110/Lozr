@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
+        <script type="text/javascript" src="${contextPath}/src/script/paging.js" ></script>
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -85,12 +86,13 @@
                     <h1>POSTS MANAGEMENT</h1>
                 </div>                      
             </div>
-            <c:if test="${empty requestScope.posts}">
+            <c:if test="${empty requestScope.reports}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
                     <h1 class="u-align-center-xs  u-font-playfair-display u-text u-text-1">Done! Everything is clear.</h1>
                 </div>
             </c:if>
-            <c:forEach var="post" items="${requestScope.posts}">
+            <c:forEach var="report" items="${requestScope.reports}">
+                <c:set var="post" value="${report.post}"/>
                 <!--Body post-->
                 <div class="post">
                     <div class="post-user-cell">
@@ -120,9 +122,8 @@
                     </div>
                     <div class="post-main-cell">
                         <header class="post-attribute">
-                            <span>This is place for report reason display</span>
-                            <span>This is place for report reason display</span>
-                            <span>This is place for report reason display</span>
+                            <span>Reason: </span>
+                            <span>${report.reason}</span>
                         </header>
                         <header class="post-attribute">
                             <time class="post-attribute-time">
@@ -157,7 +158,7 @@
                             <div class="post-action">
                                 <div class="post-action-bar">
                                     <c:if test="${your.moderator || your.userID==post.user.userID}">
-                                        <a href="#delete" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
+                                        <a href="javascript:void(0)" onclick="doDelete('${contextPath}', ${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
                                     <!--                                    <a
                                                                             href="#post-create"
@@ -177,7 +178,9 @@
                 </div>
                 <!--/Body post-->
             </c:forEach>
-
+            <div class="align-right">
+                <div id="pagerBottom" class="pagination" ></div>
+            </div>
         </div>
         <footer
             class="u-align-center u-clearfix u-footer u-grey-80 u-footer"
@@ -189,7 +192,13 @@
                     to start editing the text.
                 </p>
             </div>
+
         </footer>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+
+        <script>
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
+        </script>
     </body>
 </html>
 

@@ -5,6 +5,7 @@
  */
 package dal;
 
+import controller.module.PagingModule;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.FThread;
 import model.Forum;
+import model.ReportThread;
 import model.User;
 
 /**
@@ -20,22 +22,44 @@ import model.User;
  * @author area1
  */
 public class ReportThreadDBContext extends DBContext {
-
-    public ArrayList<FThread> getReportThreads() {
-        ArrayList<FThread> reportThreads = new ArrayList<>();
+    
+    public int getTotalReportThreads(){
         try {
-            String sql_select_reportthread = "SELECT TR.ReportDate,TR.[ThreadID], T.ThreadSubject, T.ThreadDateCreated,T.ThreadForumID,\n"
-                    + "	T.ThreadIsActive, U.UserID, U.UserImageAvatar, U.UserLoginName,	\n"
-                    + "	(SELECT COUNT(PostID) FROM Post\n"
-                    + "                      WHERE PostThreadID=TR.ThreadID) AS TotalPosts\n"
-                    + "  FROM [Thread_Report] TR\n"
-                    + "	INNER JOIN Thread T ON TR.ThreadID=T.ThreadID\n"
-                    + "	INNER JOIN UserInfo U ON T.ThreadStartedBy=U.UserID\n"
-                    + "WHERE T.ThreadIsActive=1\n"
-                    + "ORDER BY TR.ReportDate DESC";
+            String sql_count_report = "SELECT COUNT([ID]) AS TotalRecord FROM [Thread_Report]";
+            PreparedStatement stm_count_report = connection.prepareStatement(sql_count_report);
+            ResultSet rs_count_report = stm_count_report.executeQuery();
+            if(rs_count_report.next()){
+                return rs_count_report.getInt("TotalRecord");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<ReportThread> getReportThreads(int pageIndex) {
+        int[] fromToRecord = PagingModule.calcFromToRecord(pageIndex);
+        ArrayList<ReportThread> reportThreads = new ArrayList<>();
+        try {
+            String sql_select_reportthread = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER (ORDER BY TR.ReportTime DESC) AS Row_count,\n"
+                    + "	TR.ID, TR.Reason, TR.ReportTime,TR.[ThreadID], T.ThreadSubject, T.ThreadDateCreated,T.ThreadForumID,\n"
+                    + "    T.ThreadIsActive, U.UserID, U.UserImageAvatar, U.UserLoginName,\n"
+                    + "     (SELECT COUNT(PostID) FROM Post\n"
+                    + "     WHERE PostThreadID=TR.ThreadID) AS TotalPosts\n"
+                    + "FROM [Thread_Report] TR\n"
+                    + "     INNER JOIN Thread T ON TR.ThreadID=T.ThreadID\n"
+                    + "     INNER JOIN UserInfo U ON T.ThreadStartedBy=U.UserID\n"
+                    + "WHERE T.ThreadIsActive=1) AS Main\n"
+                    + "WHERE Main.Row_count BETWEEN ? AND ?";
             PreparedStatement stm_select_reportthread = connection.prepareStatement(sql_select_reportthread);
+            stm_select_reportthread.setInt(1, fromToRecord[0]);
+            stm_select_reportthread.setInt(2, fromToRecord[1]);
             ResultSet rs = stm_select_reportthread.executeQuery();
             while (rs.next()) {
+                ReportThread report = new ReportThread();
+                report.setReportID(rs.getInt("ID"));
+                report.setReason(rs.getString("Reason"));
 
                 FThread thread = new FThread();
                 thread.setThreadID(rs.getInt("ThreadID"));
@@ -51,23 +75,26 @@ public class ReportThreadDBContext extends DBContext {
                 started.setUserID(rs.getInt("UserID"));
                 started.setAvatar(rs.getString("UserImageAvatar"));
                 started.setLoginName(rs.getString("UserLoginName"));
-
                 thread.setStartedBy(started);
+                report.setThread(thread);;
 
-                reportThreads.add(thread);
+                reportThreads.add(report);
             }
+            return reportThreads;
         } catch (SQLException ex) {
             Logger.getLogger(ReportThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return reportThreads;
+        return null;
     }
 
-    public void setReport(int threadID) {
+    public void setReport(int threadID, String reason) {
         try {
-            String sql_insertReport = "INSERT INTO [Thread_Report] \n"
-                    + "           ([ThreadID]) VALUES (?)";
+            String sql_insertReport = "INSERT INTO [Thread_Report]\n"
+                    + "           ([ThreadID], [Reason])\n"
+                    + "     VALUES (?, ?)";
             PreparedStatement stm_insertReport = connection.prepareStatement(sql_insertReport);
             stm_insertReport.setInt(1, threadID);
+            stm_insertReport.setString(2, reason);
             stm_insertReport.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ReportThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,5 +111,26 @@ public class ReportThreadDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(ReportThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     public void updateStatusByReport(int threadID, boolean status) {
+         
+        try { 
+            connection.setAutoCommit(false);
+            FThreadDBContext threadDBC = new FThreadDBContext();
+           threadDBC.updateStatus(threadID, status);
+            remove(threadID);
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ReportThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 }

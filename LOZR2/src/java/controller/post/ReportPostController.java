@@ -37,7 +37,7 @@ public class ReportPostController extends BaseRequiredAuthentication {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReportPostController</title>");            
+            out.println("<title>Servlet ReportPostController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ReportPostController at " + request.getContextPath() + "</h1>");
@@ -59,11 +59,7 @@ public class ReportPostController extends BaseRequiredAuthentication {
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-         int postID = Integer.parseInt(request.getParameter("id"));
-          ReportPostDBContext reportPostDBC = new ReportPostDBContext();
-          reportPostDBC.setReport(postID);
-        String reason =  request.getParameter("reason");
-          response.getWriter().print(reason);
+
     }
 
     /**
@@ -77,7 +73,10 @@ public class ReportPostController extends BaseRequiredAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                int postID = Integer.parseInt(request.getParameter("id"));
+        String reason = request.getParameter("reason");
+        ReportPostDBContext reportPostDBC = new ReportPostDBContext();
+        reportPostDBC.setReport(postID, reason);
     }
 
     /**

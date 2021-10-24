@@ -63,24 +63,69 @@ function reloadDelay() {
     }, 500);
 }
 
-function doDelete(ID, reportFor) {
+function doDelete(rootPath, ID, reportFor) {
     const dummyframe = document.querySelector("#dummyframe");
     const message = `Do you want to delete this ${reportFor}`;
     let confirm = window.confirm(message);
     if (confirm) {
-        dummyframe.src = "../delete/" + reportFor + "?id=" + ID;
+        dummyframe.src = rootPath + "/delete/" + reportFor + "?id=" + ID;
         reloadDelay();
     }
 }
 
-function doReport(rootPath ,ID, reportFor) {
+function doDeleteReport(rootPath, ID, reportFor) {
     const dummyframe = document.querySelector("#dummyframe");
-    let reason = window.prompt("Please provide the reason for the report");
-    if (!reason || reason === "") {
+    const message = `Do you want to delete this ${reportFor}`;
+    let confirm = window.confirm(message);
+    if (confirm) {
+        const dummyframe = document.querySelector("#dummyframe");
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("target", "dummyframe");
+        form.setAttribute("action", `${rootPath}/admin/report/${reportFor}`);
+
+        var id = document.createElement("input");
+        id.setAttribute("type", "hidden");
+        id.setAttribute("name", "id");
+        id.value = ID;
+
+        form.appendChild(id);
+        dummyframe.appendChild(form);
+        form.submit();
+        reloadDelay();
+    }
+}
+
+function doReport(rootPath, ID, reportFor) {
+//    "     <form id="form-report" target="dummyframe" action="${contextPath}/report/thread" method="Post">
+//                                <input type="hidden" name="reason">
+//                                <input type="hidden" name="id">
+//                            <!--</form>-->
+    const dummyframe = document.querySelector("#dummyframe");
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("target", "dummyframe");
+    form.setAttribute("action", `${rootPath}/report/${reportFor}`);
+
+    var id = document.createElement("input");
+    id.setAttribute("type", "hidden");
+    id.setAttribute("name", "id");
+    id.value = ID;
+    // Create an input element for date of birth
+    var reason = document.createElement("input");
+    reason.setAttribute("type", "hidden");
+    reason.setAttribute("name", "reason");
+
+    let string_reason = window.prompt("Please provide the reason for the report");
+    if (!string_reason || string_reason === "") {
         return;
     } else {
-        reason = reason.replaceAll(" ", "+");
-        window.location.href = `${rootPath}/report/${reportFor}?id=${ID}&reason=${reason}`;
+        reason.value = string_reason;
+        form.appendChild(id);
+        form.appendChild(reason);
+        dummyframe.appendChild(form);
+        form.submit();
+        window.alert('This thread has been reported to moderator');
     }
 }
 

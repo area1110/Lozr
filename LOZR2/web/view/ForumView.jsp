@@ -217,13 +217,14 @@
                         <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                         <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
                             <a href="#">Bookmark</a>
-                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+
+                            <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
                             <c:if test="${your.userID == thread.startedBy.userID}">
                                 <a onclick="openForm(${thread.threadID});">Change Title</a>
                             </c:if>
 
                             <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                                <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
                             </c:if>
                         </div>
                     </div>
@@ -246,7 +247,7 @@
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
         <script>
-          createPager('pagerBottom', ${pageIndex}, ${totalPage});
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

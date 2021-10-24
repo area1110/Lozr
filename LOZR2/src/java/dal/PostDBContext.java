@@ -242,6 +242,7 @@ public class PostDBContext extends DBContext {
 
     public void updateStatus(int postID, boolean status) {
         try {
+            connection.setAutoCommit(false);
             String sql_update_active = "UPDATE [Post]\n"
                     + "   SET [PostIsActive] = ?\n"
                     + " WHERE PostID = ?";
@@ -249,8 +250,22 @@ public class PostDBContext extends DBContext {
             stm_update_active.setBoolean(1, status);
             stm_update_active.setInt(2, postID);
             stm_update_active.executeUpdate();
+            ReportPostDBContext reportPDBC = new ReportPostDBContext();
+            reportPDBC.remove(postID);
+            connection.commit();
         } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

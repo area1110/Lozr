@@ -5,16 +5,38 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author area1
  */
-public class ThreadReport {
+public class ReportThread {
     private int reportID;
     private FThread thread;
+    private String reason;
+    private Timestamp time;
 
-    public ThreadReport() {
+    public ReportThread() {
     }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+    
+    
 
     public int getReportID() {
         return reportID;
@@ -31,6 +53,9 @@ public class ThreadReport {
     public void setThread(FThread thread) {
         this.thread = thread;
     }
+
+
+
     
     
 }
