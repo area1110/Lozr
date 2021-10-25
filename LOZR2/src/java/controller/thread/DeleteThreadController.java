@@ -20,7 +20,7 @@ import model.User;
  *
  * @author area1
  */
-public class DeleteThreadController extends BaseRequiredAuthentication {
+public class DeleteThreadController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +46,7 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String raw_id = request.getParameter("id");
         if(raw_id == null || raw_id.isEmpty()){
@@ -76,7 +76,7 @@ public class DeleteThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

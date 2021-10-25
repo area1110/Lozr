@@ -91,10 +91,18 @@
         </header>
 
         <div class="main-zone">
-            <div class="content-select">            
-                <a href="${contextPath}/admin/report/post"
+             <div class="content-select">      
+                   <a href="thread"
+                   class="button button-change-content active" >
+                    THREADS MANAGEMENT
+                </a>
+                <a href="post"
                    class="button button-change-content" >
-                    GO TO POSTS MANAGEMENT
+                    POSTS MANAGEMENT
+                </a>            
+                <a href="user"
+                   class="button button-change-content" >
+                    USER MANAGEMENT
                 </a>
             </div>
             <div class="body-header">
@@ -162,7 +170,7 @@
                                 <c:if test="${your.userID == thread.startedBy.userID}">
                                     <a onclick="openForm(${thread.threadID});">Change Title</a>
                                 </c:if>
-                                     <a  href="javascript:void(0)" onclick="doDelete('${contexPath}' , ${thread.threadID}, 'thread');">Delete</a>
+                                <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
                                 <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
                             </div>
                         </div>
@@ -170,9 +178,9 @@
 
                 </a>
 
-                            
+
             </c:forEach>
-                    <div class="align-right">
+            <div class="align-right">
                 <div id="pagerBottom" class="pagination" ></div>
             </div>
         </div>

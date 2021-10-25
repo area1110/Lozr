@@ -5,12 +5,14 @@
  */
 package controller.search;
 
+import com.sun.xml.internal.ws.transport.http.HttpAdapter;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.PagingModule;
 import dal.UserInfoDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
@@ -19,7 +21,7 @@ import model.User;
  *
  * @author area1
  */
-public class SearchUserController extends BaseRequiredAuthentication {
+public class SearchUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +42,7 @@ public class SearchUserController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserInfoDBContext userDBC = new UserInfoDBContext();
         String query = request.getParameter("q");
@@ -75,7 +77,7 @@ public class SearchUserController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 

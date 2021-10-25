@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>RequiredLoginController</filter-name>
+        <filter-class>controller.authentication.RequiredLoginController</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RequiredLoginController</filter-name>
+        <url-pattern>/forum/*</url-pattern>
+        <url-pattern>/thread/*</url-pattern>
+        <url-pattern>/user/*</url-pattern>
+        <url-pattern>/delete/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/report/*</url-pattern>
+        <url-pattern>/update/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>ForumController</servlet-name>
         <servlet-class>controller.forum.ForumController</servlet-class>
-        <multipart-config>
-            <max-file-size>10485760</max-file-size>
-            <max-request-size>20971520</max-request-size>
-            <file-size-threshold>5242880</file-size-threshold>
-        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
@@ -16,11 +25,6 @@
     <servlet>
         <servlet-name>SignUpController</servlet-name>
         <servlet-class>controller.authentication.SignUpController</servlet-class>
-        <multipart-config>
-            <max-file-size>10485760</max-file-size>
-            <max-request-size>20971520</max-request-size>
-            <file-size-threshold>5242880</file-size-threshold>
-        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -73,11 +77,6 @@
     <servlet>
         <servlet-name>UpdateUserInfo</servlet-name>
         <servlet-class>controller.user.UpdateUserInfoController</servlet-class>
-        <multipart-config>
-            <max-file-size>20848820</max-file-size>
-            <max-request-size>418018841</max-request-size>
-            <file-size-threshold>1048576</file-size-threshold>
-        </multipart-config>
     </servlet>
     <servlet>
         <servlet-name>ReportThreadController</servlet-name>
@@ -98,6 +97,18 @@
     <servlet>
         <servlet-name>SearchUserController</servlet-name>
         <servlet-class>controller.search.SearchUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserManagerController</servlet-name>
+        <servlet-class>controller.moderator.UserManagerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportUserController</servlet-name>
+        <servlet-class>controller.user.ReportUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUserController</servlet-name>
+        <servlet-class>controller.user.DeleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
@@ -182,6 +193,18 @@
     <servlet-mapping>
         <servlet-name>SearchUserController</servlet-name>
         <url-pattern>/search/user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManagerController</servlet-name>
+        <url-pattern>/admin/report/user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportUserController</servlet-name>
+        <url-pattern>/report/user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/delete/user</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -132,7 +132,7 @@
                     <div class="user-cell user-cell-report dropdown">
                         <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
                         <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
-                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+                            <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
                             <c:if test="${your.moderator}">
                                 <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                     <input type="hidden" value="${user.userID}" name="userID" />
@@ -153,14 +153,14 @@
                     </div>
                 </div>
                 <div class="content-select">            
-                    <a href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}?postselect=1"
-                       class="button button-change-content" >
-                        LAST POSTS
-                    </a>
                     <a
-                        href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}"
+                        href="?postselect=0"
                         class="button button-change-content" >
                         LAST THREADS
+                    </a>
+                    <a href="#post"
+                       class="button button-change-content active" >
+                        LAST POSTS
                     </a>
                 </div>
             </div>
@@ -171,96 +171,6 @@
                     </div>-->
             <!--ThreadZone-->
 
-
-            <c:forEach items="${threads}" var="thread">
-                <a href="#ádfa">
-                    <div class="thread-table thread-card">
-
-                        <div class="thread-cell thread-cell-author">
-                            <div class="">
-                                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}">
-                                    <img src="${thread.startedBy.avatar}" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="thread-cell">
-                            <div class="thread-subject">
-                                <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
-                                    ${thread.subject}
-                                </a>
-                            </div>
-                            <div>
-                                <ul class="thread-item-part">
-                                    <li>
-                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}" class="username"
-                                           >${thread.startedBy.loginName}</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <time class="thread-latestDate">
-                                            <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
-                                        </time>
-
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="thread-cell thread-status">
-                            <dl class="thread-status-pair">
-                                <dt>Replies</dt>
-                                <dd>${thread.numPosts}</dd>
-                            </dl>
-                            <!-- <dl class="thread-status-pair">
-                              <dt>Views</dt>
-                              <dd>88</dd>
-                            </dl> -->
-                        </div>
-
-                        <!--                        <div class="thread-table thread-cell thread-lastest-active">
-                                                    <div class="thread-cell thread-cell-unborder">
-                                                        <a
-                                                            href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                                                            rel="nofollow"
-                                                            ><time class="thread-latestDate">11:13 05/10/2021</time></a
-                                                        >
-                                                        <div class="">
-                                                            <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="thread-cell thread-latest-user thread-cell-unborder">
-                                                        <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                            <img src="images/82761229_p17_master1200.jpg" />
-                                                        </a>
-                        
-                                                    </div>
-                                                </div>-->
-
-                        <!--                        <div class="thread-cell thread-latest-user">
-                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                        <img src="images/82761229_p17_master1200.jpg" />
-                                                    </a>
-                        
-                                                </div>-->
-                         <div class="thread-cell thread-cell-option  dropdown">
-                        <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
-                        <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
-                            <a href="#">Bookmark</a>
-                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
-                            <c:if test="${your.userID == thread.startedBy.userID}">
-                                <a onclick="openForm(${thread.threadID});">Change Title</a>
-                            </c:if>
-                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                            </c:if>
-                        </div>
-                    </div>
-                    </div>
-
-                </a>
-
-            </c:forEach>
 
             <c:forEach var="post" items="${requestScope.posts}">
 

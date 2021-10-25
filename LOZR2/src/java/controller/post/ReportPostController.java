@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author area1
  */
-public class ReportPostController extends BaseRequiredAuthentication {
+public class ReportPostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,7 +56,7 @@ public class ReportPostController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
 
@@ -71,7 +71,7 @@ public class ReportPostController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 int postID = Integer.parseInt(request.getParameter("id"));
         String reason = request.getParameter("reason");

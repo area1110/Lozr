@@ -20,7 +20,7 @@ public abstract class BaseRequiredAuthentication extends HttpServlet {
 
     private boolean isAuthenticated(HttpServletRequest request) {
         User currentUser = (User) request.getSession().getAttribute("currentUser");
-        return currentUser != null;
+        return currentUser.isModerator();
     }
 
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +40,6 @@ public abstract class BaseRequiredAuthentication extends HttpServlet {
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
         }
-
     }
 
     @Override

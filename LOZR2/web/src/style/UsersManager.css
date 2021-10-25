@@ -21,6 +21,7 @@ and open the template in the editor.
 
 .user-link{
     color: black;
+    padding: 0;
 }
 
 .user-link:hover {
@@ -39,6 +40,10 @@ and open the template in the editor.
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.user-report {
+    max-width: 15em;
 }
 
 

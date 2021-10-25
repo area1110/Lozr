@@ -13,6 +13,7 @@ import dal.ForumDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.FThread;
@@ -23,14 +24,14 @@ import model.User;
  *
  * @author Khanh
  */
-public class ForumController extends BaseRequiredAuthentication {
+public class ForumController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FThreadDBContext fThreadDBC = new FThreadDBContext();
         int forumID = ExtractURLPath.extractPathToID(request.getPathInfo());
@@ -71,7 +72,7 @@ public class ForumController extends BaseRequiredAuthentication {
     }
 
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
         User currentUser = (User) request.getSession().getAttribute("currentUser");

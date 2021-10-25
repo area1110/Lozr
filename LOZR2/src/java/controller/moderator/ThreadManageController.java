@@ -5,7 +5,6 @@
  */
 package controller.moderator;
 
-import controller.authentication.BaseAuthorization;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.PagingModule;
 import dal.ReportThreadDBContext;
@@ -23,7 +22,7 @@ import model.ReportThread;
  *
  * @author area1
  */
-public class ThreadManageController extends BaseAuthorization {
+public class ThreadManageController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,7 +43,7 @@ public class ThreadManageController extends BaseAuthorization {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void actionGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
         String raw_id = request.getParameter("id");
@@ -77,13 +76,9 @@ public class ThreadManageController extends BaseAuthorization {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void actionPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
-        String raw_id = request.getParameter("id");
-        if (!(raw_id == null || raw_id.isEmpty())) {
-            reportThreadDBC.updateStatusByReport(Integer.parseInt(raw_id), false);
-        }
+  
     }
 
     /**

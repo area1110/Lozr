@@ -74,10 +74,18 @@
         </header>
 
         <div class="main-zone">
-            <div class="content-select">            
-                <a href="${contextPath}/admin/report/thread"
+             <div class="content-select">       
+                 <a href="thread"
                    class="button button-change-content" >
-                    GO BACK THREADS MANAGEMENT
+                    THREADS MANAGEMENT
+                </a>
+                <a href="post"
+                   class="button button-change-content active" >
+                    POSTS MANAGEMENT
+                </a>            
+                <a href="user"
+                   class="button button-change-content" >
+                    USER MANAGEMENT
                 </a>
             </div>
             <div class="body-header">

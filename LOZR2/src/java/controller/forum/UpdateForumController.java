@@ -22,10 +22,10 @@ import model.User;
  *
  * @author area1
  */
-public class UpdateForumController extends BaseRequiredAuthentication {
+public class UpdateForumController extends HttpServlet {
 
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String errorMessage = "Oops, threre are something wrong?!";
         request.setAttribute("errorMessage", errorMessage);
@@ -41,7 +41,7 @@ public class UpdateForumController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (currentUser.isModerator()) {

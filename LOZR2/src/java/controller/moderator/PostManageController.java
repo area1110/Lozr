@@ -5,7 +5,6 @@
  */
 package controller.moderator;
 
-import controller.authentication.BaseAuthorization;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.PagingModule;
 import dal.ReportPostDBContext;
@@ -26,7 +25,7 @@ import model.ReportThread;
  *
  * @author area1
  */
-public class PostManageController extends BaseAuthorization {
+public class PostManageController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,7 +70,7 @@ public class PostManageController extends BaseAuthorization {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void actionGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
 
@@ -86,7 +85,7 @@ public class PostManageController extends BaseAuthorization {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void actionPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

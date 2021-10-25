@@ -27,10 +27,10 @@ import model.User;
  *
  * @author Khanh
  */
-public class ThreadController extends BaseRequiredAuthentication {
+public class ThreadController extends HttpServlet {
 
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        System.out.println("Path" +request.getPathInfo());
         int threadID = ExtractURLPath.extractPathToID(request.getPathInfo());
@@ -67,7 +67,7 @@ public class ThreadController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String threadName = request.getParameter("threadName");
         int forumID = Integer.parseInt(request.getParameter("forumID"));

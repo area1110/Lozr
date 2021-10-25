@@ -418,3 +418,17 @@ header {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
+
+
+.content-select {
+    display: block;
+    margin: 20px 0;
+}
+
+.button-change-content {
+    background-color: rgba(39, 153, 206, 0.644);
+}
+
+.button-change-content.active {
+    background-color: blueviolet;
+}

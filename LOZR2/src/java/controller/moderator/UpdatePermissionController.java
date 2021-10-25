@@ -5,7 +5,6 @@
  */
 package controller.moderator;
 
-import controller.authentication.BaseAuthorization;
 import controller.authentication.BaseRequiredAuthentication;
 import dal.UserInfoDBContext;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import model.User;
  *
  * @author area1
  */
-public class UpdatePermissionController extends BaseAuthorization {
+public class UpdatePermissionController extends BaseRequiredAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +44,7 @@ public class UpdatePermissionController extends BaseAuthorization {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void actionGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
     }
@@ -59,7 +58,7 @@ public class UpdatePermissionController extends BaseAuthorization {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void actionPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
         User currentUser = (User) request.getSession().getAttribute("currentUser");

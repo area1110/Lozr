@@ -102,7 +102,7 @@
                 <!--<EachUser>-->
                 <div class="" id="user">
                     <div class="user-card">
-                        <a class="user-link"  href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}">
+                        <a class="user-cell user-link"  href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}">
                             <div class="user-avatar user-cell">
                                 <img src="${user.avatar}" />
                             </div>
@@ -129,7 +129,7 @@
                         <div class="user-cell user-cell-report dropdown">
                             <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
                             <div  id="myDropdown-${user.userID}" class="dropdown-content" onclick="showDropdownMenu(${user.userID})">
-                                <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+                                  <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
                                 <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />

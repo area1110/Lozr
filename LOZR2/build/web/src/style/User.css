@@ -59,18 +59,6 @@ span {
     width: 20px;
 }
 
-.content-select {
-    display: block;
-    margin: 20px 0;
-}
-
-.button-change-content {
-    background-color: rgba(39, 153, 206, 0.644);
-}
-
-.active {
-    background-color: blueviolet;
-}
 
 .user-permisson {
     margin-top: 20px;

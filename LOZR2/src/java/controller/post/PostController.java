@@ -21,7 +21,7 @@ import model.User;
  *
  * @author Khanh
  */
-public class PostController extends BaseRequiredAuthentication {
+public class PostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +47,7 @@ public class PostController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -61,7 +61,7 @@ public class PostController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String postSubject = request.getParameter("postSubject");
         int threadID = Integer.parseInt(request.getParameter("threadID"));

@@ -51,7 +51,7 @@ public class UserPageController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int userID = ExtractURLPath.extractPathToID(request.getPathInfo());;
         UserInfoDBContext userinfoDBC = new UserInfoDBContext();
@@ -63,16 +63,21 @@ public class UserPageController extends BaseRequiredAuthentication {
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         } else {
             String raw_postselect = request.getParameter("postselect");
-            if (raw_postselect == null) {
-                FThreadDBContext fthreadDBC = new FThreadDBContext();
-                ArrayList<FThread> fthreads = fthreadDBC.getFThreadsByUser(userID);
-                request.setAttribute("threads", fthreads);
-            } else {
+            if (raw_postselect == null || raw_postselect.isEmpty()) {
+                raw_postselect = "0";
+            }
+            if (raw_postselect.equals("1")) {
                 PostDBContext postDBC = new PostDBContext();
                 ArrayList<Post> posts = postDBC.getPostsByUser(userID);
                 request.setAttribute("posts", posts);
+                request.getRequestDispatcher("/view/UserInfoView_Post.jsp").forward(request, response);
+
+            } else {
+                FThreadDBContext fthreadDBC = new FThreadDBContext();
+                ArrayList<FThread> fthreads = fthreadDBC.getFThreadsByUser(userID);
+                request.setAttribute("threads", fthreads);
+                request.getRequestDispatcher("/view/UserInfoView_Thread.jsp").forward(request, response);
             }
-            request.getRequestDispatcher("/view/UserInfoView.jsp").forward(request, response);
         }
     }
 
@@ -85,7 +90,7 @@ public class UserPageController extends BaseRequiredAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }

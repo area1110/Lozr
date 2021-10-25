@@ -113,24 +113,4 @@ public class ReportThreadDBContext extends DBContext {
         }
     }
     
-     public void updateStatusByReport(int threadID, boolean status) {
-         
-        try { 
-            connection.setAutoCommit(false);
-            FThreadDBContext threadDBC = new FThreadDBContext();
-           threadDBC.updateStatus(threadID, status);
-            remove(threadID);
-            connection.commit();
-        } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(ReportThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }
 }

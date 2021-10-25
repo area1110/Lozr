@@ -262,6 +262,37 @@ public class UserInfoDBContext extends DBContext {
         }
         return 1;
     }
+    
+    public void updateStatus(int userID, boolean status) {
+        try {
+            connection.setAutoCommit(false);
+            String sql_update_active = "UPDATE [UserInfo]\n"
+                    + "   SET [UserIsActive] = ?\n"
+                    + " WHERE UserID = ?";
+            PreparedStatement stm_update_active = connection.prepareStatement(sql_update_active);
+            stm_update_active.setBoolean(1, status);
+            stm_update_active.setInt(2, userID);
+            stm_update_active.executeUpdate();
+            ReportUserDBContext reportUDBC = new ReportUserDBContext();
+            reportUDBC.remove(userID);
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
 
 //    public void updateUserPassword(UserInfo user) {
 //        try {
