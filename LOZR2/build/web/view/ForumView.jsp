@@ -108,6 +108,10 @@
         </header>
 
         <div class="main-zone">
+             <ul class="breadcrumb">
+                <li><a href="#">Forums</a></li>
+                <li>${forum.name}</li>
+            </ul>
             <div class="body-header">
                 <c:if test="${forum.active}">
                     <div  class="post-title" >
@@ -121,6 +125,7 @@
                     </div>
                 </c:if>
             </div>
+           
             <!--ThreadZone-->
             <c:if test="${ !(empty your) and forum.active}">
                 <div class="thread-table thread-card">
@@ -234,19 +239,19 @@
                                             </div>-->
                     <div class="thread-cell thread-cell-option  dropdown">
                         <c:if test="${!empty your}">
-                        <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                        <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
-                            <a href="#">Bookmark</a>
+                            <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
+                            <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                <a href="#">Bookmark</a>
 
-                            <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
-                            <c:if test="${your.userID == thread.startedBy.userID}">
-                                <a onclick="openForm(${thread.threadID});">Change Title</a>
-                            </c:if>
+                                <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
+                                <c:if test="${your.userID == thread.startedBy.userID}">
+                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                </c:if>
 
-                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
-                            </c:if>
-                        </div>
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                    <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
+                                </c:if>
+                            </div>
                         </c:if>
                     </div>
                 </div>

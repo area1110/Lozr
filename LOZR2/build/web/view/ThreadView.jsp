@@ -94,6 +94,11 @@
         </header>
 
         <div class="main-zone">
+             <ul class="breadcrumb">
+                <li><a href="${contextPath}">Forums</a></li>
+                <li><a href="#">Forums</a></li>
+                <li>${thread.subject}</li>
+            </ul>
             <div class="body-header">
                 <c:if test="${thread.active}">
                     <div class="post-title">
@@ -106,6 +111,7 @@
                         <h2>- Deactive -</h2>
                     </div>
                 </c:if>
+                
                 <div class="post-title-description">
                     <ul>
                         <li>${thread.startedBy.loginName}</li>
@@ -113,6 +119,7 @@
                                         timeStyle="short" value="${thread.timeCreated}"/></time></li>
                     </ul>
                 </div>
+                    
             </div>
             <c:if test="${empty requestScope.posts}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
