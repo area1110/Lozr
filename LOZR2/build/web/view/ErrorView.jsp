@@ -43,7 +43,7 @@
             />
     </head>
     <body>
-        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+          <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
                     <a href="${contextPath}">
@@ -51,28 +51,47 @@
                     </a>
                 </div>
                 <div class="header-action">
-                    <div class="header-action-item">
-                        <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
-                            <div class="header-user">                
-                                <span  class="header-user-name header-action-item"  >
-                                    ${(empty your.loginName)? "Account": your.loginName}
-                                </span>
-                                <img  class="header-avatar header-action-item" src="${your.avatar}" />    
-                            </div>
-                        </a>
-                    </div>
-                    <nav class="header-action-item">
-                        <div id="mySidepanel" class="sidepanel">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                            <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            <c:if test="${your.moderator}" >                             
-                                <a href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
-                            </c:if>
-                            <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
-                            <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                    <c:if test="${!empty your}">
+                        <div class="header-action-item">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                                <div class="header-user">                
+                                    <span  class="header-user-name header-action-item"  >
+                                        ${(empty your.loginName)? "Account": your.loginName}
+                                    </span>
+                                    <img  class="header-avatar header-action-item" src="${your.avatar}" />    
+                                </div>
+                            </a>
                         </div>
-                        <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
-                    </nav>              
+                        <nav class="header-action-item">
+                            <div id="mySidepanel" class="sidepanel">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
+                                <c:if test="${your.moderator}" >
+                                    <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
+                                </c:if>
+                                <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
+                                <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
+                                <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                            </div>
+                            <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                        </nav>     
+                    </c:if>
+                    <c:if test="${empty your}">
+                        <div class="header-action-item">
+                            <div class="header-user">                
+                                <a href="${contextPath}/signup">
+                                    <span  class="header-user-name header-action-item"  >
+                                        Sign Up
+                                    </span>
+                                </a>
+                                <a href="${contextPath}/login">
+                                    <span    class="header-user-name header-action-item"  >
+                                        Log In
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </header>

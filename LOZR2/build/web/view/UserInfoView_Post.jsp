@@ -140,7 +140,7 @@
                                            ${user.moderator? "checked" : ""} type="checkbox">
                                     <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
-                                <a>Ban</a>
+                                    <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
                             </c:if>
                         </div>
                         <div class="user-permisson">

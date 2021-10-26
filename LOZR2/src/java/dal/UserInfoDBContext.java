@@ -139,8 +139,9 @@ public class UserInfoDBContext extends DBContext {
                     + "(SELECT ROW_NUMBER() OVER(ORDER BY UserLoginName ASC) AS Row_count,\n"
                     + "	UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "	UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
-                    + "  WHERE UserLoginName LIKE '%' + ? + '%'\n"
-                    + "  OR UserEmailAddress LIKE '%' + ? + '%') AS Main\n"
+                    + "  WHERE (UserLoginName LIKE '%' + ? + '%'\n"
+                    + "  OR UserEmailAddress LIKE '%' + ? + '%')"
+                    + " AND UserIsActive = 1) AS Main\n"
                     + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);

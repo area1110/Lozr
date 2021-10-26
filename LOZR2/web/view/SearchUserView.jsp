@@ -129,7 +129,7 @@
                         <div class="user-cell user-cell-report dropdown">
                             <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
                             <div  id="myDropdown-${user.userID}" class="dropdown-content" onclick="showDropdownMenu(${user.userID})">
-                                  <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+                                <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
                                 <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />
@@ -137,7 +137,7 @@
                                                ${user.moderator? "checked" : ""} type="checkbox">
                                         <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                     </form>
-                                    <a>Ban</a>
+                                    <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
                                 </c:if>
                             </div>
 
@@ -153,7 +153,7 @@
                 </div>
                 <!--</EachUser>-->                    
             </c:forEach>
-  <div class="align-right">
+            <div class="align-right">
                 <div id="pagerBottom" class="pagination" ></div>
             </div>
         </div>
@@ -170,8 +170,8 @@
             </div>
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-                   <script>
-          createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+        <script>
+                       createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

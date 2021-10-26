@@ -132,7 +132,7 @@
                     <div class="user-cell user-cell-report dropdown">
                         <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
                         <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
-                           <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+                            <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
                             <c:if test="${your.moderator}">
                                 <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                     <input type="hidden" value="${user.userID}" name="userID" />
@@ -140,7 +140,7 @@
                                            ${user.moderator? "checked" : ""} type="checkbox">
                                     <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
-                                <a>Ban</a>
+                                <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
                             </c:if>
                         </div>
                         <div class="user-permisson">
@@ -153,7 +153,7 @@
                     </div>
                 </div>
                 <div class="content-select">            
-                   <a
+                    <a
                         href="#lastthreads"
                         class="button button-change-content active" >
                         LAST THREADS
@@ -243,19 +243,19 @@
                                                     </a>
                         
                                                 </div>-->
-                         <div class="thread-cell thread-cell-option  dropdown">
-                        <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
-                        <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
-                            <a href="#">Bookmark</a>
-                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
-                            <c:if test="${your.userID == thread.startedBy.userID}">
-                                <a onclick="openForm(${thread.threadID});">Change Title</a>
-                            </c:if>
-                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                            </c:if>
+                        <div class="thread-cell thread-cell-option  dropdown">
+                            <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
+                            <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
+                                <a href="#">Bookmark</a>
+                                <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+                                <c:if test="${your.userID == thread.startedBy.userID}">
+                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                </c:if>
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                    <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
                     </div>
 
                 </a>

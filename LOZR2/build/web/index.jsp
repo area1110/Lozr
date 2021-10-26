@@ -6,5 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    request.getRequestDispatcher("index").forward(request, response);
+    response.sendRedirect("home");
 %>
