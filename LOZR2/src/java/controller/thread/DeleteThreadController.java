@@ -6,7 +6,7 @@
 package controller.thread;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
+import dal.ThreadDBContext;
 import dal.ForumDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,7 +55,7 @@ public class DeleteThreadController extends HttpServlet {
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
         int threadID = Integer.parseInt(raw_id);
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
+        ThreadDBContext fthreadDBC = new ThreadDBContext();
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         User userCreated = fthreadDBC.getFThread(threadID).getStartedBy();
         if (currentUser.isModerator() || currentUser.getUserID() == userCreated.getUserID()) {

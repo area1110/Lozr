@@ -8,7 +8,7 @@ package controller.forum;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.PagingModule;
 import controller.module.ExtractURLPath;
-import dal.FThreadDBContext;
+import dal.ThreadDBContext;
 import dal.ForumDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ForumController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        FThreadDBContext fThreadDBC = new FThreadDBContext();
+        ThreadDBContext fThreadDBC = new ThreadDBContext();
         int forumID = ExtractURLPath.extractPathToID(request.getPathInfo());
 
         if (forumID == 0) {

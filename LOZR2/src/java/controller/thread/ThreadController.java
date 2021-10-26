@@ -8,7 +8,7 @@ package controller.thread;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
 import controller.module.PagingModule;
-import dal.FThreadDBContext;
+import dal.ThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,7 +34,7 @@ public class ThreadController extends HttpServlet {
             throws ServletException, IOException {
 //        System.out.println("Path" +request.getPathInfo());
         int threadID = ExtractURLPath.extractPathToID(request.getPathInfo());
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
+        ThreadDBContext fthreadDBC = new ThreadDBContext();
         FThread fthread = fthreadDBC.getFThread(threadID);
         if (fthread == null) {
             String errorMessage = "Oops, threre are something wrong?!";
@@ -71,7 +71,7 @@ public class ThreadController extends HttpServlet {
             throws ServletException, IOException {
         String threadName = request.getParameter("threadName");
         int forumID = Integer.parseInt(request.getParameter("forumID"));
-        FThreadDBContext fthreadDBC = new FThreadDBContext();
+        ThreadDBContext fthreadDBC = new ThreadDBContext();
         FThread fthread = new FThread();
         User currentUser = (User) request.getSession().getAttribute("currentUser");
 

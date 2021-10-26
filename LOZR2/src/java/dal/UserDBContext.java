@@ -18,10 +18,10 @@ import model.User;
  *
  * @author Khanh
  */
-public class UserInfoDBContext extends DBContext {
+public class UserDBContext extends DBContext {
 
     public int createNewUser(User user) {
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
         if (user.getLoginName().isEmpty() || user.getPassword().isEmpty()
                 || user.getEmailAddress().isEmpty()) {
             return -1;
@@ -51,7 +51,7 @@ public class UserInfoDBContext extends DBContext {
             stm.setString(6, user.getAvatar());
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 1;
     }
@@ -80,7 +80,7 @@ public class UserInfoDBContext extends DBContext {
                 return user;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -108,7 +108,7 @@ public class UserInfoDBContext extends DBContext {
                 return user;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -116,8 +116,8 @@ public class UserInfoDBContext extends DBContext {
     public int getTotalUsersByName(String query) {
         try {
             String sql_count_user = "SELECT COUNT(UserID) as TotalRecord FROM  UserInfo\n"
-                    + "  WHERE UserLoginName LIKE '%' + ? + '%'\n"
-                    + "  OR UserEmailAddress LIKE '%' + ? + '%'";
+                    + "  WHERE UserIsActive = 1 AND (UserLoginName LIKE '%' + ? + '%'\n"
+                    + "  OR UserEmailAddress LIKE '%' + ? + '%')";
             PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);
             stm_count_user.setString(1, query);
             stm_count_user.setString(2, query);
@@ -126,7 +126,7 @@ public class UserInfoDBContext extends DBContext {
                 return rs_count_user.getInt("TotalRecord");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -164,7 +164,7 @@ public class UserInfoDBContext extends DBContext {
             }
             return users;
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -209,12 +209,12 @@ public class UserInfoDBContext extends DBContext {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
-                Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
@@ -230,12 +230,12 @@ public class UserInfoDBContext extends DBContext {
             stm_update_isAdmin.setInt(2, user.getUserID());
             stm_update_isAdmin.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public int updateUserInfo(User user) {
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
         if (userDBC.getUser(user.getLoginName()) != null) {
             return -2;
         }
@@ -259,7 +259,7 @@ public class UserInfoDBContext extends DBContext {
             stm.setInt(7, user.getUserID());
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 1;
     }
@@ -281,15 +281,15 @@ public class UserInfoDBContext extends DBContext {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
-                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

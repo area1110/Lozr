@@ -6,7 +6,7 @@
 package controller.user;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.UserInfoDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -75,7 +75,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
         userInfo.setEmailAddress(emailAddress.isEmpty() ? null : emailAddress);
         userInfo.setAvatar(avatarurl.isEmpty() ? null : avatarurl);
 
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
         int statusUpdate = userDBC.updateUserInfo(userInfo);
         switch (statusUpdate) {
             case -2: //duplicate username error

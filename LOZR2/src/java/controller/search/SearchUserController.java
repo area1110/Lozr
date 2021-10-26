@@ -8,7 +8,7 @@ package controller.search;
 import com.sun.xml.internal.ws.transport.http.HttpAdapter;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.PagingModule;
-import dal.UserInfoDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -44,7 +44,7 @@ public class SearchUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
         String query = request.getParameter("q");
 
         String raw_pageIndex = request.getParameter("page");

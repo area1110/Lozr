@@ -6,7 +6,7 @@
 package controller.moderator;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.UserInfoDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -69,7 +69,7 @@ public class UpdatePermissionController extends BaseRequiredAuthentication {
             User userSet = new User();
             userSet.setUserID(userID);
             userSet.setModerator(isMod);
-            UserInfoDBContext userDBC = new UserInfoDBContext();
+            UserDBContext userDBC = new UserDBContext();
             userDBC.updatePermission(userSet);
         } else {
             String errorMessage = "You do not have permission";

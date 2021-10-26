@@ -74,7 +74,7 @@ public class ReportUserDBContext extends DBContext {
             }
             return reports;
         } catch (SQLException ex) {
-            Logger.getLogger(UserInfoDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

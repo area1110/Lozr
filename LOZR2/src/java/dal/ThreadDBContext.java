@@ -20,7 +20,7 @@ import model.User;
  *
  * @author Khanh
  */
-public class FThreadDBContext extends DBContext {
+public class ThreadDBContext extends DBContext {
 
     public int getTotalThreads(int forumID) {
         try {
@@ -33,7 +33,7 @@ public class FThreadDBContext extends DBContext {
                 return rs_countThreads.getInt("TotalRecords");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -80,7 +80,7 @@ public class FThreadDBContext extends DBContext {
                 fThreads.add(fThread);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fThreads;
     }
@@ -92,11 +92,11 @@ public class FThreadDBContext extends DBContext {
             PreparedStatement stm_count_thread = connection.prepareStatement(sql_count_thread);
             stm_count_thread.setString(1, querySubject);
             ResultSet rs_count_thread = stm_count_thread.executeQuery();
-            if(rs_count_thread.next()){
+            if (rs_count_thread.next()) {
                 return rs_count_thread.getInt("TotalThread");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -142,25 +142,46 @@ public class FThreadDBContext extends DBContext {
                 fThreads.add(fThread);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fThreads;
     }
 
-    public ArrayList<FThread> getFThreadsByUser(int userID) {
+    public int getTotalThreadsByUser(int userID) {
+        try {
+            String sql_count_thread = "SELECT COUNT(ThreadID) AS TotalThread FROM Thread\n"
+                    + "WHERE ThreadIsActive=1 AND ThreadStartedBy=?";
+            PreparedStatement stm_count_thread = connection.prepareStatement(sql_count_thread);
+            stm_count_thread.setInt(1, userID);
+            ResultSet rs_count_thread = stm_count_thread.executeQuery();
+            if (rs_count_thread.next()) {
+                return rs_count_thread.getInt("TotalThread");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<FThread> getFThreadsByUser(int userID, int pageIndex) {
+        int[] fromToRecord = PagingModule.calcFromToRecord(pageIndex);
         ArrayList<FThread> fThreads = new ArrayList<>();
         try {
-            String sqlStatement = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
-                    + "	U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
-                    + "		(SELECT COUNT(PostID) FROM Post\n"
-                    + "                                     WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
-                    + "FROM Thread AS T JOIN UserInfo AS U\n"
-                    + "	ON T.ThreadStartedBy=U.UserID\n"
-                    + "WHERE U.UserID=? AND T.ThreadIsActive=1\n"
-                    + "ORDER BY T.ThreadDateCreated DESC";
+            String sqlStatement = "SELECT * FROM\n"
+                    + "(SELECT ROW_NUMBER() OVER ( ORDER BY T.ThreadDateCreated DESC) AS Row_count,\n"
+                    + "	T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+                    + "    U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
+                    + "    (SELECT COUNT(PostID) FROM Post\n"
+                    + "	WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
+                    + "    FROM Thread AS T JOIN UserInfo AS U\n"
+                    + "    ON T.ThreadStartedBy=U.UserID\n"
+                    + "WHERE U.UserID=? AND T.ThreadIsActive=1) AS Main\n"
+                    + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
             stm.setInt(1, userID);
+            stm.setInt(2, fromToRecord[0]);
+            stm.setInt(3, fromToRecord[1]);
             ResultSet rs = stm.executeQuery();
 
             while (rs.next()) {
@@ -184,7 +205,7 @@ public class FThreadDBContext extends DBContext {
                 fThreads.add(fThread);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fThreads;
     }
@@ -214,7 +235,7 @@ public class FThreadDBContext extends DBContext {
             }
             return fthread;
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return fthread;
     }
@@ -233,10 +254,10 @@ public class FThreadDBContext extends DBContext {
                 stm_insert_thread.setInt(3, fthread.getForum().getForumID());
                 stm_insert_thread.executeUpdate();
             } catch (SQLException ex) {
-                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -257,15 +278,14 @@ public class FThreadDBContext extends DBContext {
             try {
                 connection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
-                Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -283,7 +303,7 @@ public class FThreadDBContext extends DBContext {
 
             stm_update.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(FThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

@@ -18,7 +18,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${forum.name} | L0ZR</title>
+        <title>${user.loginName} | LOZR</title>
 
         <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -28,6 +28,8 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
+        <script src="${contextPath}/src/script/paging.js" ></script>
+
 
         <link
             rel="stylesheet"
@@ -257,10 +259,11 @@
                             </div>
                         </div>
                     </div>
-
                 </a>
-
             </c:forEach>
+            <div class="align-right">
+                <div id="pagerBottom" class="pagination" ></div>
+            </div>
         </div>
 
         <footer
@@ -275,7 +278,9 @@
             </div>
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-
+        <script>
+            createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+        </script>
     </body>
 </html>
 

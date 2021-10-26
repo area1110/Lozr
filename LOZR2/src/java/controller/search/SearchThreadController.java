@@ -7,7 +7,7 @@ package controller.search;
 
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.PagingModule;
-import dal.FThreadDBContext;
+import dal.ThreadDBContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -48,7 +48,7 @@ public class SearchThreadController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        FThreadDBContext threadDBC = new FThreadDBContext();
+        ThreadDBContext threadDBC = new ThreadDBContext();
 
         String query = request.getParameter("q");
         String raw_pageIndex = request.getParameter("page");

@@ -5,8 +5,8 @@
  */
 package controller.user;
 
-import dal.FThreadDBContext;
-import dal.UserInfoDBContext;
+import dal.ThreadDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -66,7 +66,7 @@ public class DeleteUserController extends HttpServlet {
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
         int userID = Integer.parseInt(raw_id);
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         User thatUser = userDBC.getUser(userID);
         if (currentUser.isModerator() || currentUser.getUserID() == thatUser.getUserID()) {

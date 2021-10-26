@@ -6,7 +6,7 @@
 package controller.thread;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
+import dal.ThreadDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -70,7 +70,7 @@ public class UpdateThreadController extends HttpServlet {
             fthread.setThreadID(threadID);
             fthread.setSubject(threadSubject);
 
-            FThreadDBContext fthreadDBC = new FThreadDBContext();
+            ThreadDBContext fthreadDBC = new ThreadDBContext();
             fthreadDBC.updateThread(fthread);
         }
 

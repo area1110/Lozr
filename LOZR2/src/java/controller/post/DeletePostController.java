@@ -6,7 +6,7 @@
 package controller.post;
 
 import controller.authentication.BaseRequiredAuthentication;
-import dal.FThreadDBContext;
+import dal.ThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;

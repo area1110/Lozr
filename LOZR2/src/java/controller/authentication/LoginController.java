@@ -5,7 +5,7 @@
  */
 package controller.authentication;
 
-import dal.UserInfoDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String loginName = request.getParameter("loginName").trim();
         String password = request.getParameter("password").trim();
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
         User user = userDBC.getUserLogin(loginName, password);
 
         HttpSession session = request.getSession();

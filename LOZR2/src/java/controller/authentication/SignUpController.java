@@ -6,7 +6,7 @@
 package controller.authentication;
 
 import controller.module.PagingModule;
-import dal.UserInfoDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -87,7 +87,7 @@ public class SignUpController extends HttpServlet {
 //        InputStream is = request.getPart("avatar").getInputStream();
 //        Encode encode = new Encode();
 //        userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
-        UserInfoDBContext userDBC = new UserInfoDBContext();
+        UserDBContext userDBC = new UserDBContext();
 
         int statusUpdate = userDBC.createNewUser(userInfo);
         switch (statusUpdate) {
@@ -106,7 +106,7 @@ public class SignUpController extends HttpServlet {
                 request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
             case 1:
-                UserInfoDBContext userInfoDBC = new UserInfoDBContext();
+                UserDBContext userInfoDBC = new UserDBContext();
                 User user = userInfoDBC.getUser(loginName);
                 request.getSession().setAttribute("currentUser", user);
                 response.sendRedirect(request.getContextPath());

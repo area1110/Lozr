@@ -7,9 +7,10 @@ package controller.user;
 
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
-import dal.FThreadDBContext;
+import controller.module.PagingModule;
+import dal.ThreadDBContext;
 import dal.PostDBContext;
-import dal.UserInfoDBContext;
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class UserPageController extends BaseRequiredAuthentication {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int userID = ExtractURLPath.extractPathToID(request.getPathInfo());;
-        UserInfoDBContext userinfoDBC = new UserInfoDBContext();
+        UserDBContext userinfoDBC = new UserDBContext();
         User user = userinfoDBC.getUser(userID);
         request.setAttribute("user", user);
         if (user == null) {
@@ -66,15 +67,27 @@ public class UserPageController extends BaseRequiredAuthentication {
             if (raw_postselect == null || raw_postselect.isEmpty()) {
                 raw_postselect = "0";
             }
+            String raw_pageIndex = request.getParameter("page");
+            if (raw_pageIndex == null || raw_pageIndex.isEmpty()) {
+                raw_pageIndex = "1";
+            }
+            int pageIndex = Integer.parseInt(raw_pageIndex);
+            request.setAttribute("pageIndex", pageIndex);
             if (raw_postselect.equals("1")) {
                 PostDBContext postDBC = new PostDBContext();
-                ArrayList<Post> posts = postDBC.getPostsByUser(userID);
+                int totalRecord = postDBC.getTotalPostsByUser(userID);
+                int totalPage = PagingModule.calcTotalPage(totalRecord);
+                request.setAttribute("totalPage", totalPage);
+                ArrayList<Post> posts = postDBC.getPostsByUser(userID, pageIndex);
                 request.setAttribute("posts", posts);
                 request.getRequestDispatcher("/view/UserInfoView_Post.jsp").forward(request, response);
 
             } else {
-                FThreadDBContext fthreadDBC = new FThreadDBContext();
-                ArrayList<FThread> fthreads = fthreadDBC.getFThreadsByUser(userID);
+                ThreadDBContext threadDBC = new ThreadDBContext();
+                int totalRecord = threadDBC.getTotalThreadsByUser(userID);
+                int totalPage = PagingModule.calcTotalPage(totalRecord);
+                request.setAttribute("totalPage", totalPage);
+                ArrayList<FThread> fthreads = threadDBC.getFThreadsByUser(userID, pageIndex);
                 request.setAttribute("threads", fthreads);
                 request.getRequestDispatcher("/view/UserInfoView_Thread.jsp").forward(request, response);
             }
