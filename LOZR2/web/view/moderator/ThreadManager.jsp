@@ -46,7 +46,7 @@
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
-            <form action="${contextPath}/update/thread" method="POST" class="form-container">
+            <form target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
                 <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>

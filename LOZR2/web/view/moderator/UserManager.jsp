@@ -164,6 +164,7 @@
                                     <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
                                 <a>Ban</a>
+                                   <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/user?id=${user.userID}">Remove From List</a>
                             </div>
 
                             <div class="user-permisson">

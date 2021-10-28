@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.authentication;
+package controller.filter;
 
+import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -15,14 +16,16 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User;
 
 /**
  *
  * @author area1
  */
-public class RequiredLoginController implements Filter {
+public class RequiredLoginFilter implements Filter {
 
     private static final boolean debug = true;
 
@@ -31,7 +34,7 @@ public class RequiredLoginController implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public RequiredLoginController() {
+    public RequiredLoginFilter() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
@@ -42,9 +45,11 @@ public class RequiredLoginController implements Filter {
         }
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        boolean isLogin = httpRequest.getSession() != null && httpRequest.getSession().getAttribute("currentUser") != null;
+
+        boolean isLogin = httpRequest.getSession().getAttribute("currentUser") != null;
         if (!isLogin) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+
         }
     }
 

@@ -38,7 +38,9 @@ public abstract class BaseRequiredAuthentication extends HttpServlet {
         if (isAuthenticated(request)) {
             processGet(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/login");
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
     }
 
@@ -49,7 +51,9 @@ public abstract class BaseRequiredAuthentication extends HttpServlet {
         if (isAuthenticated(request)) {
             processPost(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/login");
+            String errorMessage = "You do not have permission";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
     }
 

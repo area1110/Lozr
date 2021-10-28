@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,7 +67,6 @@ public class SignUpController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -80,7 +80,7 @@ public class SignUpController extends HttpServlet {
         userInfo.setLastName(request.getParameter("lastName").trim());
         userInfo.setEmailAddress(request.getParameter("email").trim());
         String raw_urlavatar = request.getParameter("avatar");
-        if(raw_urlavatar==null || raw_urlavatar.isEmpty()){
+        if (raw_urlavatar == null || raw_urlavatar.isEmpty()) {
             raw_urlavatar = "https://i.ibb.co/cYVc6t4/blank-avatar.png";
         }
         userInfo.setAvatar(raw_urlavatar);
@@ -109,6 +109,9 @@ public class SignUpController extends HttpServlet {
                 UserDBContext userInfoDBC = new UserDBContext();
                 User user = userInfoDBC.getUser(loginName);
                 request.getSession().setAttribute("currentUser", user);
+                Cookie cookie = new Cookie("loginName", loginName);
+                cookie.setMaxAge(24 * 60 * 60);
+                response.addCookie(cookie);
                 response.sendRedirect(request.getContextPath());
                 break;
             default:

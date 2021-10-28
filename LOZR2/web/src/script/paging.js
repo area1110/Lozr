@@ -9,7 +9,7 @@ function createPagerWithDynamicURL(div, pageIndex, totalPage) {
     currentUrl = currentUrl.replaceAll("&page=" + pageIndex, "");
     const container = document.getElementById(div);
     if (pageIndex > 1) {
-        container.innerHTML += `<a href="&?page=${pageIndex - 1}">&laquo;</a>`;
+        container.innerHTML += `<a href="${currentUrl}&page=${pageIndex - 1}">&laquo;</a>`;
     }
     if (pageIndex - GAP > 1) {
         container.innerHTML += `<a href="${currentUrl}&page=1">1</a>`;

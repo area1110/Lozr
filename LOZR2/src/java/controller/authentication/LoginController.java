@@ -9,6 +9,7 @@ import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,9 @@ public class LoginController extends HttpServlet {
         if (user != null) { //login sucesss
 
             session.setAttribute("currentUser", user);
+            Cookie cookie = new Cookie("loginName", loginName);
+            cookie.setMaxAge(24*60*60);
+            response.addCookie(cookie);
             response.sendRedirect(request.getContextPath());
         } else { //login failed
             session.setAttribute("currentUser", null);
