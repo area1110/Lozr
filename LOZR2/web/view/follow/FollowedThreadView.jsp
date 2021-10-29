@@ -87,43 +87,20 @@
                             <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
                         </nav>     
                     </c:if>
-                    <c:if test="${empty your}">
-                        <div class="header-action-item">
-                            <div class="header-user">                
-                                <a href="${contextPath}/signup">
-                                    <span  class="header-user-name header-action-item"  >
-                                        Sign Up
-                                    </span>
-                                </a>
-                                <a href="${contextPath}/login">
-                                    <span    class="header-user-name header-action-item"  >
-                                        Log In
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                    </c:if>
+                  
                 </div>
             </div>
         </header>
 
         <div class="main-zone">
             <ul class="breadcrumb">
-                <li><a href="#">Forums</a></li>
-                <li>${forum.name}</li>
+                <li><a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${your.loginName}</a></li>
+                <li>BookMark</li>
             </ul>
-            <div class="body-header">
-                <c:if test="${forum.active}">
+            <div class="body-header">        
                     <div  class="post-title" >
-                        <h1>${forum.name}</h1>
-                    </div>
-                </c:if>
-                <c:if test="${!forum.active}">
-                    <div  class="post-title " >
-                        <h1 class="deactive">${forum.name}</h1>
-                        <h2> - Deactive -</h2>
-                    </div>
-                </c:if>
+                        <h1>BookMark</h1>
+                    </div>             
             </div>
 
             <!--ThreadZone-->
@@ -206,49 +183,17 @@
                             <dt>Replies</dt>
                             <dd>${thread.numPosts}</dd>
                         </dl>
-                        <!-- <dl class="thread-status-pair">
-                          <dt>Views</dt>
-                          <dd>88</dd>
-                        </dl> -->
                     </div>
-
-                    <!--                        <div class="thread-table thread-cell thread-lastest-active">
-                                                <div class="thread-cell thread-cell-unborder">
-                                                    <a
-                                                        href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                                                        rel="nofollow"
-                                                        ><time class="thread-latestDate">11:13 05/10/2021</time></a
-                                                    >
-                                                    <div class="">
-                                                        <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                                                    </div>
-                                                </div>
-                                                <div class="thread-cell thread-latest-user thread-cell-unborder">
-                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                        <img src="images/82761229_p17_master1200.jpg" />
-                                                    </a>
-                    
-                                                </div>
-                                            </div>-->
-
-                    <!--                        <div class="thread-cell thread-latest-user">
-                                                <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                    <img src="images/82761229_p17_master1200.jpg" />
-                                                </a>
-                    
-                                            </div>-->
                     <div class="thread-cell thread-cell-option  dropdown">
                         <c:if test="${!empty your}">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                             <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
-                                <a   href="javascript:void(0)" onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
+                                <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a   href="javascript:void(0)" onclick="openForm(${thread.threadID});">Change Title</a>
+                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
                                 </c:if>
-
                                 <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                    <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
+                                    <a  href="javascript:void(0)" onclick="doDelete('${contextPath}', ${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>
                             </div>
                         </c:if>

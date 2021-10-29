@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Forum;
 import model.User;
 
 /**
@@ -59,6 +60,7 @@ public class UserDBContext extends DBContext {
     public User getUser(String userLoginName) {
 
         try {
+            connection.setAutoCommit(false);
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
                     + "WHERE UserLoginName=?"; //'" + userLoginName + "'
@@ -77,16 +79,36 @@ public class UserDBContext extends DBContext {
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
+                     String sql_selectModForum = "SELECT [UserID]\n"
+                        + "      ,[ForumID]\n"
+                        + "  FROM [User_Forum]\n"
+                        + "  WHERE UserID=?";
+                PreparedStatement stm_selectModForum = connection.prepareStatement(sql_selectModForum);
+                stm_selectModForum.setInt(1, user.getUserID());
+                ResultSet rs_selectModForum = stm_selectModForum.executeQuery();
+                while (rs_selectModForum.next()) {
+                    Forum forum = new Forum();
+                    forum.setForumID(rs_selectModForum.getInt("ForumID"));
+                    user.getModPermission().add(forum);
+                }
                 return user;
             }
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public User getUserLogin(String loginName, String password) {
         try {
+            connection.setAutoCommit(false);
             String sqlStatement = "EXEC verifyUser\n"
                     + "	@pLoginName=?,\n"
                     + "	@pPassword=?";
@@ -105,10 +127,31 @@ public class UserDBContext extends DBContext {
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
+
+                String sql_selectModForum = "SELECT [UserID]\n"
+                        + "      ,[ForumID]\n"
+                        + "  FROM [User_Forum]\n"
+                        + "  WHERE UserID=?";
+                PreparedStatement stm_selectModForum = connection.prepareStatement(sql_selectModForum);
+                stm_selectModForum.setInt(1, user.getUserID());
+                ResultSet rs_selectModForum = stm_selectModForum.executeQuery();
+                while (rs_selectModForum.next()) {
+                    Forum forum = new Forum();
+                    forum.setForumID(rs_selectModForum.getInt("ForumID"));
+                    user.getModPermission().add(forum);
+                }
                 return user;
             }
+            connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
@@ -122,7 +165,7 @@ public class UserDBContext extends DBContext {
             stm_count_user.setString(1, query);
             stm_count_user.setString(2, query);
             ResultSet rs_count_user = stm_count_user.executeQuery();
-            if(rs_count_user.next()){
+            if (rs_count_user.next()) {
                 return rs_count_user.getInt("TotalRecord");
             }
         } catch (SQLException ex) {
@@ -263,7 +306,7 @@ public class UserDBContext extends DBContext {
         }
         return 1;
     }
-    
+
     public void updateStatus(int userID, boolean status) {
         try {
             connection.setAutoCommit(false);
@@ -284,8 +327,7 @@ public class UserDBContext extends DBContext {
                 Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
             Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {

@@ -20,7 +20,7 @@
         <meta charset="utf-8" />
         <title>${user.loginName} | LOZR</title>
 
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
@@ -101,33 +101,36 @@
                         <div class="user-loginname">
                             <h2>${user.loginName}</h2>
                             <div class="user-detail">
-                                <div class="user-total-numbers">
-                                    <div class="user-joineddate">
-                                        <span>Joined:</span>
-                                        <time>
-                                            <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
-                                        </time>
-                                    </div>
-                                    <div>
-                                        <span>Email:</span>
-                                        <span>${user.emailAddress}</span>
-                                    </div>
-                                    <div class="">
-                                        <span>Posts: ${user.totalPosts}</span>
-                                        <span>Threads: ${user.totalThreads}</span>
-                                    </div>
-                                </div>
-                                <div class="user-detail-name">
-                                    <div class="user-firstname">
-                                        <span>FirstName:</span>
-                                        <span id="firstname">${user.firstName}</span>
-                                    </div>
-                                    <div class="user-lastname">
-                                        <span>LastName:</span>
-                                        <span id="lastname">${user.lastName}</span>
-                                    </div>
-                                </div>
+                                <table class="user-detail-name">
+                                    <tr class="user-joineddate">
+                                        <td><span>Joined:</span></td>
+                                        <td>  <time>
+                                                <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
+                                            </time></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Email:</span></td>
+                                        <td>  <span>${user.emailAddress}</span></td>
 
+                                    </tr>
+                                    <tr class="user-firstname">
+                                        <td><span>FirstName:</span></td>
+                                        <td><span id="firstname">${user.firstName}</span></td>
+                                    </tr>
+                                    <tr class="user-lastname">
+                                        <td><span>LastName:</span></td>
+                                        <td><span id="lastname">${user.lastName}</span></td>
+                                    </tr>
+                                </table>
+
+                                <table class="user-total-numbers">
+                                    <tr >
+                                        <td> <span>Posts:</span></td>
+                                        <td> <span>${user.totalPosts}</span></td>
+                                        <td> <span>Threads:</span></td>
+                                        <td> <span>${user.totalThreads}</span></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -175,91 +178,61 @@
 
 
             <c:forEach items="${threads}" var="thread">
-                <a href="#ádfa">
-                    <div class="thread-table thread-card">
 
-                        <div class="thread-cell thread-cell-author">
-                            <div class="">
-                                <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}">
-                                    <img src="${thread.startedBy.avatar}" />
-                                </a>
-                            </div>
-                        </div>
+                <div class="thread-table thread-card">
 
-                        <div class="thread-cell">
-                            <div class="thread-subject">
-                                <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
-                                    ${thread.subject}
-                                </a>
-                            </div>
-                            <div>
-                                <ul class="thread-item-part">
-                                    <li>
-                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}" class="username"
-                                           >${thread.startedBy.loginName}</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <time class="thread-latestDate">
-                                            <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
-                                        </time>
-
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="thread-cell thread-status">
-                            <dl class="thread-status-pair">
-                                <dt>Replies</dt>
-                                <dd>${thread.numPosts}</dd>
-                            </dl>
-                            <!-- <dl class="thread-status-pair">
-                              <dt>Views</dt>
-                              <dd>88</dd>
-                            </dl> -->
-                        </div>
-
-                        <!--                        <div class="thread-table thread-cell thread-lastest-active">
-                                                    <div class="thread-cell thread-cell-unborder">
-                                                        <a
-                                                            href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                                                            rel="nofollow"
-                                                            ><time class="thread-latestDate">11:13 05/10/2021</time></a
-                                                        >
-                                                        <div class="">
-                                                            <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="thread-cell thread-latest-user thread-cell-unborder">
-                                                        <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                            <img src="images/82761229_p17_master1200.jpg" />
-                                                        </a>
-                        
-                                                    </div>
-                                                </div>-->
-
-                        <!--                        <div class="thread-cell thread-latest-user">
-                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                        <img src="images/82761229_p17_master1200.jpg" />
-                                                    </a>
-                        
-                                                </div>-->
-                        <div class="thread-cell thread-cell-option  dropdown">
-                            <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
-                            <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
-                                <a href="#">Bookmark</a>
-                                <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
-                                <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
-                                </c:if>
-                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                    <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                                </c:if>
-                            </div>
+                    <div class="thread-cell thread-cell-author">
+                        <div class="">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}">
+                                <img src="${thread.startedBy.avatar}" />
+                            </a>
                         </div>
                     </div>
-                </a>
+
+                    <div class="thread-cell">
+                        <div class="thread-subject">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
+                                ${thread.subject}
+                            </a>
+                        </div>
+                        <div>
+                            <ul class="thread-item-part">
+                                <li>
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}" class="username"
+                                       >${thread.startedBy.loginName}</a
+                                    >
+                                </li>
+                                <li>
+                                    <time class="thread-latestDate">
+                                        <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                    </time>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="thread-cell thread-status">
+                        <dl class="thread-status-pair">
+                            <dt>Replies</dt>
+                            <dd>${thread.numPosts}</dd>
+                        </dl>
+                    </div>
+                    <div class="thread-cell thread-cell-option  dropdown">
+                        <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
+                        <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
+                            <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
+                            <a   href="javascript:void(0)" onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+                            <c:if test="${your.userID == thread.startedBy.userID}">
+                                <a onclick="openForm(${thread.threadID});">Change Title</a>
+                            </c:if>
+                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                <a href="javascript:void(0)"  onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
+
             </c:forEach>
             <div class="align-right">
                 <div id="pagerBottom" class="pagination" ></div>

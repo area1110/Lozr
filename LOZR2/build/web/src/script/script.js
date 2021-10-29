@@ -57,18 +57,21 @@ function showDropdownMenu(id) {
 }
 
 
-function reloadDelay() {
+function reloadDelay(time) {
+    if(!time){
+        time = 500;
+    }
     window.setTimeout(() => {
         window.location.reload();
-    }, 500);
+    }, time);
 }
 
-function doDelete(rootPath, ID, reportFor) {
+function doDelete(rootPath, ID, forWhat) {
     const dummyframe = document.querySelector("#dummyframe");
-    const message = `Do you want to delete this ${reportFor}`;
+    const message = `Do you want to delete this ${forWhat}`;
     let confirm = window.confirm(message);
     if (confirm) {
-        dummyframe.src = rootPath + "/delete/" + reportFor + "?id=" + ID;
+        dummyframe.src = rootPath + "/delete/" + forWhat + "?id=" + ID;
         reloadDelay();
     }
 }

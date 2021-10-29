@@ -40,8 +40,6 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("currentUser");
-        request.setAttribute("user", user);
         request.getRequestDispatcher("/view/UpdateUserInfo.jsp").forward(request, response);
     }
 
@@ -92,6 +90,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
             case 1:
                 User refressCurrent = userDBC.getUser(userInfo.getUserID());
                 request.getSession().setAttribute("currentUser", refressCurrent);
+                response.sendRedirect(request.getContextPath());
                 break;
             default:
         }

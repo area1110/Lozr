@@ -20,7 +20,7 @@
         <meta charset="utf-8" />
         <title>${user.loginName} | LOZR</title>
 
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
@@ -100,32 +100,36 @@
                         <div class="user-loginname">
                             <h2>${user.loginName}</h2>
                             <div class="user-detail">
-                                <div class="user-total-numbers">
-                                    <div class="user-joineddate">
-                                        <span>Joined:</span>
-                                        <time>
-                                            <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
-                                        </time>
-                                    </div>
-                                    <div>
-                                        <span>Email:</span>
-                                        <span>${user.emailAddress}</span>
-                                    </div>
-                                    <div class="">
-                                        <span>Posts: ${user.totalPosts}</span>
-                                        <span>Threads: ${user.totalThreads}</span>
-                                    </div>
-                                </div>
-                                <div class="user-detail-name">
-                                    <div class="user-firstname">
-                                        <span>FirstName:</span>
-                                        <span id="firstname">${user.firstName}</span>
-                                    </div>
-                                    <div class="user-lastname">
-                                        <span>LastName:</span>
-                                        <span id="lastname">${user.lastName}</span>
-                                    </div>
-                                </div>
+                               <table class="user-detail-name">
+                                    <tr class="user-joineddate">
+                                        <td><span>Joined:</span></td>
+                                        <td>  <time>
+                                                <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
+                                            </time></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>Email:</span></td>
+                                        <td>  <span>${user.emailAddress}</span></td>
+
+                                    </tr>
+                                    <tr class="user-firstname">
+                                        <td><span>FirstName:</span></td>
+                                        <td><span id="firstname">${user.firstName}</span></td>
+                                    </tr>
+                                    <tr class="user-lastname">
+                                        <td><span>LastName:</span></td>
+                                        <td><span id="lastname">${user.lastName}</span></td>
+                                    </tr>
+                                </table>
+
+                                <table class="user-total-numbers">
+                                    <tr >
+                                        <td> <span>Posts:</span></td>
+                                        <td> <span>${user.totalPosts}</span></td>
+                                        <td> <span>Threads:</span></td>
+                                        <td> <span>${user.totalThreads}</span></td>
+                                    </tr>
+                                </table>
 
                             </div>
                         </div>
@@ -283,7 +287,7 @@
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
         <script>
-                       createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+            createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

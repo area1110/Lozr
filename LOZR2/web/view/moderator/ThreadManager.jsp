@@ -22,7 +22,7 @@
         <meta charset="utf-8" />
         <title>${forum.name} | L0ZR</title>
 
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+       <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>

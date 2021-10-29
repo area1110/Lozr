@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 
 /**
@@ -23,6 +24,7 @@ public class User {
     private Timestamp timeJoined;
     private boolean active;
     private boolean moderator;
+    private ArrayList<Forum> modPermission;
     private String password;
     private int totalPosts;
     private int totalThreads;
@@ -30,6 +32,16 @@ public class User {
 
     public User() {
     }
+
+    public ArrayList<Forum> getModPermission() {
+        return modPermission;
+    }
+
+    public void setModPermission(ArrayList<Forum> modPermission) {
+        this.modPermission = modPermission;
+    }
+    
+    
 
     public int getTotalPosts() {
         return totalPosts;

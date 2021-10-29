@@ -12,8 +12,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>LogIn</title>
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <title>LogIn | LOZR</title>
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/LogIn.css" />
         <link

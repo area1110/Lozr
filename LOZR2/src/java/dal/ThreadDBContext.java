@@ -210,6 +210,72 @@ public class ThreadDBContext extends DBContext {
         return fThreads;
     }
 
+    public int getTotalFollowedThreads(int userID) {
+        try {
+            String sql_count_thread = "SELECT  COUNT(B.ThreadID) AS TotalThread\n"
+                    + "  FROM [BookMark] AS B INNER JOIN Thread AS T\n"
+                    + "	ON B.ThreadID=T.ThreadID\n"
+                    + "  WHERE ThreadIsActive=1 AND B.UserID=?";
+            PreparedStatement stm_count_thread = connection.prepareStatement(sql_count_thread);
+            stm_count_thread.setInt(1, userID);
+            ResultSet rs_count_thread = stm_count_thread.executeQuery();
+            if (rs_count_thread.next()) {
+                return rs_count_thread.getInt("TotalThread");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<FThread> getFollowedThreads(int userID, int pageIndex) {
+        int[] fromToRecord = PagingModule.calcFromToRecord(pageIndex);
+        ArrayList<FThread> fThreads = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT * FROM\n"
+                    + "  (SELECT ROW_NUMBER() OVER ( ORDER BY T.ThreadDateCreated DESC) AS Row_count,\n"
+                    + "   T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+                    + "    U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar, T.ThreadIsActive,\n"
+                    + "    (SELECT COUNT(PostID) FROM Post\n"
+                    + "    WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
+                    + "    FROM BookMark AS B \n"
+                    + "	JOIN Thread AS T ON B.ThreadID=T.ThreadID\n"
+                    + "	JOIN UserInfo AS U ON T.ThreadStartedBy=U.UserID\n"
+                    + "    WHERE B.UserID=? AND T.ThreadIsActive=1) AS Main\n"
+                    + "    WHERE Main.Row_count BETWEEN ? AND ?";
+
+            PreparedStatement stm = connection.prepareStatement(sqlStatement);
+            stm.setInt(1, userID);
+            stm.setInt(2, fromToRecord[0]);
+            stm.setInt(3, fromToRecord[1]);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                FThread fThread = new FThread();
+                fThread.setThreadID(rs.getInt("ThreadID"));
+                fThread.setSubject(rs.getNString("ThreadSubject"));
+                fThread.setTimeCreated(rs.getTimestamp("ThreadDateCreated"));
+
+                Forum forum = new Forum();
+                forum.setForumID(rs.getInt("ThreadForumID"));
+                fThread.setForum(forum);
+                fThread.setActive(rs.getBoolean("ThreadIsActive"));
+
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setLoginName(rs.getNString("UserLoginName"));
+                user.setModerator(rs.getBoolean("UserIsMod"));
+                user.setAvatar(rs.getString("UserImageAvatar"));
+                fThread.setStartedBy(user);
+                fThread.setNumPosts(rs.getInt("TotalPosts"));
+                fThreads.add(fThread);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fThreads;
+    }
+
     public FThread getFThread(int threadID) {
         FThread fthread = null;
         try {
@@ -305,6 +371,20 @@ public class ThreadDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    public void setFollowThread(int userId, int threadId) {
+        try {
+            String sql_insert = "INSERT INTO [BookMark]\n"
+                    + "           ([UserID]\n"
+                    + "           ,[ThreadID])\n"
+                    + "     VALUES (?, ?)";
+            PreparedStatement stm_insert = connection.prepareStatement(sql_insert);
+            stm_insert.setInt(1, userId);
+            stm_insert.setInt(2, threadId);
+            stm_insert.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

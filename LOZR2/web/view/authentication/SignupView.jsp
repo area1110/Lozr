@@ -13,8 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
 
-        <title>SignUp | L0ZR</title>
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <title>SignUp | LOZR</title>
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
 
@@ -43,7 +43,7 @@
                         <a href="${contextPath}/login">
                             <div class="header-user">                
                                 <span  class="header-user-name header-action-item"  >
-                                  Login
+                                    Login
                                 </span>
                             </div>
                         </a>
@@ -98,7 +98,6 @@
                                 u-white
                                 u-input-1
                                 "
-                                value="${user.loginName}"
                                 required
                                 />
                         </div>
@@ -147,7 +146,7 @@
                         </div>
                         <div class="u-form-email u-form-group u-form-group-4">
                             <input
-                                type="text"
+                                type="email"
                                 placeholder="Email"
                                 id="email"
                                 name="email"

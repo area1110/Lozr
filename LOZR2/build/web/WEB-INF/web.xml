@@ -112,6 +112,14 @@
         <servlet-name>DeleteUserController</servlet-name>
         <servlet-class>controller.user.DeleteUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ThreadFollowController</servlet-name>
+        <servlet-class>controller.follow.ThreadFollowedManager</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FollowThreadController</servlet-name>
+        <servlet-class>controller.thread.FollowThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -207,6 +215,14 @@
     <servlet-mapping>
         <servlet-name>DeleteUserController</servlet-name>
         <url-pattern>/delete/user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThreadFollowController</servlet-name>
+        <url-pattern>/follow/manage/thread</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FollowThreadController</servlet-name>
+        <url-pattern>/follow/thread</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

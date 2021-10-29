@@ -16,7 +16,7 @@
         <meta charset="utf-8" />
         <title>${requestScope.query} | LOZR</title>
 
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
@@ -171,18 +171,18 @@
                     </div>
 
                     <div class="thread-cell thread-cell-option  dropdown">
-                        <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                        <div id="myDropdown-${thread.threadID}" class="dropdown-content">
-                            <a href="#">Bookmark</a>
-                            <a onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
-                            <c:if test="${your.userID == thread.startedBy.userID}">
-                                <a onclick="openForm(${thread.threadID});">Change Title</a>
-                            </c:if>
+                       <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
+                            <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
+                                <a   href="javascript:void(0)"  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
+                                <c:if test="${your.userID == thread.startedBy.userID}">
+                                    <a   href="javascript:void(0)" onclick="openForm(${thread.threadID});">Change Title</a>
+                                </c:if>
 
-                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                <a onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                            </c:if>
-                        </div>
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                    <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
+                                </c:if>
+                            </div>
                     </div>
                 </div>
             </c:forEach>
@@ -203,8 +203,8 @@
             </div>
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-            <script>
-          createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+        <script>
+            createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

@@ -19,7 +19,7 @@
         <meta charset="utf-8" />
         <title>${thread.subject} | LOZR</title>
 
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
@@ -94,7 +94,7 @@
         </header>
 
         <div class="main-zone">
-             <ul class="breadcrumb">
+            <ul class="breadcrumb">
                 <li><a href="${contextPath}">Forums</a></li>
                 <li><a href="#">Forums</a></li>
                 <li>${thread.subject}</li>
@@ -111,7 +111,7 @@
                         <h2>- Deactive -</h2>
                     </div>
                 </c:if>
-                
+
                 <div class="post-title-description">
                     <ul>
                         <li>${thread.startedBy.loginName}</li>
@@ -119,7 +119,7 @@
                                         timeStyle="short" value="${thread.timeCreated}"/></time></li>
                     </ul>
                 </div>
-                    
+
             </div>
             <c:if test="${empty requestScope.posts}">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">

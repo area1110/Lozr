@@ -22,9 +22,9 @@
         <title>LOZR</title>
 
 
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Home.css" />
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
@@ -94,6 +94,7 @@
                             <div id="mySidepanel" class="sidepanel">
                                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                                 <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
+                                <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>
                                 <c:if test="${your.moderator}" >
                                     <a href="javascript:void(0)" onclick="openCreateForum()" class="u-button-style u-nav-link">New Forum</a>
                                     <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>

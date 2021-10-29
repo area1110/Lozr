@@ -21,7 +21,7 @@
         <meta charset="utf-8" />
 
         <title>Change Info | L0ZR</title>
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+       <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
@@ -88,6 +88,8 @@
                     >
                     CHANGE YOUR INFORMATION
                 </h1>
+                <p class="
+                    u-align-center u-custom-font u-label-1">(Leave the field empty if you don't want to change)</p>
                 <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">          
                     <div class="avatar-create">
                         <div class="avatar-input">
@@ -97,15 +99,14 @@
                             <input class="avatar-openfile" type='file' onchange="doImgUpload(this, 'avatar-url', 'output-img')">
                         </div>
                         <div class="avatar-view">
-                            <img src="https://i.ibb.co/cYVc6t4/blank-avatar.png" id="output-img"/>
+                            <img src="${your.avatar}" id="output-img"/>
                         </div>
                     </div>
                     <form
                         action="${contextPath}/update/user/info"
                         method="POST"
                         class="u-clearfix u-form-spacing-19 u-form-vertical u-inner-form"
-
-
+                        onsubmit="reloadDelay();"
                         >
                         <div class="u-form-group u-form-name u-form-group-1">
                             <label id="error"
@@ -115,7 +116,7 @@
                             >
                             <input
                                 type="text"
-                                placeholder="NEW Username"
+                                placeholder="${your.loginName}"
                                 id="loginName"
                                 name="loginName"
                                 class="
@@ -168,13 +169,12 @@
                                 u-white
                                 u-input-3
                                 "
-
                                 />
                         </div>
                         <div class="u-form-email u-form-group u-form-group-4">
                             <input
-                                type="text"
-                                placeholder="Email"
+                                type="email"
+                                placeholder="${your.emailAddress}"
                                 id="email"
                                 name="email"
                                 class="
@@ -186,13 +186,12 @@
                                 u-white
                                 u-input-4
                                 "
-                                value="${user.emailAddress}"
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-5">
                             <input
                                 type="text"
-                                placeholder="Your first name"
+                                placeholder="${your.firstName}"
                                 id="firstName"
                                 name="firstName"
                                 class="
@@ -204,14 +203,12 @@
                                 u-white
                                 u-input-5
                                 "
-                                value="${user.firstName}"
-
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-6">
                             <input
                                 type="text"
-                                placeholder="Your last name"
+                                placeholder="${your.lastName}"
                                 id="lastName"
                                 name="lastName"
                                 class="
@@ -223,8 +220,6 @@
                                 u-white
                                 u-input-6
                                 "
-                                value="${user.lastName}"
-
                                 />
                         </div>
                         <div class="u-form-group u-form-group-7">                    

@@ -20,7 +20,7 @@
         <meta charset="utf-8" />
         <title>${forum.name} | L0ZR</title>
 
-        <link rel="stylesheet" href="${contextPath}/src/style/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
 
@@ -108,7 +108,7 @@
         </header>
 
         <div class="main-zone">
-             <ul class="breadcrumb">
+            <ul class="breadcrumb">
                 <li><a href="#">Forums</a></li>
                 <li>${forum.name}</li>
             </ul>
@@ -125,7 +125,7 @@
                     </div>
                 </c:if>
             </div>
-           
+
             <!--ThreadZone-->
             <c:if test="${ !(empty your) and forum.active}">
                 <div class="thread-table thread-card">
@@ -241,11 +241,10 @@
                         <c:if test="${!empty your}">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                             <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="#">Bookmark</a>
-
-                                <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
+                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
+                                <a   href="javascript:void(0)" onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                    <a   href="javascript:void(0)" onclick="openForm(${thread.threadID});">Change Title</a>
                                 </c:if>
 
                                 <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
