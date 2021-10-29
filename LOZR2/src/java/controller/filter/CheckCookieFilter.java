@@ -45,6 +45,7 @@ public class CheckCookieFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        httpRequest.setCharacterEncoding("UTF-8"); //set encode for all servlet
         Cookie[] cookie = httpRequest.getCookies();
         if (cookie != null) {
             String loginName = "";

@@ -75,7 +75,7 @@ public class ForumController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         request.setCharacterEncoding("UTF-8");
+//         request.setCharacterEncoding("UTF-8");
 //        processRequest(request, response);
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         if (currentUser.isModerator()) {
