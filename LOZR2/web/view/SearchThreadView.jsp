@@ -204,7 +204,7 @@
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
         <script>
-            createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

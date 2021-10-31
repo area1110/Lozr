@@ -277,33 +277,39 @@ public class ThreadDBContext extends DBContext {
     }
 
     public FThread getFThread(int threadID) {
-        FThread fthread = null;
         try {
-            String sql_select_thread = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID, T.ThreadIsActive,\n"
-                    + "U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar\n"
-                    + "FROM Thread AS T JOIN UserInfo AS U\n"
-                    + "	ON T.ThreadStartedBy=U.UserID\n"
-                    + "	WHERE T.ThreadID=?";
+            String sql_select_thread = "SELECT T.ThreadID, T.ThreadSubject, T.ThreadDateCreated, T.ThreadForumID,\n"
+                    + "	T.ThreadIsActive, F.ForumName,\n"
+                    + "    U.UserID, U.UserLoginName, U.UserIsMod, U.UserImageAvatar\n"
+                    + "    FROM Thread AS T JOIN UserInfo AS U\n"
+                    + "    ON T.ThreadStartedBy=U.UserID\n"
+                    + "	JOIN Forum AS F ON T.ThreadForumID=F.ForumID\n"
+                    + "    WHERE T.ThreadID=?";
             PreparedStatement stm_select_thread = connection.prepareStatement(sql_select_thread);
             stm_select_thread.setInt(1, threadID);
             ResultSet rs_select_thread = stm_select_thread.executeQuery();
             if (rs_select_thread.next()) {
-                fthread = new FThread();
+                FThread fthread = new FThread();
                 fthread.setThreadID(rs_select_thread.getInt("ThreadID"));
                 fthread.setSubject(rs_select_thread.getString("ThreadSubject"));
                 fthread.setTimeCreated(rs_select_thread.getTimestamp("ThreadDateCreated"));
-
+                
+                Forum forum = new Forum();
+                forum.setForumID(rs_select_thread.getInt("ThreadForumID"));
+                forum.setName(rs_select_thread.getString("ForumName"));
+                fthread.setForum(forum);
                 User user = new User();
                 user.setUserID(rs_select_thread.getInt("UserID"));
                 user.setLoginName(rs_select_thread.getString("UserLoginName"));
                 fthread.setStartedBy(user);
                 fthread.setActive(rs_select_thread.getBoolean("ThreadIsActive"));
+                    return fthread;
             }
-            return fthread;
+       
         } catch (SQLException ex) {
             Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return fthread;
+        return null;
     }
 
     public void setFThread(FThread fthread) {

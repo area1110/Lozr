@@ -40,6 +40,18 @@
             />
     </head>
     <body class="u-body">
+        
+         <div class="form-popup" id="formEdit">
+            <form id="hidden-form" onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/post" method="POST" class="form-container">
+                <h2>Edit Thread</h2>
+                <input type="hidden" id="elementeID"  name="postID"/> 
+                <label  for="postContent">Edit Your Reply</label>
+                <textarea class="post-subject-textarea text-insert" id="postContent"  name="postContent"></textarea>
+                <button type="submit" class="btn">Save</button>
+                <button type="button" class="btn" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+        
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
@@ -96,7 +108,7 @@
         <div class="main-zone">
             <ul class="breadcrumb">
                 <li><a href="${contextPath}">Forums</a></li>
-                <li><a href="#">Forums</a></li>
+                <li><a href="${transToPath.compressObjectToPath(contextPath, "forum",thread.forum.name  , thread.forum.forumID)}">${thread.forum.name}</a></li>
                 <li>${thread.subject}</li>
             </ul>
             <div class="body-header">
@@ -160,11 +172,6 @@
                                 <fmt:formatDate type="both" dateStyle="short"
                                                 timeStyle="short" value="${post.timeCreated}"/>
                             </time>
-                            <!--                            <ul class="post-attribute-list">
-                                                            <li>
-                                                               
-                                                            </li>
-                                                        </ul>-->
                         </header>
 
                         <div class="post-main">
@@ -182,12 +189,15 @@
                                     </div>
                                 </blockquote>
                             </c:if>
-                            <pre name="${post.postID}">${post.subject}</pre>
+                            <pre  id="postsubject-${post.postID}" name="${post.postID}">${post.subject}</pre>
                         </div>
                         <footer class="post-footer">
                             <c:if test="${!empty your}">
                                 <div class="post-action">
                                     <div class="post-action-bar">
+                                         <c:if test="${your.userID==post.user.userID}">
+                                            <a href="javascript:void(0)" onclick="openForm(${post.postID}, 'postsubject')" class="post-reply-button">Edit</a>
+                                        </c:if>
                                         <c:if test="${your.moderator || your.userID==post.user.userID}">
                                             <a href="javascript:void(0)" onclick="doDelete(${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                         </c:if>

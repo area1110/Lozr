@@ -31,16 +31,13 @@ public class UserDBContext extends DBContext {
             return -2;
         }
         try {
-            String sqlStatement = "DECLARE @response NVARCHAR(10)\n"
-                    + "EXEC AddUser\n"
+            String sqlStatement =  "EXEC AddUser\n"
                     + " @pLoginName=?,\n"
                     + " @pPassword=?,\n"
                     + " @pFirstName=?,\n"
                     + " @pLastName=?,\n"
                     + " @pEmail=?,\n"
-                    + " @pImage=?,\n"
-                    + " @responseMessage=@response OUTPUT\n"
-                    + "SELECT @response AS MESSAGE";
+                    + " @pImage=?\n";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
 
@@ -156,14 +153,15 @@ public class UserDBContext extends DBContext {
         return null;
     }
 
-    public int getTotalUsersByName(String query) {
+    public int getTotalUsersByName(String query, int exept) {
         try {
             String sql_count_user = "SELECT COUNT(UserID) as TotalRecord FROM  UserInfo\n"
-                    + "  WHERE UserIsActive = 1 AND (UserLoginName LIKE '%' + ? + '%'\n"
+                    + "  WHERE UserIsActive = 1 AND UserID != ? AND (UserLoginName LIKE '%' + ? + '%'\n"
                     + "  OR UserEmailAddress LIKE '%' + ? + '%')";
-            PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);
-            stm_count_user.setString(1, query);
+            PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);           
+            stm_count_user.setInt(1, exept);
             stm_count_user.setString(2, query);
+            stm_count_user.setString(3, query);
             ResultSet rs_count_user = stm_count_user.executeQuery();
             if (rs_count_user.next()) {
                 return rs_count_user.getInt("TotalRecord");
@@ -174,7 +172,7 @@ public class UserDBContext extends DBContext {
         return 0;
     }
 
-    public ArrayList<User> getUsersByName(String query, int pageIndex) {
+    public ArrayList<User> getUsersByName(String query, int exept , int pageIndex) {
         ArrayList<User> users = new ArrayList<>();
         int fromToRecord[] = PagingModule.calcFromToRecord(pageIndex);
         try {
@@ -182,16 +180,17 @@ public class UserDBContext extends DBContext {
                     + "(SELECT ROW_NUMBER() OVER(ORDER BY UserLoginName ASC) AS Row_count,\n"
                     + "	UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "	UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
-                    + "  WHERE (UserLoginName LIKE '%' + ? + '%'\n"
+                    + "  WHERE UserID != ? AND (UserLoginName LIKE '%' + ? + '%'\n"
                     + "  OR UserEmailAddress LIKE '%' + ? + '%')"
                     + " AND UserIsActive = 1) AS Main\n"
                     + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
-            stm.setString(1, query);
+            stm.setInt(1, exept);
             stm.setString(2, query);
-            stm.setInt(3, fromToRecord[0]);
-            stm.setInt(4, fromToRecord[1]);
+            stm.setString(3, query);
+            stm.setInt(4, fromToRecord[0]);
+            stm.setInt(5, fromToRecord[1]);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -285,7 +284,7 @@ public class UserDBContext extends DBContext {
         try {
             String sqlStatement = "UPDATE [UserInfo]\n"
                     + "   SET [UserLoginName] = COALESCE(?, UserLoginName)\n"
-                    + "      ,[UserPasswordHash] = COALESCE(HASHBYTES('SHA2_512', CAST(? AS VARCHAR(40))), [UserPasswordHash])\n"
+                    + "      ,[UserPasswordHash] = COALESCE(HASHBYTES('SHA2_512', CAST(? AS VARCHAR(300))), [UserPasswordHash])\n"
                     + "      ,[UserFirstName] = COALESCE(?,[UserFirstName])\n"
                     + "      ,[UserLastName] = COALESCE(?,[UserLastName])\n"
                     + "      ,[UserEmailAddress] = COALESCE(?,[UserEmailAddress])\n"

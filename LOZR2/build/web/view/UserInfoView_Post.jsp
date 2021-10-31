@@ -100,7 +100,7 @@
                         <div class="user-loginname">
                             <h2>${user.loginName}</h2>
                             <div class="user-detail">
-                               <table class="user-detail-name">
+                                <table class="user-detail-name">
                                     <tr class="user-joineddate">
                                         <td><span>Joined:</span></td>
                                         <td>  <time>
@@ -135,19 +135,21 @@
                         </div>
                     </div>
                     <div class="user-cell user-cell-report dropdown">
-                        <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
-                        <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
-                            <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
-                            <c:if test="${your.moderator}">
-                                <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
-                                    <input type="hidden" value="${user.userID}" name="userID" />
-                                    <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
-                                           ${user.moderator? "checked" : ""} type="checkbox">
-                                    <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
-                                </form>
-                                <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
-                            </c:if>
-                        </div>
+                        <c:if test="${your.userID != user.userID}">
+                            <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
+                            <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
+                                <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+                                <c:if test="${your.moderator}">
+                                    <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
+                                        <input type="hidden" value="${user.userID}" name="userID" />
+                                        <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
+                                               ${user.moderator? "checked" : ""} type="checkbox">
+                                        <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
+                                    </form>
+                                    <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                </c:if>
+                            </div>
+                        </c:if>
                         <div class="user-permisson">
                             <c:if test="${user.moderator}">
                                 <div class="user-isadmin">
@@ -169,14 +171,6 @@
                     </a>
                 </div>
             </div>
-            <!--        <div class="body-header">    
-                        <div  class="post-title" >
-                            <h1>Last Threads</h1>
-                        </div>
-                    </div>-->
-            <!--ThreadZone-->
-
-
             <c:forEach var="post" items="${requestScope.posts}">
 
                 <!--Body post-->
@@ -215,7 +209,7 @@
                             <ul class="post-attribute-list">
                                 <li>
                                     <a
-                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}#post-${post.postID}"
+                                        href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}"
                                         >
                                         Go to Thread
                                     </a>
@@ -287,7 +281,7 @@
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
         <script>
-            createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

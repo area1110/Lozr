@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.FThread;
 import model.Post;
 import model.User;
 
@@ -287,6 +288,22 @@ public class PostDBContext extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+       public void updatePost(Post post) {
+        try {
+            String sql_update = "UPDATE [Post]\n"
+                    + "   SET [PostSubject] = ?\n"
+                    + " WHERE PostID = ?";
+
+            PreparedStatement stm_update = connection.prepareStatement(sql_update);
+            stm_update.setString(1, post.getSubject());
+            stm_update.setInt(2, post.getPostID());
+
+            stm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

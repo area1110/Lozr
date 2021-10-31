@@ -88,7 +88,10 @@
 .post-main {
   margin: 10px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.479);
-  
+}
+
+.post-main pre {
+    white-space: break-spaces;
 }
 
 .post-main-cell {

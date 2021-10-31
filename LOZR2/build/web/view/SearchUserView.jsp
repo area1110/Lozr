@@ -99,59 +99,59 @@
             </c:if>
 
             <c:forEach items="${requestScope.users}" var="user">
-                <!--<EachUser>-->
-                <div class="" id="user">
-                    <div class="user-card">
-                        <a class="user-cell user-link"  href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}">
-                            <div class="user-avatar user-cell">
-                                <img src="${user.avatar}" />
-                            </div>
-                            <div class="user-cell user-info">
-                                <div class="user-loginname">
-                                    <h2>${user.loginName}</h2>
-                                    <div class="user-detail">
-                                        <div class="user-total-numbers">
-                                            <div class="user-joineddate">
-                                                <span>Joined:</span>
-                                                <time>
-                                                    <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
-                                                </time>
-                                            </div>
-                                            <div>
-                                                <span>Email:</span>
-                                                <span>${user.emailAddress}</span>
-                                            </div>
+                    <!--<EachUser>-->
+                    <div class="" id="user">
+                        <div class="user-card">
+                            <a class="user-cell user-link"  href="${transToPath.compressObjectToPath(contextPath, "user", user.loginName, user.userID)}">
+                                <div class="user-avatar user-cell">
+                                    <img src="${user.avatar}" />
+                                </div>
+                                <div class="user-cell user-info">
+                                    <div class="user-loginname">
+                                        <h2>${user.loginName}</h2>
+                                        <div class="user-detail">
+                                            <table class="user-total-numbers">
+                                                <tr class="user-joineddate">
+                                                    <td><span>Joined:</span></td>
+                                                    <td><time>
+                                                            <fmt:formatDate value="${user.timeJoined}" type="date"  dateStyle="short"/>
+                                                        </time></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Email:</span></td>
+                                                    <td><span>${user.emailAddress}</span></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <div class="user-cell user-cell-report dropdown">
-                            <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
-                            <div  id="myDropdown-${user.userID}" class="dropdown-content" onclick="showDropdownMenu(${user.userID})">
-                                <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
-                                <c:if test="${your.moderator}">
-                                    <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
-                                        <input type="hidden" value="${user.userID}" name="userID" />
-                                        <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
-                                               ${user.moderator? "checked" : ""} type="checkbox">
-                                        <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
-                                    </form>
-                                    <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
-                                </c:if>
-                            </div>
+                            </a>
+                            <div class="user-cell user-cell-report dropdown">
 
-                            <div class="user-permisson">
-                                <c:if test="${user.moderator}">
-                                    <div class="user-isadmin">
-                                        <label>Mod</label>
-                                    </div>
-                                </c:if>                              
+                                <button onclick="showDropdownMenu(${user.userID})" class="dropbtn">Option</button>
+                                <div  id="myDropdown-${user.userID}" class="dropdown-content" onclick="showDropdownMenu(${user.userID})">
+                                    <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+                                    <c:if test="${your.moderator}">
+                                        <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
+                                            <input type="hidden" value="${user.userID}" name="userID" />
+                                            <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
+                                                   ${user.moderator? "checked" : ""} type="checkbox">
+                                            <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
+                                        </form>
+                                            <a onclick="reloadDelay(1000)" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                    </c:if>
+                                </div>
+                                <div class="user-permisson">
+                                    <c:if test="${user.moderator}">
+                                        <div class="user-isadmin">
+                                            <label>Mod</label>
+                                        </div>
+                                    </c:if>                              
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--</EachUser>-->                    
+                    <!--</EachUser>-->              
             </c:forEach>
             <div class="align-right">
                 <div id="pagerBottom" class="pagination" ></div>
@@ -171,7 +171,7 @@
         </footer>
         <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
         <script>
-                       createPagerWithDynamicURL('pagerBottom', ${pageIndex}, ${totalPage});
+            createPager('pagerBottom', ${pageIndex}, ${totalPage});
         </script>
     </body>
 </html>

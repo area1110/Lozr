@@ -133,9 +133,11 @@ function doReport(rootPath, ID, reportFor) {
 }
 
 //popup-form-edit
-function openForm(forumID) {
+function openForm(ID, select) {
     document.getElementById("formEdit").style.visibility = "visible";
-    document.getElementById("elementeID").value = forumID;
+    let form = document.getElementById("hidden-form") ;
+   form[0].value = ID;
+   form[1].value = document.getElementById(select + '-' + ID).innerHTML;
 }
 
 function closeForm() {

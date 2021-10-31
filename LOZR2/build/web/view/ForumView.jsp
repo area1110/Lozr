@@ -44,7 +44,7 @@
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
-            <form onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
+            <form id="hidden-form" onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
                 <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
@@ -177,7 +177,7 @@
 
                     <div class="thread-cell">
                         <div class="thread-subject">
-                            <a
+                            <a id="threadsubject-${thread.threadID}"
                                 href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}"
                                 >${thread.subject}</a
                             >
@@ -200,43 +200,12 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="thread-cell thread-status">
                         <dl class="thread-status-pair">
                             <dt>Replies</dt>
                             <dd>${thread.numPosts}</dd>
                         </dl>
-                        <!-- <dl class="thread-status-pair">
-                          <dt>Views</dt>
-                          <dd>88</dd>
-                        </dl> -->
                     </div>
-
-                    <!--                        <div class="thread-table thread-cell thread-lastest-active">
-                                                <div class="thread-cell thread-cell-unborder">
-                                                    <a
-                                                        href="/t/tai-chinh-20m-tro-xuong-can-tu-van-cau-hinh-pc-phuc-vu-cho-edit-video-pts-ai-tren-adobe-co-the-choi-fifa-online-4.399690/latest"
-                                                        rel="nofollow"
-                                                        ><time class="thread-latestDate">11:13 05/10/2021</time></a
-                                                    >
-                                                    <div class="">
-                                                        <a href="/u/congtubotgag.1034303/" class="username">congtubotgag</a>
-                                                    </div>
-                                                </div>
-                                                <div class="thread-cell thread-latest-user thread-cell-unborder">
-                                                    <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                        <img src="images/82761229_p17_master1200.jpg" />
-                                                    </a>
-                    
-                                                </div>
-                                            </div>-->
-
-                    <!--                        <div class="thread-cell thread-latest-user">
-                                                <a href="/u/congtubotgag.1034303/" class="avatar avatar--xxs">
-                                                    <img src="images/82761229_p17_master1200.jpg" />
-                                                </a>
-                    
-                                            </div>-->
                     <div class="thread-cell thread-cell-option  dropdown">
                         <c:if test="${!empty your}">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
@@ -244,7 +213,7 @@
                                 <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
                                 <a   href="javascript:void(0)" onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a   href="javascript:void(0)" onclick="openForm(${thread.threadID});">Change Title</a>
+                                    <a   href="javascript:void(0)" onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
                                 </c:if>
 
                                 <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">

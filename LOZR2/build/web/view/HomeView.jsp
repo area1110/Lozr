@@ -59,14 +59,13 @@
                         <input class="cover-openfile" id="choose-img" type='file' onchange="doImgUpload(this, 'cover-url', 'output-cover-img')">
                     </div>
                 </div>
-                <form onsubmit="reloadDelay()" action="update/forum" target="dummyframe" method="POST" >  
+                <form id="hidden-form" onsubmit="reloadDelay()" action="update/forum" target="dummyframe" method="POST" >  
                     <input type="hidden" id="elementeID"  name="forumID"/> 
-                    <input   type="hidden" id="cover-url"  name="photo">
                     <label  for="forumName">New Forum Title</label>
                     <input type="text" placeholder="New Name" name="forumName">
-
                     <button type="submit" class="btn">Save</button>
                     <button type="button" class="btn" onclick="closeForm()">Close</button>
+                    <input   type="hidden" id="cover-url"  name="photo">
                 </form>
             </div>
         </div>
@@ -166,7 +165,7 @@
                                         </span>
                                         <div class="u-align-center u-container-style u-group u-palette-4-base u-video-cover u-group-3">
                                             <div class="u-container-layout u-valign-middle u-container-layout-5">
-                                                <p class="u-custom-font u-font-arial u-text u-text-5">${forum.name}</p>
+                                                <p id="forumname-${forum.forumID}" class="u-custom-font u-font-arial u-text u-text-5">${forum.name}</p>
                                             </div>
                                         </div>
                                         <p class="u-align-center u-text u-text-grey-50 u-text-6"> ${forum.newPosts} New Post Today</p>
@@ -177,7 +176,7 @@
                                         <div class="dropdown">
                                             <button onclick="showDropdownMenu(${forum.forumID})"  class="dropbtn">Edit</button>
                                             <div onclick="showDropdownMenu(${forum.forumID})" id="myDropdown-${forum.forumID}" class="dropdown-content">
-                                                <a   onclick="openForm(${forum.forumID})">Change Title & Cover</a>
+                                                <a   onclick="openForm(${forum.forumID} , 'forumname')">Change Title & Cover</a>
                                                 <a onclick="doDeleteForum(${forum.forumID}, '${forum.name}');">Delete Forum</a>
                                             </div>
                                         </div>

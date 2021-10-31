@@ -8,6 +8,7 @@ package controller.thread;
 import controller.authentication.BaseRequiredAuthentication;
 import controller.module.ExtractURLPath;
 import controller.module.PagingModule;
+import dal.ForumDBContext;
 import dal.ThreadDBContext;
 import dal.PostDBContext;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class ThreadController extends HttpServlet {
             String errorMessage = "Oops, threre are something wrong?!";
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
-        } else {
+        } else {          
             PostDBContext postDBC = new PostDBContext();
             int totalRecord = postDBC.getTotalPosts(threadID);
             int totalPage = PagingModule.calcTotalPage(totalRecord);

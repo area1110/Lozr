@@ -3,25 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.search;
+package controller.post;
 
-import com.sun.xml.internal.ws.transport.http.HttpAdapter;
-import controller.authentication.BaseRequiredAuthentication;
-import controller.module.PagingModule;
-import dal.UserDBContext;
+import dal.PostDBContext;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
+import model.Post;
 
 /**
  *
  * @author area1
  */
-public class SearchUserController extends HttpServlet {
+public class UpdatePostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,6 +29,23 @@ public class SearchUserController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdatePostController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdatePostController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,29 +58,7 @@ public class SearchUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User currentUser = (User) request.getSession().getAttribute("currentUser");
-        UserDBContext userDBC = new UserDBContext();
-        String query = request.getParameter("q");
-
-        String raw_pageIndex = request.getParameter("page");
-        if (raw_pageIndex == null || raw_pageIndex.isEmpty()) {
-            raw_pageIndex = "1";
-        }
-        int pageIndex = Integer.parseInt(raw_pageIndex);
-        int totalRecord = userDBC.getTotalUsersByName(query, currentUser.getUserID());
-        int totalPage = PagingModule.calcTotalPage(totalRecord);
-        if (totalPage < pageIndex) {
-            pageIndex = totalPage;
-        }
-        if (pageIndex < 1) {
-            pageIndex = 1;
-        }
-        ArrayList<User> users = userDBC.getUsersByName(query, currentUser.getUserID() , pageIndex);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("pageIndex", pageIndex);
-        request.setAttribute("query", query);
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("/view/SearchUserView.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -80,6 +72,19 @@ public class SearchUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //        processRequest(request, response);
+        int postID = Integer.parseInt(request.getParameter("postID"));
+        String postContent = request.getParameter("postContent");
+//        UserInfo currentUser = (UserInfo) request.getSession().getAttribute("currenUser");
+
+        if (!(postContent == null || postContent.isEmpty())) {
+            Post post = new Post();
+            post.setPostID(postID);
+            post.setSubject(postContent);
+
+            PostDBContext postDBC = new PostDBContext();
+            postDBC.updatePost(post);
+        }
     }
 
     /**
