@@ -12,7 +12,7 @@ package controller.module;
  */
 public class PagingModule {
     
-    public static int PAGE_SIZE = 2;
+    public static int PAGE_SIZE = 10;
 
 //    public String EncodeToBase64(InputStream inputStream) {
 //        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

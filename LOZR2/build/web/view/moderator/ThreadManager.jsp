@@ -20,8 +20,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${forum.name} | L0ZR</title>
-
+        <title>Thread Management| LOZR</title>
+  <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
@@ -129,7 +129,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="thread-cell">
+                        <div class="thread-cell thread-cell-subject">
                             <div class="thread-subject">
                                 <a id="threadsubject-${thread.threadID}"
                                     href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}"
@@ -152,11 +152,9 @@
                         </div>
 
                         <div class="thread-cell thread-status">
-                            <table class="thread-status-pair">
-                                <tr>
-                                    <td>Replies</td>
-                                    <td>${thread.numPosts}</td>
-                                </tr>
+                            <table class="thread-status-pair">                            
+                                <tr><td>Replies</td></tr>
+                                <tr><td>${thread.numPosts}</td></tr>                              
                             </table>
                         </div>
                         <div class=" thread-cell thread-report">                

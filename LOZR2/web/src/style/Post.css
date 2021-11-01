@@ -33,6 +33,7 @@
     background-color: rgba(189, 226, 226, 0.472);
     padding: 10px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.198);
+    width: inherit;
 }
 
 .post-user {
@@ -179,6 +180,7 @@ textarea.post-subject-textarea.edit{
     .post-user-cell {
         border-bottom: none;
         border-right: 1px solid rgba(128, 128, 128, 0.39);
+        width: 10em;
     }
 
     .post-user {

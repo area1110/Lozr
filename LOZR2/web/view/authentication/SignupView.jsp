@@ -14,6 +14,7 @@
         <meta charset="utf-8" />
 
         <title>SignUp | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />

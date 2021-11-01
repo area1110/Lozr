@@ -19,6 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${user.loginName} | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -98,7 +99,7 @@
                     </div>
                     <div class="user-cell user-info">
                         <div class="user-loginname">
-                            <h2>${user.loginName}</h2>
+                            <h2 ${user.active? "" : "class=\" deactive\""}>${user.loginName}</h2>
                             <div class="user-detail">
                                 <table class="user-detail-name">
                                     <tr class="user-joineddate">
@@ -138,7 +139,7 @@
                         <c:if test="${your.userID != user.userID}">
                             <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
                             <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
-                                <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+
                                 <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />
@@ -146,7 +147,13 @@
                                                ${user.moderator? "checked" : ""} type="checkbox">
                                         <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                     </form>
-                                    <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                    <c:if test="${user.active}">
+                                        <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+                                        <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                    </c:if>
+                                    <c:if test="${!user.active}">
+                                        <a href="${contextPath}/delete/user?id=${user.userID}&select=true" target="dummyframe">Unban</a>
+                                    </c:if>
                                 </c:if>
                             </div>
                         </c:if>
@@ -196,7 +203,7 @@
                                         >${post.user.loginName}</a
                                     >
                                 </h4>
-                                <h5 class="post-user-title">New Member</h5>
+                                <h5 class="post-user-title">${post.user.moderator? "Moderator" : ""}</h5>
                             </div>
                         </section>
                     </div>
@@ -214,13 +221,6 @@
                                         Go to Thread
                                     </a>
                                 </li>
-                                <li>
-                                    <a
-                                        href="#go-to-bookmark-servlet"
-                                        >
-                                        Bookmark
-                                    </a>
-                                </li>                              
                             </ul>
                         </header>
 
@@ -245,17 +245,11 @@
                             <div class="post-action">
                                 <div class="post-action-bar">
                                     <a href="#" class="post-reply-button">Delete</a>
-                                    <a
-                                        href="javascript:void(0)"
-                                        class="post-reply-button"
-                                        onclick="doReply(${post.postID})"
-                                        >Reply</a
-                                    >
                                 </div>
                                 <div class="">
-                                     <a href="javascript:void(0)" onclick="doReport('${contextPath}',${post.postID}, 'post')"
-                                           >Report</a
-                                        >
+                                    <a href="javascript:void(0)" onclick="doReport('${contextPath}',${post.postID}, 'post')"
+                                       >Report</a
+                                    >
                                 </div>
                             </div>
                         </footer>

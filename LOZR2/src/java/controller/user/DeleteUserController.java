@@ -65,12 +65,17 @@ public class DeleteUserController extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
         }
+        String raw_select = request.getParameter("select");
+        if(raw_select == null || raw_select.isEmpty()){
+            raw_select = "false";
+        }
+        boolean select = Boolean.valueOf(raw_select);
         int userID = Integer.parseInt(raw_id);
         UserDBContext userDBC = new UserDBContext();
         User currentUser = (User) request.getSession().getAttribute("currentUser");
         User thatUser = userDBC.getUser(userID);
         if (currentUser.isModerator() || currentUser.getUserID() == thatUser.getUserID()) {
-            userDBC.updateStatus(userID, false);
+            userDBC.updateStatus(userID, select);
         } else {
             String errorMessage = "You do not have permission";
             request.setAttribute("errorMessage", errorMessage);

@@ -18,7 +18,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${forum.name} | L0ZR</title>
+        <title>${forum.name} | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -109,7 +110,7 @@
 
         <div class="main-zone">
             <ul class="breadcrumb">
-                <li><a href="#">Forums</a></li>
+                <li><a href="${contextPath}">Forums</a></li>
                 <li>${forum.name}</li>
             </ul>
             <div class="body-header">
@@ -200,12 +201,12 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="thread-cell thread-status">
-                        <dl class="thread-status-pair">
-                            <dt>Replies</dt>
-                            <dd>${thread.numPosts}</dd>
-                        </dl>
-                    </div>
+                   <div class="thread-cell thread-status">
+                            <table class="thread-status-pair">                            
+                                <tr><td>Replies</td></tr>
+                                <tr><td>${thread.numPosts}</td></tr>                              
+                            </table>
+                        </div>
                     <div class="thread-cell thread-cell-option  dropdown">
                         <c:if test="${!empty your}">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>

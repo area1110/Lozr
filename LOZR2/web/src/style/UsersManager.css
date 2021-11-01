@@ -44,6 +44,8 @@ and open the template in the editor.
 
 .user-report {
     max-width: 15em;
+    border-left: 2px solid #CCC;
+    border-right: 2px solid #CCC;
 }
 
 

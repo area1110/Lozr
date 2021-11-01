@@ -19,6 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${user.loginName} | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -47,7 +48,7 @@
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
-            <form onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
+            <form id="hidden-form" onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
                 <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
@@ -99,7 +100,8 @@
                     </div>
                     <div class="user-cell user-info">
                         <div class="user-loginname">
-                            <h2>${user.loginName}</h2>
+                            
+                            <h2 ${user.active? "" : "class=\" deactive\""}>${user.loginName}</h2>
                             <div class="user-detail">
                                 <table class="user-detail-name">
                                     <tr class="user-joineddate">
@@ -111,7 +113,6 @@
                                     <tr>
                                         <td><span>Email:</span></td>
                                         <td>  <span>${user.emailAddress}</span></td>
-
                                     </tr>
                                     <tr class="user-firstname">
                                         <td><span>FirstName:</span></td>
@@ -139,14 +140,20 @@
                             <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
                             <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
                                 <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
-                                <c:if test="${your.moderator}">
+                                 <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />
                                         <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
                                                ${user.moderator? "checked" : ""} type="checkbox">
                                         <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                     </form>
-                                    <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                    <c:if test="${user.active}">
+                                        <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
+                                        <a onclick="reloadDelay()" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                    </c:if>
+                                    <c:if test="${!user.active}">
+                                        <a onclick="reloadDelay()" href="${contextPath}/delete/user?id=${user.userID}&select=true" target="dummyframe">Unban</a>
+                                    </c:if>
                                 </c:if>
                             </div>
                         </c:if>
@@ -172,9 +179,7 @@
                 </div>
             </div>
             <c:forEach items="${threads}" var="thread">
-
                 <div class="thread-table thread-card">
-
                     <div class="thread-cell thread-cell-author">
                         <div class="">
                             <a href="${transToPath.compressObjectToPath(contextPath, "user", "", thread.startedBy.userID)}">
@@ -182,10 +187,9 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="thread-cell">
                         <div class="thread-subject">
-                            <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
+                            <a id="threadsubject-${thread.threadID}" href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
                                 ${thread.subject}
                             </a>
                         </div>
@@ -218,7 +222,7 @@
                             <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
                             <a href="javascript:void(0)" onclick="doReport('${contextPath}',${thread.threadID}, 'thread')" >Report</a >
                             <c:if test="${your.userID == thread.startedBy.userID}">
-                                <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                <a onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
                             </c:if>
                             <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
                                 <a href="javascript:void(0)"  onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>

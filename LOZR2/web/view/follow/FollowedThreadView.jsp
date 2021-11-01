@@ -18,7 +18,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${forum.name} | L0ZR</title>
+        <title>Bookmark | L0ZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -87,7 +88,7 @@
                             <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
                         </nav>     
                     </c:if>
-                  
+
                 </div>
             </div>
         </header>
@@ -98,9 +99,9 @@
                 <li>BookMark</li>
             </ul>
             <div class="body-header">        
-                    <div  class="post-title" >
-                        <h1>BookMark</h1>
-                    </div>             
+                <div  class="post-title" >
+                    <h1>BookMark</h1>
+                </div>             
             </div>
 
             <!--ThreadZone-->
@@ -179,10 +180,10 @@
                     </div>
 
                     <div class="thread-cell thread-status">
-                        <dl class="thread-status-pair">
-                            <dt>Replies</dt>
-                            <dd>${thread.numPosts}</dd>
-                        </dl>
+                        <table class="thread-status-pair">                            
+                            <tr><td>Replies</td></tr>
+                            <tr><td>${thread.numPosts}</td></tr>                              
+                        </table>
                     </div>
                     <div class="thread-cell thread-cell-option  dropdown">
                         <c:if test="${!empty your}">

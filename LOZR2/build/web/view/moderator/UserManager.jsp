@@ -20,7 +20,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>${forum.name} | L0ZR</title>
+        <title> User management | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -150,7 +151,6 @@
 
                         </a>
                         <div class="user-cell user-report">
-                            <span>Reason:</span>
                             <span>${report.reason}</span>
                         </div>
 
@@ -163,7 +163,7 @@
                                            ${user.moderator? "checked" : ""} type="checkbox">
                                     <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
-                                <a>Ban</a>
+                               <a onclick="reloadDelay(1000)" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
                                    <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/user?id=${user.userID}">Remove From List</a>
                             </div>
 

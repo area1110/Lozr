@@ -15,6 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${requestScope.query} | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -164,25 +165,25 @@
                     </div>
 
                     <div class="thread-cell thread-status">
-                        <dl class="thread-status-pair">
-                            <dt>Replies</dt>
-                            <dd>${thread.numPosts}</dd>
-                        </dl>
+                        <table class="thread-status-pair">                            
+                            <tr><td>Replies</td></tr>
+                            <tr><td>${thread.numPosts}</td></tr>                              
+                        </table>
                     </div>
 
                     <div class="thread-cell thread-cell-option  dropdown">
-                       <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                            <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
-                                <a   href="javascript:void(0)"  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
-                                <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a   href="javascript:void(0)" onclick="openForm(${thread.threadID});">Change Title</a>
-                                </c:if>
+                        <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
+                        <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
+                            <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
+                            <a   href="javascript:void(0)"  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
+                            <c:if test="${your.userID == thread.startedBy.userID}">
+                                <a   href="javascript:void(0)" onclick="openForm(${thread.threadID});">Change Title</a>
+                            </c:if>
 
-                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                    <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
-                                </c:if>
-                            </div>
+                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
+                            </c:if>
+                        </div>
                     </div>
                 </div>
             </c:forEach>

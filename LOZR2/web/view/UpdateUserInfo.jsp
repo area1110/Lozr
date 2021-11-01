@@ -20,7 +20,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
 
-        <title>Change Info | L0ZR</title>
+        <title>Change Info | LOZR</title>
+          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />

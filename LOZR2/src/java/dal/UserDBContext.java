@@ -215,7 +215,7 @@ public class UserDBContext extends DBContext {
         try {
             connection.setAutoCommit(false);
             String sqlStatement = "SELECT UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
-                    + "UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
+                    + "UserDateJoined, UserImageAvatar , UserIsMod, UserIsActive FROM UserInfo\n"
                     + "WHERE UserID=?"; //'" + userLoginName + "'
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);
@@ -231,6 +231,7 @@ public class UserDBContext extends DBContext {
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
+                user.setActive(rs.getBoolean("UserIsActive"));
 
                 String sql_count_PostThread = "SELECT (SELECT COUNT([ThreadID]) \n"
                         + "	FROM [Thread]\n"
