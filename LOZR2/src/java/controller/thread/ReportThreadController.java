@@ -31,7 +31,11 @@ public class ReportThreadController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         
+        int threadID = Integer.parseInt(request.getParameter("id"));
+        String reason = request.getParameter("reason");
+        ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
+        reportThreadDBC.setReport(threadID, reason);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,7 +50,7 @@ public class ReportThreadController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
+        processRequest(request, response);
     }
 
     /**
@@ -60,11 +64,8 @@ public class ReportThreadController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                processRequest(request, response);
-         int threadID = Integer.parseInt(request.getParameter("id"));
-         String reason = request.getParameter("reason");
-          ReportThreadDBContext reportThreadDBC = new ReportThreadDBContext();
-          reportThreadDBC.setReport(threadID, reason);
+        processRequest(request, response);
+
     }
 
     /**

@@ -19,7 +19,7 @@
         <meta charset="utf-8" />
         <title>${thread.subject} | L0ZR</title>
 
-              <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
@@ -40,6 +40,18 @@
             />
     </head>
     <body class="u-body">
+        
+        <div class="form-popup" id="formEdit">
+            <form id="hidden-form" onsubmit="reloadDelay(500)" target="dummyframe" action="${contextPath}/update/post" method="POST" class="form-container">
+                <h2>Edit Thread</h2>
+                <input type="hidden" id="elementeID"  name="postID"/> 
+                <label  for="postContent">Edit Your Reply</label>
+                <textarea class="post-subject-textarea text-insert" id="postContent"  name="postContent"></textarea>
+                <button type="submit" class="btn">Save</button>
+                <button type="button" class="btn" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+                
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
@@ -74,8 +86,8 @@
         </header>
 
         <div class="main-zone">
-             <div class="content-select">       
-                 <a href="thread"
+            <div class="content-select">       
+                <a href="thread"
                    class="button button-change-content" >
                     THREADS MANAGEMENT
                 </a>
@@ -140,7 +152,7 @@
                             </time>
                             <ul class="post-attribute-list">
                                 <li>
-                                    <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}#${post.postID}">Go to thread</a>
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "thread", "", post.threadId)}">Go to thread</a>
                                 </li>
                             </ul>
                         </header>
@@ -160,20 +172,17 @@
                                     </div>
                                 </blockquote>
                             </c:if>
-                            <pre name="${post.postID}">${post.subject}</pre>
+                            <pre id="postsubject-${post.postID}" name="${post.postID}">${post.subject}</pre>
                         </div>
                         <footer class="post-footer">
                             <div class="post-action">
                                 <div class="post-action-bar">
+                                    <c:if test="${your.userID==post.user.userID}">
+                                        <a href="javascript:void(0)" onclick="openForm(${post.postID}, 'postsubject')" class="post-reply-button">Edit</a>
+                                    </c:if>
                                     <c:if test="${your.moderator || your.userID==post.user.userID}">
                                         <a href="javascript:void(0)" onclick="doDelete('${contextPath}', ${post.postID}, 'post')" class="post-reply-button">Delete</a>
                                     </c:if>
-                                    <!--                                    <a
-                                                                            href="#post-create"
-                                                                            class="post-reply-button"
-                                                                            onclick="doReply(${post.postID})"
-                                                                            >Reply</a
-                                                                        >-->
                                 </div>
                                 <div class="">
                                     <a href="${contextPath}/admin/report/post?id=${post.postID}"

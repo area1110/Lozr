@@ -22,7 +22,7 @@
         <meta charset="utf-8" />
         <title>${forum.name} | L0ZR</title>
 
-       <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
@@ -46,7 +46,7 @@
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
-            <form target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
+            <form id="hidden-form" onsubmit="reloadDelay(500)" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
                 <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
@@ -91,8 +91,8 @@
         </header>
 
         <div class="main-zone">
-             <div class="content-select">      
-                   <a href="thread"
+            <div class="content-select">      
+                <a href="thread"
                    class="button button-change-content active" >
                     THREADS MANAGEMENT
                 </a>
@@ -119,7 +119,7 @@
 
             <c:forEach items="${reports}" var="report">
                 <c:set var="thread" value="${report.thread}"/>
-                <a href="#ádfa">
+          
                     <div class="thread-table thread-card">
 
                         <div class="thread-cell thread-cell-author">
@@ -131,7 +131,7 @@
                         </div>
                         <div class="thread-cell">
                             <div class="thread-subject">
-                                <a
+                                <a id="threadsubject-${thread.threadID}"
                                     href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}"
                                     >${thread.subject}</a>
                             </div>
@@ -165,20 +165,16 @@
                         </div>                
                         <div class="thread-cell thread-cell-option  dropdown">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                            <div id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="#">Bookmar</a>  
+                             <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                      <a   href="javascript:void(0)" onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
                                 </c:if>
                                 <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
                                 <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
                             </div>
                         </div>
                     </div>
-
-                </a>
-
-
             </c:forEach>
             <div class="align-right">
                 <div id="pagerBottom" class="pagination" ></div>

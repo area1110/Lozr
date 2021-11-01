@@ -253,9 +253,9 @@
                                     >
                                 </div>
                                 <div class="">
-                                    <a href="${contextPath}/report/post?id=${post.postID}" class=""
-                                       >Report</a
-                                    >
+                                     <a href="javascript:void(0)" onclick="doReport('${contextPath}',${post.postID}, 'post')"
+                                           >Report</a
+                                        >
                                 </div>
                             </div>
                         </footer>

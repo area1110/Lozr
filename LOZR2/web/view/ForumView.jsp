@@ -215,7 +215,6 @@
                                 <c:if test="${your.userID == thread.startedBy.userID}">
                                     <a   href="javascript:void(0)" onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
                                 </c:if>
-
                                 <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
                                     <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
                                 </c:if>

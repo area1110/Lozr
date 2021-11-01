@@ -216,7 +216,7 @@
                         <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
                         <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
                             <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
-                            <a   href="javascript:void(0)" onclick="alert('This thread has been reported to moderator');" target="dummyframe" href="${contextPath}/report/thread?id=${thread.threadID}">Report</a>
+                            <a href="javascript:void(0)" onclick="doReport('${contextPath}',${thread.threadID}, 'thread')" >Report</a >
                             <c:if test="${your.userID == thread.startedBy.userID}">
                                 <a onclick="openForm(${thread.threadID});">Change Title</a>
                             </c:if>

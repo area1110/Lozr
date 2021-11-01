@@ -58,7 +58,7 @@ function showDropdownMenu(id) {
 
 
 function reloadDelay(time) {
-    if(!time){
+    if (!time) {
         time = 500;
     }
     window.setTimeout(() => {
@@ -100,10 +100,6 @@ function doDeleteReport(rootPath, ID, reportFor) {
 }
 
 function doReport(rootPath, ID, reportFor) {
-//    "     <form id="form-report" target="dummyframe" action="${contextPath}/report/thread" method="Post">
-//                                <input type="hidden" name="reason">
-//                                <input type="hidden" name="id">
-//                            <!--</form>-->
     const dummyframe = document.querySelector("#dummyframe");
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -135,9 +131,9 @@ function doReport(rootPath, ID, reportFor) {
 //popup-form-edit
 function openForm(ID, select) {
     document.getElementById("formEdit").style.visibility = "visible";
-    let form = document.getElementById("hidden-form") ;
-   form[0].value = ID;
-   form[1].value = document.getElementById(select + '-' + ID).innerHTML;
+    let form = document.getElementById("hidden-form");
+    form[0].value = ID;
+    form[1].value = document.getElementById(select + '-' + ID).innerHTML;
 }
 
 function closeForm() {

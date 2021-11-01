@@ -83,6 +83,7 @@ public class PostController extends HttpServlet {
 
         PostDBContext postDBC = new PostDBContext();
         postDBC.setPost(post);
+        response.sendRedirect(request.getHeader("referer").split("[?]")[0]);
     }
 
     /**

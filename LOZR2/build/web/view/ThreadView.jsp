@@ -43,10 +43,9 @@
         
          <div class="form-popup" id="formEdit">
             <form id="hidden-form" onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/post" method="POST" class="form-container">
-                <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="postID"/> 
                 <label  for="postContent">Edit Your Reply</label>
-                <textarea class="post-subject-textarea text-insert" id="postContent"  name="postContent"></textarea>
+                <textarea class="post-subject-textarea edit text-insert" id="postContent"  name="postContent"></textarea>
                 <button type="submit" class="btn">Save</button>
                 <button type="button" class="btn" onclick="closeForm()">Close</button>
             </form>
@@ -261,7 +260,7 @@
                             </blockquote>
 
                             <div class="post-create" id="post-create">
-                                <form onsubmit="reloadDelay();" target="dummyframe" action="../post" method="POST" class="post-create-form">
+                                <form action="${contextPath}/post" method="POST" class="post-create-form">
                                     <input type="hidden" name="replyID" id="replyID" value="" />
                                     <input type="hidden" name="threadID" value="${thread.threadID}"/>
                                     <div>
