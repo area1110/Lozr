@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>LogIn | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/LogIn.css" />
@@ -31,6 +31,15 @@
 
     </head>
     <body class="u-body">
+        <div class="form-popup" id="formEdit">
+            <form id="hidden-form" action="${contextPath}/auth/resetpassword" method="POST" class="form-container">
+                <h2>Reset Your Password</h2>
+                <label  for="threadSubject">User LoginName</label>
+                <input type="text" placeholder="Your loginName" name="loginName">
+                <button type="submit" class="btn">Send</button>
+                <button type="button" class="btn" onclick="closeForm()">Close</button>
+            </form>
+        </div>
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
@@ -130,31 +139,25 @@
                                 </div>                              
                             </form>
                         </div>
-                        <!--                        <p
-                                                    class="u-text u-text-default u-text-palette-1-base u-text-2"
-                                                    data-animation-name="fadeIn"
-                                                    data-animation-duration="1000"
-                                                    data-animation-delay="0"
-                                                    >
-                                                    Forgot your<span style="font-style: italic">
-                                                        <span style="text-decoration: underline !important"
-                                                              >User name</span
-                                                        ><span style="font-style: normal">
-                                                            or<span style="font-weight: 700">
-                                                                <span style="font-weight: 400; font-style: italic"></span>
-                                                                <span style="font-weight: 400; font-style: italic"></span>
-                                                                <span style="font-style: italic">
-                                                                    <span style="font-weight: 400">
-                                                                        <span style="text-decoration: underline !important">
-                                                                            Password</span
-                                                                        >
-                                                                    </span>
-                                                                    <span style="font-weight: 400"></span>
-                                                                </span>
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                </p>-->
+                        <p
+                            class="u-text u-text-default u-text-palette-1-base u-text-2"
+                            data-animation-name="fadeIn"
+                            data-animation-duration="1000"
+                            data-animation-delay="0"
+                            >
+                            Forgot your<span style="font-style: italic">
+                                <span style="text-decoration: underline !important"
+                                      > <a href="javascript:void(0)" onclick="openForm()"
+                                      style="
+                                      font-style: italic;
+                                      text-decoration: underline !important;
+                                      "
+                                      >Password</a
+                                    ></span
+                                >
+                            </span>
+                            </span>
+                        </p>
                         <p class="u-text u-text-default u-text-palette-1-base u-text-3">
                             New to<span style="font-weight: 700">
                                 LOZR<span style="font-weight: 400">

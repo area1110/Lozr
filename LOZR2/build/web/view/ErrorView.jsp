@@ -19,7 +19,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
-        <title>Error | LOZR</title>
+        <title>Notice | LOZR</title>
           <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
@@ -101,7 +101,8 @@
 
             <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
                 <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                    <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">${errorMessage}</h1>
+                    <h2 class="u-align-center-xs u-custom-font u-font-playfair-display u-text">${errorMessage}</h2>
+                    <h4>${message}</h4>
                 </div>
             </div>
 

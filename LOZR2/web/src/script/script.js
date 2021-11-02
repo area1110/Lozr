@@ -131,9 +131,11 @@ function doReport(rootPath, ID, reportFor) {
 //popup-form-edit
 function openForm(ID, select) {
     document.getElementById("formEdit").style.visibility = "visible";
-    let form = document.getElementById("hidden-form");
-    form[0].value = ID;
-    form[1].value = document.getElementById(select + '-' + ID).innerHTML;
+    if (ID && select) {
+        let form = document.getElementById("hidden-form");
+        form[0].value = ID;
+        form[1].value = document.getElementById(select + '-' + ID).innerHTML;
+    }
 }
 
 function closeForm() {

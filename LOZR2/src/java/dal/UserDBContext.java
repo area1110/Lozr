@@ -31,7 +31,7 @@ public class UserDBContext extends DBContext {
             return -2;
         }
         try {
-            String sqlStatement =  "EXEC AddUser\n"
+            String sqlStatement = "EXEC AddUser\n"
                     + " @pLoginName=?,\n"
                     + " @pPassword=?,\n"
                     + " @pFirstName=?,\n"
@@ -76,7 +76,7 @@ public class UserDBContext extends DBContext {
                 user.setTimeJoined(rs.getTimestamp("UserDateJoined"));
                 user.setModerator(rs.getBoolean("UserIsMod"));
                 user.setAvatar(rs.getString("UserImageAvatar"));
-                     String sql_selectModForum = "SELECT [UserID]\n"
+                String sql_selectModForum = "SELECT [UserID]\n"
                         + "      ,[ForumID]\n"
                         + "  FROM [User_Forum]\n"
                         + "  WHERE UserID=?";
@@ -93,12 +93,34 @@ public class UserDBContext extends DBContext {
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
                 Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        return null;
+    }
+
+    public User getUserEmail(String userLoginName) {
+
+        try {
+            String sqlStatement = "SELECT UserID, UserEmailAddress\n"
+                    + "FROM UserInfo\n"
+                    + "WHERE UserLoginName=? AND UserIsActive = 1"; //'" + userLoginName + "'
+            PreparedStatement stm = connection.prepareStatement(sqlStatement);
+            stm.setNString(1, userLoginName);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setEmailAddress(rs.getString("UserEmailAddress"));
+                user.setLoginName(userLoginName);
+                return user;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -142,8 +164,7 @@ public class UserDBContext extends DBContext {
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+        } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
@@ -158,7 +179,7 @@ public class UserDBContext extends DBContext {
             String sql_count_user = "SELECT COUNT(UserID) as TotalRecord FROM  UserInfo\n"
                     + "  WHERE UserIsActive = 1 AND UserID != ? AND (UserLoginName LIKE '%' + ? + '%'\n"
                     + "  OR UserEmailAddress LIKE '%' + ? + '%')";
-            PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);           
+            PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);
             stm_count_user.setInt(1, exept);
             stm_count_user.setString(2, query);
             stm_count_user.setString(3, query);
@@ -172,7 +193,7 @@ public class UserDBContext extends DBContext {
         return 0;
     }
 
-    public ArrayList<User> getUsersByName(String query, int exept , int pageIndex) {
+    public ArrayList<User> getUsersByName(String query, int exept, int pageIndex) {
         ArrayList<User> users = new ArrayList<>();
         int fromToRecord[] = PagingModule.calcFromToRecord(pageIndex);
         try {
@@ -275,6 +296,21 @@ public class UserDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void updateUserPassword(int userId, String newpass) {
+        try {
+            String sql_update = "UPDATE [UserInfo]"
+                    + "SET [UserPasswordHash] = HASHBYTES('SHA2_512', CAST(? AS VARCHAR(300)))"
+                    + "WHERE UserID = ?";
+            PreparedStatement stm_update = connection.prepareStatement(sql_update);
+            stm_update.setString(1, newpass);
+            stm_update.setInt(2, userId);
+            stm_update.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public int updateUserInfo(User user) {

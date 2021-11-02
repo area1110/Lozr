@@ -142,8 +142,6 @@
     position: relative;
 }
 
-
-
 #blockreply {
     display: none;
 }
@@ -180,7 +178,8 @@ textarea.post-subject-textarea.edit{
     .post-user-cell {
         border-bottom: none;
         border-right: 1px solid rgba(128, 128, 128, 0.39);
-        width: 10em;
+        min-width: 10em;
+        max-width: 10em;
     }
 
     .post-user {

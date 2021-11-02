@@ -48,16 +48,18 @@ public class CheckCookieFilter implements Filter {
         httpRequest.setCharacterEncoding("UTF-8"); //set encode for all servlet
         Cookie[] cookie = httpRequest.getCookies();
         if (cookie != null) {
-            String loginName = "";
+            String userId = "";
             for (Cookie c : cookie) {
-                if (c.getName().equals("loginName")) {
-                    loginName = c.getValue();
+                if (c.getName().equals("userId")) {
+                    userId = c.getValue();
                     break;
                 }
             }
-            User user = (new UserDBContext()).getUser(loginName);
-            if (user != null) {
-                httpRequest.getSession().setAttribute("currentUser", user);
+            if (!userId.isEmpty()) {
+                User user = (new UserDBContext()).getUser(Integer.parseInt(userId));
+                if (user != null) {
+                    httpRequest.getSession().setAttribute("currentUser", user);
+                }
             }
         }
 

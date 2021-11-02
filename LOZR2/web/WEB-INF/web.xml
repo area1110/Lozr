@@ -127,6 +127,10 @@
         <servlet-name>UpdatePostController</servlet-name>
         <servlet-class>controller.post.UpdatePostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>controller.authentication.ResetPasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -234,6 +238,10 @@
     <servlet-mapping>
         <servlet-name>UpdatePostController</servlet-name>
         <url-pattern>/update/post</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/auth/resetpassword</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

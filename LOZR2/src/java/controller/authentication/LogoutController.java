@@ -35,7 +35,7 @@ public class LogoutController extends HttpServlet {
         session.removeAttribute("currentUser");
         Cookie[] cookies = request.getCookies();
         for (Cookie c : cookies) {
-            if(c.getName().equals("loginName")){
+            if(c.getName().equals("userId")){
                 c.setMaxAge(0);
                 response.addCookie(c);
                 break;

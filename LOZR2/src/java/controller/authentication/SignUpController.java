@@ -106,10 +106,9 @@ public class SignUpController extends HttpServlet {
                 request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
             case 1:
-                UserDBContext userInfoDBC = new UserDBContext();
-                User user = userInfoDBC.getUser(loginName);
+                User user = userDBC.getUser(loginName);
                 request.getSession().setAttribute("currentUser", user);
-                Cookie cookie = new Cookie("loginName", loginName);
+                Cookie cookie = new Cookie("userId", "" + user.getUserID());
                 cookie.setMaxAge(24 * 60 * 60);
                 response.addCookie(cookie);
                 response.sendRedirect(request.getContextPath());
