@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${thread.subject} | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -41,8 +41,8 @@
             />
     </head>
     <body class="u-body">
-        
-         <div class="form-popup" id="formEdit">
+
+        <div class="form-popup" id="formEdit">
             <form id="hidden-form" onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/post" method="POST" class="form-container">
                 <input type="hidden" id="elementeID"  name="postID"/> 
                 <label  for="postContent">Edit Your Reply</label>
@@ -51,7 +51,7 @@
                 <button type="button" class="btn" onclick="closeForm()">Close</button>
             </form>
         </div>
-        
+
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
@@ -192,10 +192,10 @@
                             <pre  id="postsubject-${post.postID}" name="${post.postID}">${post.subject}</pre>
                         </div>
                         <footer class="post-footer">
-                            <c:if test="${!empty your}">
-                                <div class="post-action">
+                            <div class="post-action">
+                                <c:if test="${!empty your}">
                                     <div class="post-action-bar">
-                                         <c:if test="${your.userID==post.user.userID}">
+                                        <c:if test="${your.userID==post.user.userID}">
                                             <a href="javascript:void(0)" onclick="openForm(${post.postID}, 'postsubject')" class="post-reply-button">Edit</a>
                                         </c:if>
                                         <c:if test="${your.moderator || your.userID==post.user.userID}">
@@ -213,8 +213,8 @@
                                            >Report</a
                                         >
                                     </div>
-                                </div>
-                            </c:if>
+                                </c:if>
+                            </div>
                         </footer>
                     </div>
                 </div>

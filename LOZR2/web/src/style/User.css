@@ -73,3 +73,36 @@ span {
     font-size: 20px ;
     border: 2px solid #259bca;
 }
+
+@media screen and (max-width:750px ){
+    .user-cell {
+        display: block;
+    }
+    .user-avatar {
+        width: inherit;
+        text-align: center;
+        padding-bottom: 0;
+    }
+    .user-avatar img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .user-info {
+        padding-bottom: 0;
+    }
+    .user-loginname h2 {
+        text-align: center;
+        font-size: 35px;
+    }
+
+    .user-detail-name {
+        border-left: none;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #79c9af;
+    }
+
+    .user-cell-report ,  .user-detail-name, .user-total-numbers{
+        margin: 0 auto;
+    }
+}

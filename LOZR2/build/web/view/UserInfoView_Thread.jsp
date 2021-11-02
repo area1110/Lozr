@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${user.loginName} | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -65,28 +65,47 @@
                     </a>
                 </div>
                 <div class="header-action">
-                    <div class="header-action-item">
-                        <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
-                            <div class="header-user">                
-                                <span  class="header-user-name header-action-item"  >
-                                    ${(empty your.loginName)? "Account": your.loginName}
-                                </span>
-                                <img  class="header-avatar header-action-item" src="${your.avatar}" />    
-                            </div>
-                        </a>
-                    </div>
-                    <nav class="header-action-item">
-                        <div id="mySidepanel" class="sidepanel">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                            <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            <c:if test="${your.moderator}" >                             
-                                <a href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
-                            </c:if>
-                            <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
-                            <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                    <c:if test="${!empty your}">
+                        <div class="header-action-item">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                                <div class="header-user">                
+                                    <span  class="header-user-name header-action-item"  >
+                                        ${(empty your.loginName)? "Account": your.loginName}
+                                    </span>
+                                    <img  class="header-avatar header-action-item" src="${your.avatar}" />    
+                                </div>
+                            </a>
                         </div>
-                        <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
-                    </nav>              
+                        <nav class="header-action-item">
+                            <div id="mySidepanel" class="sidepanel">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
+                                <c:if test="${your.moderator}" >
+                                    <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
+                                </c:if>
+                                <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
+                                <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
+                                <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                            </div>
+                            <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                        </nav>     
+                    </c:if>
+                    <c:if test="${empty your}">
+                        <div class="header-action-item">
+                            <div class="header-user">                
+                                <a href="${contextPath}/signup">
+                                    <span  class="header-user-name header-action-item"  >
+                                        Sign Up
+                                    </span>
+                                </a>
+                                <a href="${contextPath}/login">
+                                    <span    class="header-user-name header-action-item"  >
+                                        Log In
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </header>
@@ -100,7 +119,6 @@
                     </div>
                     <div class="user-cell user-info">
                         <div class="user-loginname">
-                            
                             <h2 ${user.active? "" : "class=\" deactive\""}>${user.loginName}</h2>
                             <div class="user-detail">
                                 <table class="user-detail-name">
@@ -136,11 +154,10 @@
                         </div>
                     </div>
                     <div class="user-cell user-cell-report dropdown">
-                        <c:if test="${your.userID != user.userID}">
+                        <c:if test="${your.userID != user.userID and !empty your}">
                             <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
-                            <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
-                                <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
-                                 <c:if test="${your.moderator}">
+                            <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">                         
+                                <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />
                                         <input id="moderator-tickbox-${user.userID}" name="isAdmin" onchange ="changePermission('${user.userID}');" 
@@ -216,19 +233,21 @@
                             <dd>${thread.numPosts}</dd>
                         </dl>
                     </div>
-                    <div class="thread-cell thread-cell-option  dropdown">
-                        <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
-                        <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
-                            <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
-                            <a href="javascript:void(0)" onclick="doReport('${contextPath}',${thread.threadID}, 'thread')" >Report</a >
-                            <c:if test="${your.userID == thread.startedBy.userID}">
-                                <a onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
-                            </c:if>
-                            <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
-                                <a href="javascript:void(0)"  onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
-                            </c:if>
+                    <c:if test="${!empty your}">
+                        <div class="thread-cell thread-cell-option  dropdown">
+                            <button onclick="showDropdownMenu('thread-${thread.threadID}')" class="dropbtn">Option</button>
+                            <div onclick="showDropdownMenu('thread-${thread.threadID}')" id="myDropdown-thread-${thread.threadID}" class="dropdown-content">
+                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
+                                <a href="javascript:void(0)" onclick="doReport('${contextPath}',${thread.threadID}, 'thread')" >Report</a >
+                                <c:if test="${your.userID == thread.startedBy.userID}">
+                                    <a onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
+                                </c:if>
+                                <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
+                                    <a href="javascript:void(0)"  onclick="doDelete(${thread.threadID}, 'thread');">Delete</a>
+                                </c:if>
+                            </div>
                         </div>
-                    </div>
+                    </c:if> 
                 </div>
 
             </c:forEach>

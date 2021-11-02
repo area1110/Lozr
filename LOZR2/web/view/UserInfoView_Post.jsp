@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${user.loginName} | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -64,28 +64,47 @@
                     </a>
                 </div>
                 <div class="header-action">
-                    <div class="header-action-item">
-                        <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
-                            <div class="header-user">                
-                                <span  class="header-user-name header-action-item"  >
-                                    ${(empty your.loginName)? "Account": your.loginName}
-                                </span>
-                                <img  class="header-avatar header-action-item" src="${your.avatar}" />    
-                            </div>
-                        </a>
-                    </div>
-                    <nav class="header-action-item">
-                        <div id="mySidepanel" class="sidepanel">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                            <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            <c:if test="${your.moderator}" >                             
-                                <a href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
-                            </c:if>
-                            <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
-                            <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                    <c:if test="${!empty your}">
+                        <div class="header-action-item">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                                <div class="header-user">                
+                                    <span  class="header-user-name header-action-item"  >
+                                        ${(empty your.loginName)? "Account": your.loginName}
+                                    </span>
+                                    <img  class="header-avatar header-action-item" src="${your.avatar}" />    
+                                </div>
+                            </a>
                         </div>
-                        <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
-                    </nav>              
+                        <nav class="header-action-item">
+                            <div id="mySidepanel" class="sidepanel">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
+                                <c:if test="${your.moderator}" >
+                                    <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
+                                </c:if>
+                                <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
+                                <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
+                                <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                            </div>
+                            <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                        </nav>     
+                    </c:if>
+                    <c:if test="${empty your}">
+                        <div class="header-action-item">
+                            <div class="header-user">                
+                                <a href="${contextPath}/signup">
+                                    <span  class="header-user-name header-action-item"  >
+                                        Sign Up
+                                    </span>
+                                </a>
+                                <a href="${contextPath}/login">
+                                    <span    class="header-user-name header-action-item"  >
+                                        Log In
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </c:if>             
                 </div>
             </div>
         </header>
@@ -136,7 +155,7 @@
                         </div>
                     </div>
                     <div class="user-cell user-cell-report dropdown">
-                        <c:if test="${your.userID != user.userID}">
+                       <c:if test="${your.userID != user.userID and !empty your}">
                             <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
                             <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
 
@@ -149,10 +168,10 @@
                                     </form>
                                     <c:if test="${user.active}">
                                         <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
-                                        <a href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                        <a onclick="reloadDelay()" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
                                     </c:if>
                                     <c:if test="${!user.active}">
-                                        <a href="${contextPath}/delete/user?id=${user.userID}&select=true" target="dummyframe">Unban</a>
+                                        <a onclick="reloadDelay()" href="${contextPath}/delete/user?id=${user.userID}&select=true" target="dummyframe">Unban</a>
                                     </c:if>
                                 </c:if>
                             </div>
@@ -242,15 +261,18 @@
                             <p name="${post.postID}">${post.subject}</p>
                         </div>
                         <footer class="post-footer">
+
                             <div class="post-action">
-                                <div class="post-action-bar">
-                                    <a href="#" class="post-reply-button">Delete</a>
-                                </div>
-                                <div class="">
-                                    <a href="javascript:void(0)" onclick="doReport('${contextPath}',${post.postID}, 'post')"
-                                       >Report</a
-                                    >
-                                </div>
+                                <c:if test="${!empty your}">
+                                    <div class="post-action-bar">
+                                        <a href="#" class="post-reply-button">Delete</a>
+                                    </div>
+                                    <div class="">
+                                        <a href="javascript:void(0)" onclick="doReport('${contextPath}',${post.postID}, 'post')"
+                                           >Report</a
+                                        >
+                                    </div>
+                                </c:if>
                             </div>
                         </footer>
                     </div>
