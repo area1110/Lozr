@@ -75,8 +75,9 @@
                         <div id="mySidepanel" class="sidepanel">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            <c:if test="${your.moderator}" >                             
-                            </c:if>
+                            
+                            <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>                         
+                            <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
                             <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
                             <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                         </div>
@@ -186,7 +187,7 @@
                                     </c:if>
                                 </div>
                                 <div class="">
-                                    <a href="${contextPath}/admin/report/post?id=${post.postID}"
+                                    <a target="dummyframe" onclick="reloadDelay()" href="${contextPath}/admin/report/post?id=${post.postID}"
                                        >Remove From List</a
                                     >
                                 </div>

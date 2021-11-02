@@ -21,9 +21,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title> User management | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
-       <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
+        <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/User.css" />
@@ -81,9 +81,9 @@
                         <div id="mySidepanel" class="sidepanel">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            <c:if test="${your.moderator}" >                             
-
-                            </c:if>
+                            
+                            <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>                         
+                            <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
                             <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
                             <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                         </div>
@@ -163,8 +163,8 @@
                                            ${user.moderator? "checked" : ""} type="checkbox">
                                     <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
-                               <a onclick="reloadDelay(1000)" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
-                                   <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/user?id=${user.userID}">Remove From List</a>
+                                <a onclick="reloadDelay(1000)" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/user?id=${user.userID}">Remove From List</a>
                             </div>
 
                             <div class="user-permisson">

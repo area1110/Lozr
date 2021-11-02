@@ -106,7 +106,9 @@
                                     </label>
                                     <input
                                         type="password"
-                                        placeholder="Password"
+                                        placeholder="Password (8-20 characters)"
+                                        minlength="8"
+                                        maxlength="20"
                                         id="password"
                                         name="password"
                                         class="
@@ -148,11 +150,11 @@
                             Forgot your<span style="font-style: italic">
                                 <span style="text-decoration: underline !important"
                                       > <a href="javascript:void(0)" onclick="openForm()"
-                                      style="
-                                      font-style: italic;
-                                      text-decoration: underline !important;
-                                      "
-                                      >Password</a
+                                     style="
+                                     font-style: italic;
+                                     text-decoration: underline !important;
+                                     "
+                                     >Password</a
                                     ></span
                                 >
                             </span>

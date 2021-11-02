@@ -14,7 +14,7 @@
         <meta charset="utf-8" />
 
         <title>SignUp | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/SignUp.css" />
@@ -105,9 +105,11 @@
                         <div class="u-form-group u-form-name u-form-group-2">
                             <input
                                 type="password"
-                                placeholder="Password"
+                                placeholder="Password (8-20 characters)"
                                 id="password"
                                 name="password"
+                                minlength="8"
+                                maxlength="20"
                                 oninput="check_pass();"
                                 class="
                                 u-border-1
@@ -142,7 +144,8 @@
                                 u-white
                                 u-input-3
                                 "
-                                required
+
+                                required=""
                                 />
                         </div>
                         <div class="u-form-email u-form-group u-form-group-4">

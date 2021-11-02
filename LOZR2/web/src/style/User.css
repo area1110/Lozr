@@ -28,6 +28,7 @@
 .user-loginname h2{
     margin-top: 10px;
     margin-bottom: 10px;
+    word-break: break-all;
 }
 .user-detail {
     /*margin-left: 10px;*/
@@ -99,7 +100,7 @@ span {
     .user-detail-name {
         border-left: none;
         padding-bottom: 10px;
-        border-bottom: 2px solid #79c9af;
+        border-bottom: 4px solid #79c9af;
     }
 
     .user-cell-report ,  .user-detail-name, .user-total-numbers{

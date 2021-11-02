@@ -66,7 +66,7 @@ public class SearchUserController extends HttpServlet {
         request.setAttribute("pageIndex", pageIndex);
         request.setAttribute("query", query);
         request.setAttribute("users", users);
-        request.getRequestDispatcher("/view/SearchUserView.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/search/SearchUserView.jsp").forward(request, response);
     }
 
     /**

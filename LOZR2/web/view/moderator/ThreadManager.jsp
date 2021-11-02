@@ -21,7 +21,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>Thread Management| LOZR</title>
-  <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
@@ -51,7 +51,7 @@
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
                 <input type="text" placeholder="New Name" name="threadSubject">
-                <button type="submit" class="btn">Save</button>
+                <button type="submit" class="btn" onclick="removeSpace()">Save</button>
                 <button type="button" class="btn" onclick="closeForm()">Close</button>
             </form>
         </div>
@@ -78,9 +78,9 @@
                         <div id="mySidepanel" class="sidepanel">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            <c:if test="${your.moderator}" >                             
 
-                            </c:if>
+                            <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>                         
+                            <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
                             <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
                             <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
                         </div>
@@ -119,60 +119,60 @@
 
             <c:forEach items="${reports}" var="report">
                 <c:set var="thread" value="${report.thread}"/>
-          
-                    <div class="thread-table thread-card">
 
-                        <div class="thread-cell thread-cell-author">
-                            <div class="">
-                                <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}">
-                                    <img src="${thread.startedBy.avatar}" />
-                                </a>
-                            </div>
-                        </div>
-                        <div class="thread-cell thread-cell-subject">
-                            <div class="thread-subject">
-                                <a id="threadsubject-${thread.threadID}"
-                                    href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}"
-                                    >${thread.subject}</a>
-                            </div>
-                            <div >
-                                <ul class="thread-item-part">
-                                    <li>
-                                        <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}" class="username"
-                                           >${thread.startedBy.loginName}</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <time class="thread-latestDate">
-                                            <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
-                                        </time>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="thread-table thread-card">
 
-                        <div class="thread-cell thread-status">
-                            <table class="thread-status-pair">                            
-                                <tr><td>Replies</td></tr>
-                                <tr><td>${thread.numPosts}</td></tr>                              
-                            </table>
-                        </div>
-                        <div class=" thread-cell thread-report">                
-                            <span>Reason: </span>                        
-                            <span>${report.reason}</span>                        
-                        </div>                
-                        <div class="thread-cell thread-cell-option  dropdown">
-                            <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
-                             <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
-                                <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
-                                <c:if test="${your.userID == thread.startedBy.userID}">
-                                      <a   href="javascript:void(0)" onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
-                                </c:if>
-                                <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
-                                <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
-                            </div>
+                    <div class="thread-cell thread-cell-author">
+                        <div class="">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}">
+                                <img src="${thread.startedBy.avatar}" />
+                            </a>
                         </div>
                     </div>
+                    <div class="thread-cell thread-cell-subject">
+                        <div class="thread-subject">
+                            <a id="threadsubject-${thread.threadID}"
+                               href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}"
+                               >${thread.subject}</a>
+                        </div>
+                        <div >
+                            <ul class="thread-item-part">
+                                <li>
+                                    <a href="${transToPath.compressObjectToPath(contextPath, "user", thread.startedBy.loginName, thread.startedBy.userID)}" class="username"
+                                       >${thread.startedBy.loginName}</a
+                                    >
+                                </li>
+                                <li>
+                                    <time class="thread-latestDate">
+                                        <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${thread.timeCreated}"/>
+                                    </time>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="thread-cell thread-status">
+                        <table class="thread-status-pair">                            
+                            <tr><td>Replies</td></tr>
+                            <tr><td>${thread.numPosts}</td></tr>                              
+                        </table>
+                    </div>
+                    <div class=" thread-cell thread-report">                
+                        <span>Reason: </span>                        
+                        <span>${report.reason}</span>                        
+                    </div>                
+                    <div class="thread-cell thread-cell-option  dropdown">
+                        <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
+                        <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
+                            <a href="${contextPath}/follow/thread?id=${thread.threadID}" target="dummyframe">Bookmark</a>
+                            <c:if test="${your.userID == thread.startedBy.userID}">
+                                <a   href="javascript:void(0)" onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
+                            </c:if>
+                            <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
+                            <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
+                        </div>
+                    </div>
+                </div>
             </c:forEach>
             <div class="align-right">
                 <div id="pagerBottom" class="pagination" ></div>

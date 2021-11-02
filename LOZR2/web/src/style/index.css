@@ -216,6 +216,7 @@ header {
     padding: 5px 15px;
     font-size: 15px;
     border: none;
+    display: inline-block;
 }
 
 .button:hover {
@@ -442,6 +443,7 @@ ul.breadcrumb li+li:before {
 
 .button-change-content {
     background-color: rgba(39, 153, 206, 0.644);
+    margin: 5px;
 }
 
 .button-change-content.active {

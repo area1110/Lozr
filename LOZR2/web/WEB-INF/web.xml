@@ -21,11 +21,11 @@
     </filter-mapping>
     <servlet>
         <servlet-name>ForumController</servlet-name>
-        <servlet-class>controller.forum.ForumController</servlet-class>
+        <servlet-class>controller.main.ForumController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HomeController</servlet-name>
-        <servlet-class>controller.home.HomeController</servlet-class>
+        <servlet-class>controller.main.HomeController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignUpController</servlet-name>
@@ -37,19 +37,19 @@
     </servlet>
     <servlet>
         <servlet-name>ThreadController</servlet-name>
-        <servlet-class>controller.thread.ThreadController</servlet-class>
+        <servlet-class>controller.main.ThreadController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostController</servlet-name>
-        <servlet-class>controller.post.PostController</servlet-class>
+        <servlet-class>controller.main.PostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteForumController</servlet-name>
-        <servlet-class>controller.forum.DeleteForumController</servlet-class>
+        <servlet-class>controller.delete.DeleteForumController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteThreadController</servlet-name>
-        <servlet-class>controller.thread.DeleteThreadController</servlet-class>
+        <servlet-class>controller.delete.DeleteThreadController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReportController</servlet-name>
@@ -57,7 +57,7 @@
     </servlet>
     <servlet>
         <servlet-name>UserPageController</servlet-name>
-        <servlet-class>controller.user.UserPageController</servlet-class>
+        <servlet-class>controller.main.UserPageController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
@@ -65,15 +65,15 @@
     </servlet>
     <servlet>
         <servlet-name>DeletePostController</servlet-name>
-        <servlet-class>controller.post.DeletePostController</servlet-class>
+        <servlet-class>controller.delete.DeletePostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateHomeController</servlet-name>
-        <servlet-class>controller.forum.UpdateForumController</servlet-class>
+        <servlet-class>controller.update.UpdateForumController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateThreadController</servlet-name>
-        <servlet-class>controller.thread.UpdateThreadController</servlet-class>
+        <servlet-class>controller.update.UpdateThreadController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdatePermissionController</servlet-name>
@@ -81,11 +81,11 @@
     </servlet>
     <servlet>
         <servlet-name>UpdateUserInfo</servlet-name>
-        <servlet-class>controller.user.UpdateUserInfoController</servlet-class>
+        <servlet-class>controller.update.UpdateUserInfoController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReportThreadController</servlet-name>
-        <servlet-class>controller.thread.ReportThreadController</servlet-class>
+        <servlet-class>controller.report.ReportThreadController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostManageController</servlet-name>
@@ -93,7 +93,7 @@
     </servlet>
     <servlet>
         <servlet-name>ReportPostController</servlet-name>
-        <servlet-class>controller.post.ReportPostController</servlet-class>
+        <servlet-class>controller.report.ReportPostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchThreadController</servlet-name>
@@ -109,11 +109,11 @@
     </servlet>
     <servlet>
         <servlet-name>ReportUserController</servlet-name>
-        <servlet-class>controller.user.ReportUserController</servlet-class>
+        <servlet-class>controller.report.ReportUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteUserController</servlet-name>
-        <servlet-class>controller.user.DeleteUserController</servlet-class>
+        <servlet-class>controller.delete.DeleteUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ThreadFollowController</servlet-name>
@@ -121,11 +121,11 @@
     </servlet>
     <servlet>
         <servlet-name>FollowThreadController</servlet-name>
-        <servlet-class>controller.thread.FollowThreadController</servlet-class>
+        <servlet-class>controller.follow.FollowThreadController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdatePostController</servlet-name>
-        <servlet-class>controller.post.UpdatePostController</servlet-class>
+        <servlet-class>controller.update.UpdatePostController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ResetPasswordController</servlet-name>
