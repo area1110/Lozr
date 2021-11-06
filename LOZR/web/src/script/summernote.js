@@ -17,7 +17,7 @@ $(document).ready(function () {
             ['height', ['height']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'codeview', 'help']]
+            ['view', ['undo', 'redo', 'fullscreen', 'codeview', 'help']]
         ],
         popover: {
             image: [

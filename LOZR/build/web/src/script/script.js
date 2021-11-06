@@ -134,21 +134,12 @@ function openForm(ID, select) {
 
 function closeForm() {
     document.getElementById("formEdit").style.visibility = "hidden";
-//    document.getElementById("elementeID").removeAttribute("value");
-//    document.getElementById("cover-url").removeAttribute("value");
-//    document.getElementById("output-cover-img").src = 'https://via.placeholder.com/200x130';
 }
-//
-//
+
 
 
 //autosubmit-changing-admin-in-user-page
 function changePermission(userID) {
-//    let isadmin = document.getElementById("admin-tickbox").checked;
-//    let formData = new FormData();
-//    formData.set('userID', userID);
-//    formData.set('isAdmin', isadmin);
-//    fetch('../update/user/permission', {method: "POST", body: formData});
     document.getElementById("changePermissionForm-" + userID).submit();
 }
 
@@ -157,12 +148,10 @@ function changePermission(userID) {
 /* Set the width of the sidebar to 250px (show it) */
 function openNav() {
     document.getElementById("mySidepanel").style.width = "300px";
-//  $("#mySidepanel").toggle("slow");
 }
 
 /* Set the width of the sidebar to 0 (hide it) */
 function closeNav() {
-//    $("#mySidepanel").toggle("slow");
     document.getElementById("mySidepanel").style.width = "0";
 }
 

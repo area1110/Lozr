@@ -1,3 +1,6 @@
+* {
+    word-break: break-all;
+}
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
@@ -45,7 +48,6 @@ body {
 
 .text-insert:focus {
     outline: none;
-    /* box-shadow: 0 0 5px rgba(128, 128, 128, 0.548) inset; */
 }
 
 img {
@@ -440,7 +442,6 @@ ul.breadcrumb li+li:before {
   content: "/\00a0";
 }
 
-/*ul.breadcrumb li a {color: green;}*/
 
 
 .content-select {
@@ -465,6 +466,7 @@ ul.breadcrumb li+li:before {
 .note-video-clip{
     max-width: 100%; 
 }
+
 div.note-editor img, div.note-editor iframe {
     max-width: 100%;
 }

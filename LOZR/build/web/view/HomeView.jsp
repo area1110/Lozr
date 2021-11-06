@@ -177,7 +177,7 @@
                                         <div class="dropdown">
                                             <button onclick="showDropdownMenu(${forum.forumID})"  class="dropbtn">Edit</button>
                                             <div onclick="showDropdownMenu(${forum.forumID})" id="myDropdown-${forum.forumID}" class="dropdown-content">
-                                                <a   onclick="openForm(${forum.forumID}, 'forumname')">Change Title & Cover</a>
+                                                <a   onclick="openForm(${forum.forumID}, 'forumname')">Change Title</a>
                                                 <a onclick="doDeleteForum(${forum.forumID}, '${forum.name}');">Delete Forum</a>
                                             </div>
                                         </div>
