@@ -12,11 +12,12 @@ a, span {
 }
 
 a:hover {
-    color: #79c9af;
+    color: #79c9af !important;
+    text-decoration: underline;
 }
 
 a:active{
-    color: #339f8b;
+    color: #339f8b  !important;
 }
 
 
