@@ -88,7 +88,7 @@ public class ThreadDBContext extends DBContext {
     public int getTotalThread(String querySubject) {
         try {
             String sql_count_thread = "SELECT COUNT(ThreadID) AS TotalThread FROM Thread\n"
-                    + "WHERE ThreadIsActive=1 AND ThreadSubject LIKE '%' + ? + '%'";
+                    + "WHERE ThreadIsActive=1 AND ThreadSubject LIKE  ? + '%'";
             PreparedStatement stm_count_thread = connection.prepareStatement(sql_count_thread);
             stm_count_thread.setString(1, querySubject);
             ResultSet rs_count_thread = stm_count_thread.executeQuery();
@@ -112,7 +112,7 @@ public class ThreadDBContext extends DBContext {
                     + "WHERE PostThreadID=T.ThreadID) AS TotalPosts\n"
                     + "     FROM Thread AS T JOIN UserInfo AS U\n"
                     + "     ON T.ThreadStartedBy=U.UserID\n"
-                    + "WHERE  T.ThreadIsActive=1 AND T.ThreadSubject LIKE '%' + ? + '%') AS Main\n"
+                    + "WHERE  T.ThreadIsActive=1 AND T.ThreadSubject LIKE  ? + '%') AS Main\n"
                     + "WHERE Main.Row_count BETWEEN ? AND ?";
 
             PreparedStatement stm = connection.prepareStatement(sqlStatement);

@@ -231,10 +231,10 @@
                     </div>
 
                     <div class="thread-cell thread-status">
-                        <dl class="thread-status-pair">
-                            <dt>Replies</dt>
-                            <dd>${thread.numPosts}</dd>
-                        </dl>
+                          <table class="thread-status-pair">                            
+                            <tr><td>Replies</td></tr>
+                            <tr><td>${thread.numPosts}</td></tr>                              
+                        </table>
                     </div>
                     <c:if test="${!empty your}">
                         <div class="thread-cell thread-cell-option  dropdown">
