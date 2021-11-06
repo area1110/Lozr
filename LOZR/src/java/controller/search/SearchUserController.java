@@ -5,8 +5,7 @@
  */
 package controller.search;
 
-import com.sun.xml.internal.ws.transport.http.HttpAdapter;
-import controller.authentication.BaseRequiredAuthentication;
+
 import controller.module.PagingModule;
 import dal.UserDBContext;
 import java.io.IOException;

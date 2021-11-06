@@ -81,7 +81,7 @@
                         <div id="mySidepanel" class="sidepanel">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                            
+
                             <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>                         
                             <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
                             <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
@@ -190,8 +190,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
         </footer>

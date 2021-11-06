@@ -20,17 +20,23 @@
         <title>Post Management| LOZR</title>
         <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
-        <script src="${contextPath}/src/script/summernote.js"></script>
-
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <script type="text/javascript" src="${contextPath}/src/script/script.js" defer></script>
         <script type="text/javascript" src="${contextPath}/src/script/paging.js" ></script>
+
+        <!-- include libraries(jQuery, bootstrap) -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <!-- include summernote css/js -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+        <script src="${contextPath}/src/script/summernote.js"></script>
+        <!--/summernote-->
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
@@ -52,8 +58,8 @@
                 <input type="hidden" id="elementeID"  name="postID"/> 
                 <label  for="postContent">Edit Your Reply</label>
                 <textarea class="summernote" id="postContent" name="postContent"></textarea>
-                <button type="submit" class="btn">Save</button>
-                <button type="button" class="btn" onclick="closeForm()">Close</button>
+                <button type="submit" class="mybtn">Save</button>
+                <button type="button" class="mybtn" onclick="closeForm()">Close</button>
             </form>
         </div>
 
@@ -211,8 +217,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
 

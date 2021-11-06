@@ -12,7 +12,7 @@ package controller.module;
  */
 public class PagingModule {
     
-    public static int PAGE_SIZE = 5;
+    public static int PAGE_SIZE = 15;
  
     public static int[] calcFromToRecord(int pageIndex){
         int[] fromTo = new int[2];

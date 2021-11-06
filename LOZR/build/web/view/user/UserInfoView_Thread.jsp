@@ -21,13 +21,17 @@
         <title>${user.loginName} | LOZR</title>
         <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
+        <!-- include libraries(jQuery, bootstrap) -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Forum.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/Post.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/User.css" />
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
         <script src="${contextPath}/src/script/paging.js" ></script>
 
@@ -53,8 +57,8 @@
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
                 <input type="text" placeholder="New Name" name="threadSubject">
-                <button type="submit" class="btn" onclick="removeSpace()">Save</button>
-                <button type="button" class="btn" onclick="closeForm()">Close</button>
+                <button type="submit" class="mybtn" onclick="removeSpace()">Save</button>
+                <button type="button" class="mybtn" onclick="closeForm()">Close</button>
             </form>
         </div>
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
@@ -206,9 +210,8 @@
                     </div>
                     <div class="thread-cell">
                         <div class="thread-subject">
-                            <a id="threadsubject-${thread.threadID}" href="${transToPath.compressObjectToPath(contextPath, "thread", "", thread.threadID)}">
-                                ${thread.subject}
-                            </a>
+                            <a id="threadsubject-${thread.threadID}" 
+                               href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}">${thread.subject}</a>
                         </div>
                         <div>
                             <ul class="thread-item-part">
@@ -262,8 +265,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
         </footer>

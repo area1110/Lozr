@@ -5,6 +5,7 @@ html {
 
 a, span {
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 a:hover {
@@ -83,12 +84,18 @@ header {
 
 .header-action{
     margin-left: auto;
+    max-width: 60%;
 }
 
 .header-action-item{
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px; 
+}
+
+.header-action-item a:hover {
+        text-decoration: none !important;
+
 }
 
 .header-user-name{
@@ -198,9 +205,9 @@ header {
     }
 }
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 750px){  
     .header-user{
-        visibility: hidden;
+        display: none;
     }
     .header  {
         margin: 0 10px;
@@ -285,10 +292,11 @@ header {
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 100;
+    z-index: 1041;
     display: flex;
     visibility: hidden;
     justify-content: center;
+    overflow: auto;
 }
 
 .form-container {
@@ -313,15 +321,14 @@ header {
 }
 
 .form-container input[type=text]{
-
-    width: 80%;
+    width: 100%;
     height: 40px;
     margin-bottom: 10px;
     padding-left: 10px; 
     border-radius: 5px;
 }
 
-.form-container .btn {
+.form-container .mybtn {
     background-color: rgb(52, 129, 153);
     color: white;
     padding: 5px 15px;
@@ -448,4 +455,16 @@ ul.breadcrumb li+li:before {
 
 .button-change-content.active {
     background-color: blueviolet;
+}
+/*improve summernote display*/
+/*hidden image file upload*/
+.note-group-select-from-files {
+  display: none;
+}
+
+.note-video-clip{
+    max-width: 100%; 
+}
+div.note-editor img, div.note-editor iframe {
+    max-width: 100%;
 }

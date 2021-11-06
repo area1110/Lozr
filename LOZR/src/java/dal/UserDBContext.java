@@ -177,8 +177,8 @@ public class UserDBContext extends DBContext {
     public int getTotalUsersByName(String query, int exept) {
         try {
             String sql_count_user = "SELECT COUNT(UserID) as TotalRecord FROM  UserInfo\n"
-                    + "  WHERE UserIsActive = 1 AND UserID != ? AND (UserLoginName LIKE '%' + ? + '%'\n"
-                    + "  OR UserEmailAddress LIKE '%' + ? + '%')";
+                    + "  WHERE UserIsActive = 1 AND UserID != ? AND (UserLoginName LIKE ? + '%'\n"
+                    + "  OR UserEmailAddress LIKE  ? + '%')";
             PreparedStatement stm_count_user = connection.prepareStatement(sql_count_user);
             stm_count_user.setInt(1, exept);
             stm_count_user.setString(2, query);
@@ -201,8 +201,8 @@ public class UserDBContext extends DBContext {
                     + "(SELECT ROW_NUMBER() OVER(ORDER BY UserLoginName ASC) AS Row_count,\n"
                     + "	UserID, UserLoginName, UserFirstName, UserLastName, UserEmailAddress,\n"
                     + "	UserDateJoined, UserImageAvatar , UserIsMod FROM UserInfo\n"
-                    + "  WHERE UserID != ? AND (UserLoginName LIKE '%' + ? + '%'\n"
-                    + "  OR UserEmailAddress LIKE '%' + ? + '%')"
+                    + "  WHERE UserID != ? AND (UserLoginName LIKE  ? + '%'\n"
+                    + "  OR UserEmailAddress LIKE  ? + '%')"
                     + " AND UserIsActive = 1) AS Main\n"
                     + "WHERE Main.Row_count BETWEEN ? AND ?";
 

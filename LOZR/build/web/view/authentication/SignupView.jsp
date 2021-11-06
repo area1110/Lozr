@@ -63,14 +63,14 @@
                 <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
 
                     <div class="avatar-create">
+                        <div class="avatar-view">
+                            <img src="https://i.ibb.co/cYVc6t4/blank-avatar.png" id="output-img"/>
+                        </div>
                         <div class="avatar-input">
                             <label class="u-custom-font u-label u-text-custom-color-1 u-label-7">
                                 Please choose Avatar
                             </label >
                             <input class="avatar-openfile" type='file' onchange="doImgUpload(this, 'avatar-url', 'output-img')">
-                        </div>
-                        <div class="avatar-view">
-                            <img src="https://i.ibb.co/cYVc6t4/blank-avatar.png" id="output-img"/>
                         </div>
                     </div>
                     <form
@@ -99,6 +99,8 @@
                                 u-white
                                 u-input-1
                                 "
+                                minlength="1"
+                                maxlength="100"
                                 required
                                 />
                         </div>
@@ -254,8 +256,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
         </footer>

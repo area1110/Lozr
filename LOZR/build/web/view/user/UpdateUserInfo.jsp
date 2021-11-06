@@ -93,15 +93,16 @@
                    u-align-center u-custom-font u-label-1">(Leave the field empty if you don't want to change)</p>
                 <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">          
                     <div class="avatar-create">
+                        <div class="avatar-view">
+                            <img src="${your.avatar}" id="output-img"/>
+                        </div>
                         <div class="avatar-input">
                             <label class="u-custom-font u-label u-text-custom-color-1 u-label-7">
                                 Please choose Avatar
                             </label >
                             <input class="avatar-openfile" type='file' onchange="doImgUpload(this, 'avatar-url', 'output-img')">
                         </div>
-                        <div class="avatar-view">
-                            <img src="${your.avatar}" id="output-img"/>
-                        </div>
+
                     </div>
                     <form
                         action="${contextPath}/update/user/info"
@@ -120,6 +121,8 @@
                                 placeholder="${your.loginName}"
                                 id="loginName"
                                 name="loginName"
+                                minlength="1"
+                                maxlength="100"
                                 class="
                                 u-border-1
                                 u-border-grey-30
@@ -259,6 +262,23 @@
                                 />
                         </div>
                     </form>
+                    <div class="u-align-left u-form-group u-form-submit">
+                        <input style="background-color:  #e15f5f!important"
+                               id="submit"
+                               type="button"
+                               value="Close Account"
+                               class="u-btn
+                               u-btn-round
+                               u-btn-submit
+                               u-button-style
+                               u-hover-palette-1-dark-1
+                               u-palette-1-base
+                               u-radius-10
+                               u-text-active-palette-1-dark-1
+                               u-btn-1"
+                               onclick="doDeleteUser('${contextPath}', ${your.userID}, '${your.loginName}');"
+                               />
+                    </div>
                 </div>
             </div>
         </section>
@@ -269,8 +289,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
         </footer>

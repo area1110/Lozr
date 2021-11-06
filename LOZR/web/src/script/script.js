@@ -76,26 +76,13 @@ function doDelete(rootPath, ID, forWhat) {
     }
 }
 
-function doDeleteReport(rootPath, ID, reportFor) {
+function doDeleteUser(rootPath, ID, username) {
     const dummyframe = document.querySelector("#dummyframe");
-    const message = `Do you want to delete this ${reportFor}`;
-    let confirm = window.confirm(message);
-    if (confirm) {
-        const dummyframe = document.querySelector("#dummyframe");
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("target", "dummyframe");
-        form.setAttribute("action", `${rootPath}/admin/report/${reportFor}`);
-
-        var id = document.createElement("input");
-        id.setAttribute("type", "hidden");
-        id.setAttribute("name", "id");
-        id.value = ID;
-
-        form.appendChild(id);
-        dummyframe.appendChild(form);
-        form.submit();
-        reloadDelay();
+    const message = `Do you want to CLOSE Your Account?\nPlease type '${username}' below to confirm`;
+    let confirm = window.prompt(message);
+    if (confirm === username) {
+        dummyframe.src = rootPath + "/delete/user"  + "?id=" + ID;
+        window.location.href = rootPath + "/logout";
     }
 }
 

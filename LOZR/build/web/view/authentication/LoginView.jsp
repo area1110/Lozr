@@ -36,8 +36,8 @@
                 <h2>Reset Your Password</h2>
                 <label  for="threadSubject">User LoginName</label>
                 <input type="text" placeholder="Your loginName" name="loginName">
-                <button type="submit" class="btn">Send</button>
-                <button type="button" class="btn" onclick="closeForm()">Close</button>
+                <button type="submit" class="mybtn">Send</button>
+                <button type="button" class="mybtn" onclick="closeForm()">Close</button>
             </form>
         </div>
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">

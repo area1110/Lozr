@@ -64,8 +64,8 @@
                     <input type="hidden" id="elementeID"  name="forumID"/> 
                     <label  for="forumName">New Forum Title</label>
                     <input type="text" placeholder="New Name" name="forumName">
-                    <button type="submit" class="btn">Save</button>
-                    <button type="button" class="btn" onclick="closeForm()">Close</button>
+                    <button type="submit" class="mybtn">Save</button>
+                    <button type="button" class="mybtn" onclick="closeForm()">Close</button>
                     <input   type="hidden" id="cover-url"  name="photo">
                 </form>
             </div>
@@ -177,7 +177,7 @@
                                         <div class="dropdown">
                                             <button onclick="showDropdownMenu(${forum.forumID})"  class="dropbtn">Edit</button>
                                             <div onclick="showDropdownMenu(${forum.forumID})" id="myDropdown-${forum.forumID}" class="dropdown-content">
-                                                <a   onclick="openForm(${forum.forumID} , 'forumname')">Change Title & Cover</a>
+                                                <a   onclick="openForm(${forum.forumID}, 'forumname')">Change Title & Cover</a>
                                                 <a onclick="doDeleteForum(${forum.forumID}, '${forum.name}');">Delete Forum</a>
                                             </div>
                                         </div>
@@ -197,8 +197,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
         </footer>

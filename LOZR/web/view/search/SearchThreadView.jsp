@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
         <title>${requestScope.query} | LOZR</title>
-          <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
+        <link rel="icon" href="${contextPath}/images/doge-nonbg.png">
 
         <link rel="stylesheet" href="https://area1110.github.io/JSBegin/CustomCDN/nicepage.css" />
         <link rel="stylesheet" href="${contextPath}/src/style/index.css" />
@@ -46,8 +46,8 @@
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
                 <input type="text" placeholder="New Name" name="threadSubject">
-                <button type="submit" class="btn" onclick="removeSpace()">Save</button>
-                <button type="button" class="btn" onclick="closeForm()">Close</button>
+                <button type="submit" class="mybtn" onclick="removeSpace()">Save</button>
+                <button type="button" class="mybtn" onclick="closeForm()">Close</button>
             </form>
         </div>
 
@@ -199,8 +199,7 @@
             >
             <div class="u-clearfix u-sheet u-sheet-1">
                 <p class="u-small-text u-text u-text-variant u-text-1">
-                    Sample text. Click to select the text box. Click again or double click
-                    to start editing the text.
+                    © 2021 Copyright: Area1110. All rights reserved
                 </p>
             </div>
         </footer>

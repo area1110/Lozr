@@ -90,12 +90,8 @@
     margin: 10px;
 }
 
-.post-main pre {
-    white-space: break-spaces;
-}
-
 .post-main img {
-    width: 30%;
+    width: 40%;
 }
 
 .post-main-cell {
