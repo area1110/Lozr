@@ -151,7 +151,7 @@
 
                 <div class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xl u-container-style u-custom-color-4 u-expanded-width u-group u-group-1">
                     <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xl u-container-layout-1">
-                        <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">What on your mind today?</h1>
+                        <h1 class="u-align-center-xs u-custom-font u-font-playfair-display u-text u-text-1">What's on your mind today?</h1>
                     </div>
                 </div>
 

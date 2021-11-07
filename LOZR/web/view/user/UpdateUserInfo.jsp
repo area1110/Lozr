@@ -118,7 +118,7 @@
                             >
                             <input
                                 type="text"
-                                placeholder="${your.loginName}"
+                                placeholder="${your.loginName} (Any extra space will be removed)"
                                 id="loginName"
                                 name="loginName"
                                 minlength="1"
@@ -137,7 +137,7 @@
                         <div class="u-form-group u-form-name u-form-group-2">
                             <input
                                 type="password"
-                                placeholder="NEW Password (8-20 characters)"
+                                placeholder="Password (8-20 characters, Not Allow Space)"
                                 id="password"
                                 name="password"
                                 minlength="8"
@@ -152,13 +152,14 @@
                                 u-white
                                 u-input-2
                                 "
+                                pattern="[^ ]+"
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-3">
                             <label id="repassErr"
                                    for="password"
                                    class="u-custom-font u-label u-text-custom-color-1 u-label-2"
-                                   >Re-Password dose not match</label
+                                   >Re-Password does not match</label
                             >
                             <input
                                 type="password"

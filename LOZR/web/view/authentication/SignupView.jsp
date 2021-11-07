@@ -27,7 +27,7 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
             />
-                <link
+        <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             />
@@ -36,7 +36,7 @@
         <script src="${contextPath}/src/script/imgupload.js" defer></script>
     </head>
     <body class="u-body">
-         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
                     <a href="${contextPath}">
@@ -58,9 +58,9 @@
                     <nav class="header-action-item">
                         <div id="mySidepanel" class="sidepanel">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>                     
-                                <a class="u-button-style u-nav-link" href="${contextPath}/login">
-                                    Log In
-                                </a>
+                            <a class="u-button-style u-nav-link" href="${contextPath}/login">
+                                Log In
+                            </a>
                         </div>
                         <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
                     </nav>     
@@ -100,7 +100,7 @@
                             >
                             <input
                                 type="text"
-                                placeholder="Username"
+                                placeholder="Username (Any extra space will be removed)"
                                 id="loginName"
                                 name="loginName"
                                 oninput="display_error()"
@@ -121,7 +121,7 @@
                         <div class="u-form-group u-form-name u-form-group-2">
                             <input
                                 type="password"
-                                placeholder="Password (8-20 characters)"
+                                placeholder="Password (8-20 characters, Not Allow Space)"
                                 id="password"
                                 name="password"
                                 minlength="8"
@@ -137,13 +137,14 @@
                                 u-input-2
                                 "
                                 required
+                                pattern="[^ ]+"
                                 />
                         </div>
                         <div class="u-form-group u-form-name u-form-group-3">
                             <label id="repassErr"
                                    for="password"
                                    class="u-custom-font u-label u-text-custom-color-1 u-label-2"
-                                   >Re-Password dose not match</label
+                                   >Re-Password does not match</label
                             >
                             <input
                                 type="password"

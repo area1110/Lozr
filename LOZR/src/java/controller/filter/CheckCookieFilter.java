@@ -45,24 +45,24 @@ public class CheckCookieFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         httpRequest.setCharacterEncoding("UTF-8"); //set encode for all servlet
-        if (!httpRequest.getRequestURI().contains("/auth/resetpassword")) {
-            Cookie[] cookie = httpRequest.getCookies();
-            if (cookie != null) {
-                String userId = "";
-                for (Cookie c : cookie) {
-                    if (c.getName().equals("userId")) {
-                        userId = c.getValue();
-                        break;
-                    }
+        String requestUrl = httpRequest.getRequestURI();
+        Cookie[] cookie = httpRequest.getCookies();
+        if (cookie != null) {
+            String userId = "";
+            for (Cookie c : cookie) {
+                if (c.getName().equals("userId")) {
+                    userId = c.getValue();
+                    break;
                 }
-                if (!userId.isEmpty()) {
-                    User user = (new UserDBContext()).getUser(Integer.parseInt(userId));
-                    if (user != null) {
-                        httpRequest.getSession().setAttribute("currentUser", user);
-                    }
+            }
+            if (!userId.isEmpty()) {
+                User user = (new UserDBContext()).getUser(Integer.parseInt(userId));
+                if (user != null) {
+                    httpRequest.getSession().setAttribute("currentUser", user);
                 }
             }
         }
+
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
@@ -70,24 +70,6 @@ public class CheckCookieFilter implements Filter {
         if (debug) {
             log("CheckCookieFilter:DoAfterProcessing");
         }
-
-        // Write code here to process the request and/or response after
-        // the rest of the filter chain is invoked.
-        // For example, a logging filter might log the attributes on the
-        // request object after the request has been processed. 
-        /*
-	for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
-	    String name = (String)en.nextElement();
-	    Object value = request.getAttribute(name);
-	    log("attribute: " + name + "=" + value.toString());
-
-	}
-         */
-        // For example, a filter might append something to the response.
-        /*
-	PrintWriter respOut = new PrintWriter(response.getWriter());
-	respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
-         */
     }
 
     /**
@@ -102,11 +84,9 @@ public class CheckCookieFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-
         if (debug) {
             log("CheckCookieFilter:doFilter()");
         }
-
         doBeforeProcessing(request, response);
 
         Throwable problem = null;
