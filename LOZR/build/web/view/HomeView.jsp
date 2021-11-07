@@ -52,7 +52,7 @@
             <div class="form-container">
                 <h2>Edit Forum</h2>
                 <div class="cover-create">
-                    <label for="photo">New Cover</label>
+                    <label for="photo">New Cover<br>(Waiting until you see the image changes)</label>
                     <div class="cover-view">
                         <img src="https://via.placeholder.com/200x130" id="output-cover-img"/>
                     </div>

@@ -68,7 +68,7 @@
                         </div>
                         <div class="avatar-input">
                             <label class="u-custom-font u-label u-text-custom-color-1 u-label-7">
-                                Please choose Avatar
+                                Please choose Avatar<br>(Waiting until you see the image changes)
                             </label >
                             <input class="avatar-openfile" type='file' onchange="doImgUpload(this, 'avatar-url', 'output-img')">
                         </div>
