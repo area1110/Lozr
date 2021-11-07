@@ -109,7 +109,6 @@
                         action="${contextPath}/update/user/info"
                         method="POST"
                         class="u-clearfix u-form-spacing-19 u-form-vertical u-inner-form"
-                        onsubmit="reloadDelay();"
                         >
                         <div class="u-form-group u-form-name u-form-group-1">
                             <label id="error"

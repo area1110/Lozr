@@ -1,14 +1,9 @@
-* {
-    word-break: break-all;
-}
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
-}
-
-a, span {
+    width: auto;
     word-wrap: break-word;
-    word-break: break-all;
+
 }
 
 a:hover {
@@ -19,7 +14,6 @@ a:hover {
 a:active{
     color: #339f8b  !important;
 }
-
 
 input:focus {
     outline: 1px solid cadetblue;
@@ -38,8 +32,8 @@ body {
 }
 
 .signup-main{
-      min-height: 100vh;
-      margin: 0 auto;
+    min-height: 100vh;
+    margin: 0 auto;
 }
 
 .u-body {
@@ -102,7 +96,7 @@ header {
 }
 
 .header-action-item a:hover {
-        text-decoration: none !important;
+    text-decoration: none !important;
 
 }
 
@@ -407,45 +401,45 @@ header {
 }*/
 
 .pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  border: 1px solid #ddd;
-  background-color: #ffffffd4;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: #ffffffd4;
 }
 
 .pagination a.active {
-  background-color: #4c96af;
-  color: white;
-  border: 1px solid #4c96af;
+    background-color: #4c96af;
+    color: white;
+    border: 1px solid #4c96af;
 }
 
 .pagination a:hover:not(.active) {background-color: #addbff;}
 
 .pagination a:first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .pagination a:last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /*Breadcrumbs*/
 ul.breadcrumb {
-  padding: 8px 16px;
-  list-style: none;
-  /*background-color: #eee;*/
+    padding: 8px 16px;
+    list-style: none;
+    /*background-color: #eee;*/
 }
 
 ul.breadcrumb li {display: inline;}
 
 ul.breadcrumb li+li:before {
-  padding: 8px;
-  color: black;
-  content: "/\00a0";
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
 }
 
 
@@ -466,7 +460,7 @@ ul.breadcrumb li+li:before {
 /*improve summernote display*/
 /*hidden image file upload*/
 .note-group-select-from-files {
-  display: none;
+    display: none;
 }
 
 .note-video-clip{

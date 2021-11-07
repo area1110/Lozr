@@ -46,7 +46,7 @@
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
-                    <a href="../home">
+                    <a href="${contextPath}">
                         <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
                     </a>
                 </div>

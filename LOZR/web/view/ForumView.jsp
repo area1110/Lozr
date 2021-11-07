@@ -164,7 +164,7 @@
                                     />
                             </div>
                             <div class="thread-create-submit">
-                                <button id="submit-title" class="submit-button" onclick="checkSubmit(event, 'create-thread', 'insert-title')">Create</button>
+                                <button id="submit-title" class="submit-button" onclick="checkSubmit(event, 'create-thread', 'insert-title'); reloadDelay(10);">Create</button>
                             </div>
                         </form>
                     </div>
