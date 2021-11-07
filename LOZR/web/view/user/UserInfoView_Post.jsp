@@ -168,7 +168,7 @@
                         <c:if test="${your.userID != user.userID and !empty your}">
                             <button onclick="showDropdownMenu('user-${user.userID}')" class="dropbtn">Option</button>
                             <div  id="myDropdown-user-${user.userID}" class="dropdown-content" onclick="showDropdownMenu('user-${user.userID}')">
-
+                                <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
                                 <c:if test="${your.moderator}">
                                     <form target="dummyframe" action="${contextPath}/update/user/permission" method="POST" id="changePermissionForm-${user.userID}">
                                         <input type="hidden" value="${user.userID}" name="userID" />
@@ -177,7 +177,6 @@
                                         <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                     </form>
                                     <c:if test="${user.active}">
-                                        <a  onclick="doReport('${contextPath}', '${user.userID}', 'user')" >Report</a>
                                         <a onclick="doDelete('${contextPath}', ${user.userID}, 'user')" href="javascript:void(0)">Ban</a>
                                     </c:if>
                                     <c:if test="${!user.active}">
