@@ -30,7 +30,6 @@ function checkSubmit(event, formId, inputId) {
     checkString = insert.value.trim();
     if (checkString !== "") {
         form.submit();
-        reloadDelay();
     }
 }
 

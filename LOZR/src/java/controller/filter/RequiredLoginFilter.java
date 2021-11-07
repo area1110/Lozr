@@ -101,11 +101,14 @@ public class RequiredLoginFilter implements Filter {
         try {
             chain.doFilter(request, response);
         } catch (Throwable t) {
+            String errorMessage = "Oops! Something went wrong.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
             // If an exception is thrown somewhere down the filter chain,
             // we still want to execute our after processing, and then
             // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
+//            problem = t;
+//            t.printStackTrace();
         }
 
         doAfterProcessing(request, response);

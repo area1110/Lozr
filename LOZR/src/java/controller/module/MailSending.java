@@ -57,7 +57,6 @@ public class MailSending {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            e.printStackTrace();
         }
     }
 

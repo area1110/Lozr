@@ -28,7 +28,10 @@
             href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
             />
         <script src="${contextPath}/src/script/script.js" defer></script>
-
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
@@ -43,7 +46,7 @@
         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
-                    <a>
+                    <a href="../home">
                         <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
                     </a>
                 </div>
@@ -57,7 +60,6 @@
                             </div>
                         </a>
                     </div>
-
                 </div>
             </div>
         </header>

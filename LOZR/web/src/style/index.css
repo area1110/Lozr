@@ -37,6 +37,11 @@ body {
     background-image: url("../../images/82761229_p17_master1200.jpg");
 }
 
+.signup-main{
+      min-height: 100vh;
+      margin: 0 auto;
+}
+
 .u-body {
     background-color: #D5F1FF;
 }

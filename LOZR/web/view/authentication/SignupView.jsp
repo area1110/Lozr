@@ -27,6 +27,10 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Aldrich:400"
             />
+                <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
         <script src="${contextPath}/src/script/script.js" defer></script>
         <script src="${contextPath}/src/script/imgupload.js" defer></script>
@@ -64,7 +68,7 @@
             </div>
         </header>
         <section
-            class="u-clearfix u-image u-section-1 main-zone"
+            class="u-clearfix u-image u-section-1 signup-main"
             >
             <div class="signup-main u-clearfix u-sheet u-sheet-1">
                 <h1 class="  u-align-center u-custom-font u-text u-text-palette-1-dark-1 u-text-1 ">

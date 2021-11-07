@@ -80,7 +80,7 @@ public class UpdateUserInfoController extends BaseRequiredAuthentication {
                 String err = "Username was already used!";
                 request.setAttribute("errorLoginName", err);
                 request.setAttribute("user", userInfo);
-                request.getRequestDispatcher("/view/UpdateUserInfo.jsp").forward(request, response);
+                request.getRequestDispatcher("/view/user/UpdateUserInfo.jsp").forward(request, response);
                 break;
             case 0: // un caught error
                 String errorMessage = "Oops, there are something wrong?!";

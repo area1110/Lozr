@@ -44,25 +44,25 @@ public class CheckCookieFilter implements Filter {
         }
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
         httpRequest.setCharacterEncoding("UTF-8"); //set encode for all servlet
-        Cookie[] cookie = httpRequest.getCookies();
-        if (cookie != null) {
-            String userId = "";
-            for (Cookie c : cookie) {
-                if (c.getName().equals("userId")) {
-                    userId = c.getValue();
-                    break;
+        if (!httpRequest.getRequestURI().contains("/auth/resetpassword")) {
+            Cookie[] cookie = httpRequest.getCookies();
+            if (cookie != null) {
+                String userId = "";
+                for (Cookie c : cookie) {
+                    if (c.getName().equals("userId")) {
+                        userId = c.getValue();
+                        break;
+                    }
                 }
-            }
-            if (!userId.isEmpty()) {
-                User user = (new UserDBContext()).getUser(Integer.parseInt(userId));
-                if (user != null) {
-                    httpRequest.getSession().setAttribute("currentUser", user);
+                if (!userId.isEmpty()) {
+                    User user = (new UserDBContext()).getUser(Integer.parseInt(userId));
+                    if (user != null) {
+                        httpRequest.getSession().setAttribute("currentUser", user);
+                    }
                 }
             }
         }
-
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
