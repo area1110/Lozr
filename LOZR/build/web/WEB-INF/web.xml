@@ -18,6 +18,7 @@
         <url-pattern>/search/user</url-pattern>
         <url-pattern>/update/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/follow/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>ForumController</servlet-name>
