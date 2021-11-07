@@ -163,7 +163,7 @@
                                            ${user.moderator? "checked" : ""} type="checkbox">
                                     <label for="moderator-tickbox-${user.userID}">Moderator permission</label>
                                 </form>
-                                <a onclick="reloadDelay(1000)" href="${contextPath}/delete/user?id=${user.userID}" target="dummyframe">Ban</a>
+                                <a href="javascript:void(0)" onclick="doDelete('${contextPath}', ${user.userID}, 'user');" >Ban</a>
                                 <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/user?id=${user.userID}">Remove From List</a>
                             </div>
 

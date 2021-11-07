@@ -29,7 +29,7 @@ public class ExtractURLPath {
 
     public static String compressObjectToPath(String rootPath, String servletPath, String name, int parentID) {
         String path;
-        name = name.toLowerCase().replaceAll("[ ?#/.\\\\]", "-");//hide all the key characs at request url
+        name = name.toLowerCase().replaceAll("[ ?#/;.\\\\]", "-");//hide all the key characs at request url
         path = rootPath + "/" + servletPath + "/" + name + "." + parentID;
         return path;
     }

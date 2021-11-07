@@ -45,7 +45,7 @@
     </head>
     <body class="u-body">
         <div class="form-popup" id="formEdit">
-            <form onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
+            <form id="hidden-form" onsubmit="location.reload();" target="dummyframe" action="${contextPath}/update/thread" method="POST" class="form-container">
                 <h2>Edit Thread</h2>
                 <input type="hidden" id="elementeID"  name="threadID"/> 
                 <label  for="threadSubject">New Thread Title</label>
@@ -155,7 +155,7 @@
 
                     <div class="thread-cell">
                         <div class="thread-subject">
-                            <a
+                            <a id="threadsubject-${thread.threadID}"
                                 href="${transToPath.compressObjectToPath(contextPath, "thread", thread.subject, thread.threadID)}"
                                 >${thread.subject}</a
                             >
@@ -192,7 +192,7 @@
                                 <a  onclick="reloadDelay();" href="${contextPath}/follow/thread/unfollow?id=${thread.threadID}" target="dummyframe">Unfollow</a>
                                 <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
-                                    <a onclick="openForm(${thread.threadID});">Change Title</a>
+                                    <a onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
                                 </c:if>
                                 <c:if test="${your.moderator || your.userID == thread.startedBy.userID}">
                                     <a  href="javascript:void(0)" onclick="doDelete('${contextPath}', ${thread.threadID}, 'thread');">Delete</a>

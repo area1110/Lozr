@@ -168,7 +168,7 @@
                             <c:if test="${your.userID == thread.startedBy.userID}">
                                 <a   href="javascript:void(0)" onclick="openForm(${thread.threadID}, 'threadsubject');">Change Title</a>
                             </c:if>
-                            <a  href="javascript:void(0)" onclick="doDelete('${contexPath}', ${thread.threadID}, 'thread');">Delete</a>
+                            <a  href="javascript:void(0)" onclick="doDelete('${contextPath}', ${thread.threadID}, 'thread');">Delete</a>
                             <a onclick="reloadDelay()" target="dummyframe" href="${contextPath}/admin/report/thread?id=${thread.threadID}">Remove From List</a>
                         </div>
                     </div>
