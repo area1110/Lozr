@@ -33,19 +33,33 @@ public class ResetPasswordController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ResetPasswordController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ResetPasswordController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String raw_userloginName = request.getParameter("loginName");
+
+        UserDBContext userDBC = new UserDBContext();
+        User user = userDBC.getUserEmail(raw_userloginName);
+        if (user != null) {
+            user.getEmailAddress();
+            GenerateRandomString gen = new GenerateRandomString();
+            String newPass = gen.GenerateRandomString();
+            userDBC.updateUserPassword(user.getUserID(), newPass);
+            MailSending mail = new MailSending();
+
+            request.setAttribute("user", user);
+            String error = "An email had been send to \"" + user.getEmailAddress() + "\"<br/>"
+                    + "Please check your inbox or spam to take New Password";
+            String message = "If you don't see the email. Please check your spam box or try again!";
+            request.setAttribute("errorMessage", error);
+            request.setAttribute("message", message);
+            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
+            mail.sendNewPassToMail(user, newPass);
+        } else {
+            String error = "Can not find \"" + raw_userloginName + "\"?!";
+            String message = "This account does not exist or you had been banned by moderator<br/>"
+                    + "(you must contact one of the mods to get unban)";
+            request.setAttribute("errorMessage", error);
+            request.setAttribute("message", message);
         }
+        request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,35 +88,8 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        String raw_userloginName = request.getParameter("loginName");
+        processRequest(request, response);
 
-        UserDBContext userDBC = new UserDBContext();
-        User user = userDBC.getUserEmail(raw_userloginName);
-        if (user != null) {
-            user.getEmailAddress();
-            GenerateRandomString gen = new GenerateRandomString();
-            String newPass = gen.GenerateRandomString();
-            userDBC.updateUserPassword(user.getUserID(), newPass);
-            MailSending mail = new MailSending();
-//            mail.sendNewPassToMail(user, newPass);
-
-            request.setAttribute("user", user);
-            String error = "An email had been send to \"" + user.getEmailAddress() + "\"<br/>"
-                    + "Please check your inbox or spam to take New Password";
-            String message = "If you don't see the email. Please check your spam box or try again!";
-            request.setAttribute("errorMessage", error);
-            request.setAttribute("message", message);
-            request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
-            mail.sendNewPassToMail(user, newPass);
-        } else {
-            String error = "Can not find \"" + raw_userloginName + "\"?!";
-            String message = "This account does not exist or you had been banned by moderator<br/>"
-                    + "(you must contact one of the mods to get unban)";
-            request.setAttribute("errorMessage", error);
-            request.setAttribute("message", message);
-        }
-        request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
     }
 
     /**

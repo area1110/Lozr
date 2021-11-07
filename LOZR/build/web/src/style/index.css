@@ -172,7 +172,7 @@ header {
 }
 
 #main, .main-zone {
-    min-height: 80vh;
+    min-height: 100vh;
 }
 
 .main-zone{

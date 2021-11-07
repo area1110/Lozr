@@ -11,7 +11,7 @@
 <html style="font-size: 16px">
     <head>
         <jsp:useBean id="transToPath" class="controller.module.ExtractURLPath"/>
-
+        
         <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
         <c:set var="your" value="${sessionScope.currentUser}"/>
 
@@ -72,32 +72,6 @@
                     </a>
                 </div>
                 <div class="header-action">
-                    <c:if test="${!empty your}">
-                        <div class="header-action-item">
-                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
-                                <div class="header-user">                
-                                    <span  class="header-user-name header-action-item"  >
-                                        ${(empty your.loginName)? "Account": your.loginName}
-                                    </span>
-                                    <img  class="header-avatar header-action-item" src="${your.avatar}" />    
-                                </div>
-                            </a>
-                        </div>
-                        <nav class="header-action-item">
-                            <div id="mySidepanel" class="sidepanel">
-                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                                <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
-                                <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>
-                                <c:if test="${your.moderator}" >
-                                    <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
-                                </c:if>
-                                <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
-                                <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
-                                <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
-                            </div>
-                            <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
-                        </nav>     
-                    </c:if>
                     <c:if test="${empty your}">
                         <div class="header-action-item">
                             <div class="header-user">                
@@ -114,13 +88,50 @@
                             </div>
                         </div>
                     </c:if>
+                    <c:if test="${!empty your}">
+                        <div class="header-action-item">
+                            <a href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">
+                                <div class="header-user">                
+                                    <span  class="header-user-name header-action-item"  >
+                                        ${(empty your.loginName)? "Account": your.loginName}
+                                    </span>
+                                    <img  class="header-avatar header-action-item" src="${your.avatar}" />    
+                                </div>
+                            </a>
+                        </div>
+                    </c:if>
+                    <nav class="header-action-item">
+                        <div id="mySidepanel" class="sidepanel">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                            <c:if test="${empty your}">
+                                <a class="u-button-style u-nav-link" href="${contextPath}/signup">
+                                    Sign Up
+                                </a>
+                                <a class="u-button-style u-nav-link" href="${contextPath}/login">
+                                    Log In
+                                </a>
+                            </c:if>
+                            <c:if test="${!empty your}">
+                                <a class="menu-user-name" href="${transToPath.compressObjectToPath(contextPath, "user", your.loginName, your.userID)}">${(empty your.loginName)? "Account": your.loginName}</a>
+                                <a  href="${contextPath}/follow/manage/thread" class="u-button-style u-nav-link">Bookmark</a>
+                                <c:if test="${your.moderator}" >
+                                    <a  href="${contextPath}/admin/report/thread" class="u-button-style u-nav-link">Report Manager</a>
+                                </c:if>
+                                <a href="${contextPath}/search/user" class="u-button-style u-nav-link">Find User</a>
+                                <a href="${contextPath}/update/user/info" class="u-button-style u-nav-link">Change Info</a>
+                                <a href="${contextPath}/logout" class="u-button-style u-nav-link">Log Out</a>
+                            </c:if>
+                        </div>
+                        <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                    </nav>     
+
                 </div>
             </div>
         </header>
 
         <div class="main-zone">
             <ul class="breadcrumb">
-                <li><a href="${contextPath}">Forums</a></li>
+                <li><a href="../home">Forums</a></li>
                 <li><a href="${transToPath.compressObjectToPath(contextPath, "forum",thread.forum.name  , thread.forum.forumID)}">${thread.forum.name}</a></li>
                 <li>${thread.subject}</li>
             </ul>

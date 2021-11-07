@@ -358,4 +358,7 @@
     box-shadow: 0 5px 8px 6px #8d8d8d91;
 }
 
+.u-align-center-xs.u-custom-font.u-font-playfair-display.u-text.u-text-1 {
+   word-break: break-word;
+}
 

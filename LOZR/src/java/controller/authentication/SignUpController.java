@@ -84,15 +84,15 @@ public class SignUpController extends HttpServlet {
             raw_urlavatar = "https://i.ibb.co/cYVc6t4/blank-avatar.png";
         }
         userInfo.setAvatar(raw_urlavatar);
-//        InputStream is = request.getPart("avatar").getInputStream();
-//        Encode encode = new Encode();
-//        userInfo.setBase64ImageAvatar(encode.EncodeToBase64(is));
         UserDBContext userDBC = new UserDBContext();
 
         int statusUpdate = userDBC.createNewUser(userInfo);
+        String errorMessage;
         switch (statusUpdate) {
             case -1: // missing field error
-                response.getWriter().print("<h1>Some fields are missing</h1>");
+                errorMessage = "Some fields are missing";
+                request.setAttribute("errorMessage", errorMessage);
+                request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
             case -2: //duplicate username error
                 String err = "Username was already used!";
@@ -101,7 +101,7 @@ public class SignUpController extends HttpServlet {
                 request.getRequestDispatcher("/view/authentication/SignupView.jsp").forward(request, response);
                 break;
             case 0: // un caught error
-                String errorMessage = "Oops, there are something wrong?!";
+                errorMessage = "Oops, there are something wrong?!";
                 request.setAttribute("errorMessage", errorMessage);
                 request.getRequestDispatcher("/view/ErrorView.jsp").forward(request, response);
                 break;
@@ -111,7 +111,7 @@ public class SignUpController extends HttpServlet {
                 Cookie cookie = new Cookie("userId", "" + user.getUserID());
                 cookie.setMaxAge(24 * 60 * 60);
                 response.addCookie(cookie);
-                response.sendRedirect(request.getContextPath());
+                response.sendRedirect("home");
                 break;
             default:
         }

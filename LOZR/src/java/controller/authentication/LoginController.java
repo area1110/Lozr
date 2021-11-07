@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
             Cookie cookie = new Cookie("userId", "" + user.getUserID());
             cookie.setMaxAge(24*60*60);
             response.addCookie(cookie);
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect("home");
         } else { //login failed
             session.setAttribute("currentUser", null);
 

@@ -32,29 +32,39 @@
         <script src="${contextPath}/src/script/imgupload.js" defer></script>
     </head>
     <body class="u-body">
-        <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
+         <header class="u-clearfix u-header u-sticky u-sticky-1ec8 u-white u-header">
             <div class="header">
                 <div  class="header-logo">
-                    <a>
+                    <a href="${contextPath}">
                         <img  src="${contextPath}/images/lozr4rum1.png" class="logo-header" />
                     </a>
                 </div>
                 <div class="header-action">
-                    <div class="header-action-item">
-                        <a href="${contextPath}/login">
+                    <c:if test="${empty your}">
+                        <div class="header-action-item">
                             <div class="header-user">                
-                                <span  class="header-user-name header-action-item"  >
-                                    Login
-                                </span>
+                                <a href="${contextPath}/login">
+                                    <span    class="header-user-name header-action-item"  >
+                                        Log In
+                                    </span>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-
+                        </div>
+                    </c:if>               
+                    <nav class="header-action-item">
+                        <div id="mySidepanel" class="sidepanel">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>                     
+                                <a class="u-button-style u-nav-link" href="${contextPath}/login">
+                                    Log In
+                                </a>
+                        </div>
+                        <button class="openbtn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                    </nav>     
                 </div>
             </div>
         </header>
         <section
-            class="u-clearfix u-image u-section-1"
+            class="u-clearfix u-image u-section-1 main-zone"
             >
             <div class="signup-main u-clearfix u-sheet u-sheet-1">
                 <h1 class="  u-align-center u-custom-font u-text u-text-palette-1-dark-1 u-text-1 ">
