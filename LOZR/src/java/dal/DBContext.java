@@ -21,9 +21,13 @@ public class DBContext {
 
     public DBContext() {
         try {
-            String user = "sa";
-            String password = "sa";
-            String url = "jdbc:sqlserver://AREA1110;databaseName=LOZR";
+//            String user = "sa";
+//            String password = "sa";
+//            String url = "jdbc:sqlserver://AREA1110;databaseName=LOZR";
+
+            String user = "area11110_SQLLogin_1";
+            String password = "tbn4v89nyb";
+            String url = "jdbc:sqlserver://LOZRData.mssql.somee.com;databaseName=LOZRData";
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, password);

@@ -28,7 +28,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
         <script src="${contextPath}/src/script/script.js" defer></script>
-        <script src="${contextPath}/src/script/thread.js" defer></script>
         <script src="${contextPath}/src/script/paging.js"></script>
         <link
             rel="stylesheet"

@@ -86,8 +86,8 @@
     margin: 10px;
 }
 
-.post-main img {
-    width: 40%;
+.post-main img, .post-main iframe {
+    max-width: 100% !important;
 }
 
 .post-main-cell {
@@ -184,6 +184,7 @@ textarea.post-subject-textarea.edit{
 
     .post-user-avatar {
         text-align: center;
+        margin-bottom: 20px;
     }
 
     .post-user-img {
