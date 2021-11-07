@@ -293,7 +293,7 @@ public class ThreadDBContext extends DBContext {
                 fthread.setThreadID(rs_select_thread.getInt("ThreadID"));
                 fthread.setSubject(rs_select_thread.getString("ThreadSubject"));
                 fthread.setTimeCreated(rs_select_thread.getTimestamp("ThreadDateCreated"));
-                
+
                 Forum forum = new Forum();
                 forum.setForumID(rs_select_thread.getInt("ThreadForumID"));
                 forum.setName(rs_select_thread.getString("ForumName"));
@@ -303,9 +303,9 @@ public class ThreadDBContext extends DBContext {
                 user.setLoginName(rs_select_thread.getString("UserLoginName"));
                 fthread.setStartedBy(user);
                 fthread.setActive(rs_select_thread.getBoolean("ThreadIsActive"));
-                    return fthread;
+                return fthread;
             }
-       
+
         } catch (SQLException ex) {
             Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -385,6 +385,19 @@ public class ThreadDBContext extends DBContext {
                     + "           ([UserID]\n"
                     + "           ,[ThreadID])\n"
                     + "     VALUES (?, ?)";
+            PreparedStatement stm_insert = connection.prepareStatement(sql_insert);
+            stm_insert.setInt(1, userId);
+            stm_insert.setInt(2, threadId);
+            stm_insert.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void unFollowThread(int userId, int threadId) {
+        try {
+            String sql_insert = "DELETE FROM [BookMark]\n"
+                    + "      WHERE UserID=? AND ThreadID=?";
             PreparedStatement stm_insert = connection.prepareStatement(sql_insert);
             stm_insert.setInt(1, userId);
             stm_insert.setInt(2, threadId);

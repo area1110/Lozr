@@ -131,6 +131,10 @@
         <servlet-name>ResetPasswordController</servlet-name>
         <servlet-class>controller.authentication.ResetPasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UnFollowThreadController</servlet-name>
+        <servlet-class>controller.follow.UnFollowThreadController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ForumController</servlet-name>
         <url-pattern>/forum/*</url-pattern>
@@ -242,6 +246,10 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordController</servlet-name>
         <url-pattern>/auth/resetpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnFollowThreadController</servlet-name>
+        <url-pattern>/follow/thread/unfollow</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

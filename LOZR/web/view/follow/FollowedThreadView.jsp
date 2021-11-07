@@ -189,6 +189,7 @@
                         <c:if test="${!empty your}">
                             <button onclick="showDropdownMenu(${thread.threadID})" class="dropbtn">Option</button>
                             <div onclick="showDropdownMenu(${thread.threadID})" id="myDropdown-${thread.threadID}" class="dropdown-content">
+                                <a  onclick="reloadDelay();" href="${contextPath}/follow/thread/unfollow?id=${thread.threadID}" target="dummyframe">Unfollow</a>
                                 <a  onclick="doReport('${contextPath}', '${thread.threadID}', 'thread')" >Report</a>
                                 <c:if test="${your.userID == thread.startedBy.userID}">
                                     <a onclick="openForm(${thread.threadID});">Change Title</a>
